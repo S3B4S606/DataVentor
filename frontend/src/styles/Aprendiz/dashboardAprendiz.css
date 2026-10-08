@@ -1,0 +1,1121 @@
+/* =========================================================
+   DASHBOARD APRENDIZ - DATAVENTOR
+========================================================= */
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.dashboard-aprendiz {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #142c4e;
+
+  background:
+    radial-gradient(
+      circle at 8% 32%,
+      rgba(255, 255, 255, 0.75) 0,
+      rgba(255, 255, 255, 0.75) 170px,
+      transparent 171px
+    ),
+    radial-gradient(
+      circle at 91% 73%,
+      rgba(255, 255, 255, 0.25) 0,
+      rgba(255, 255, 255, 0.25) 190px,
+      transparent 191px
+    ),
+    linear-gradient(
+      135deg,
+      #edf6fd 0%,
+      #dcecf9 100%
+    );
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header-aprendiz {
+  width: 100%;
+  height: 51px;
+
+  flex-shrink: 0;
+
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #19427e;
+
+  border-bottom: 3px solid #1598ee;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  line-height: 1;
+}
+
+.logo-container h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  letter-spacing: -0.3px;
+}
+
+.logo-container span {
+  margin-top: 3px;
+
+  color: #a8bdd7;
+
+  font-size: 8px;
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   NAVEGACIÓN HEADER
+========================================================= */
+
+.header-nav {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+/* =========================================================
+   BOTÓN INICIO
+========================================================= */
+
+.btn-inicio {
+  height: 27px;
+
+  padding: 0 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: #2d6ee0;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-inicio:hover {
+  background: #3b7aeb;
+
+  transform: translateY(-1px);
+}
+
+.home-icon {
+  font-size: 13px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   USUARIO
+========================================================= */
+
+.usuario-header {
+  height: 32px;
+
+  padding: 3px 10px 3px 4px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  border-radius: 18px;
+
+  background: #aabbd0;
+
+  color: #18365c;
+
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.usuario-icon {
+  width: 25px;
+  height: 25px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #1689db;
+
+  color: #0b3861;
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+
+  font-size: 15px;
+}
+
+.usuario-icon span {
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CERRAR SESIÓN
+========================================================= */
+
+.btn-cerrar {
+  height: 28px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-size: 9px;
+
+  cursor: pointer;
+
+  transition: opacity 0.2s ease;
+}
+
+.btn-cerrar:hover {
+  opacity: 0.75;
+}
+
+.logout-icon {
+  font-size: 16px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+========================================================= */
+
+.contenido-aprendiz {
+  width: 100%;
+  max-width: 1100px;
+
+  flex: 1;
+
+  margin: 0 auto;
+
+  padding: 64px 45px 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 55px;
+}
+
+
+/* =========================================================
+   PRESENTACIÓN
+========================================================= */
+
+.presentacion {
+  width: 250px;
+
+  flex-shrink: 0;
+
+  margin-top: -5px;
+}
+
+.presentacion h2 {
+  margin: 0 0 13px;
+
+  color: #10284a;
+
+  font-size: 30px;
+
+  line-height: 1.04;
+
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+.presentacion h2 span {
+  display: inline-block;
+
+  font-size: 25px;
+
+  transform: translateY(-1px);
+}
+
+.presentacion > p {
+  margin: 0;
+
+  color: #5b708a;
+
+  font-size: 11px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   LÍNEA DECORATIVA
+========================================================= */
+
+.linea-decorativa {
+  width: 32px;
+  height: 3px;
+
+  margin: 17px 0 16px;
+
+  border-radius: 5px;
+
+  background: #0abbd7;
+}
+
+
+/* =========================================================
+   FRASE
+========================================================= */
+
+.presentacion .frase {
+  max-width: 210px;
+
+  color: #24527f;
+
+  font-size: 10px;
+
+  line-height: 1.55;
+
+  font-style: italic;
+}
+
+
+/* =========================================================
+   TARJETA DEL EQUIPO
+========================================================= */
+
+.tarjeta-equipo {
+  width: 565px;
+
+  flex-shrink: 0;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border-radius: 17px;
+
+  box-shadow:
+    0 15px 35px rgba(38, 73, 111, 0.13);
+}
+
+
+/* =========================================================
+   EQUIPO DETECTADO
+========================================================= */
+
+.equipo-detectado {
+  width: 100%;
+
+  min-height: 49px;
+
+  padding: 9px 11px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  border-radius: 11px;
+
+  background: #e9f8f0;
+
+  color: #087347;
+}
+
+.check-detectado {
+  width: 25px;
+  height: 25px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #08b579;
+
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.texto-detectado {
+  display: flex;
+  flex-direction: column;
+}
+
+.equipo-detectado strong {
+  margin-bottom: 2px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.equipo-detectado p {
+  margin: 0;
+
+  color: #32765c;
+
+  font-size: 9px;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL EQUIPO
+========================================================= */
+
+.informacion-equipo {
+  width: 100%;
+
+  margin-top: 16px;
+
+  display: flex;
+
+  gap: 21px;
+}
+
+
+/* =========================================================
+   IMAGEN DEL EQUIPO
+========================================================= */
+
+.imagen-equipo {
+  width: 215px;
+  height: 175px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: #f0f4f8;
+}
+
+.icono-computador {
+  width: 175px;
+
+  height: auto;
+}
+
+
+/* =========================================================
+   COLORES DEL SVG DEL COMPUTADOR
+========================================================= */
+
+.computador-pantalla {
+  fill: #66768b;
+
+  stroke: #192a43;
+
+  stroke-width: 7;
+}
+
+.computador-pantalla-interior {
+  fill: #6c7d93;
+}
+
+.computador-camara {
+  fill: #25354c;
+}
+
+.computador-soporte {
+  fill: #1c2e47;
+}
+
+.computador-base {
+  fill: #91a2b8;
+}
+
+
+/* =========================================================
+   DATOS DEL EQUIPO
+========================================================= */
+
+.datos-equipo {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  gap: 9px;
+}
+
+.dato {
+  width: 100%;
+
+  min-height: 15px;
+
+  display: grid;
+
+  grid-template-columns: 95px 1fr;
+
+  align-items: center;
+
+  font-size: 10px;
+}
+
+.dato > span:first-child {
+  color: #526681;
+
+  font-weight: 400;
+}
+
+.dato > strong {
+  color: #142c4e;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ESTADO DEL EQUIPO
+========================================================= */
+
+.estado-row {
+  align-items: center;
+}
+
+.estado-equipo {
+  width: fit-content;
+
+  padding: 4px 8px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  border-radius: 11px;
+
+  background: #dff8ec;
+
+  color: #08794c !important;
+
+  font-size: 9px !important;
+}
+
+.estado-punto {
+  width: 5px;
+  height: 5px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #06b779;
+}
+
+
+/* =========================================================
+   BOTONES DE ACCIONES
+========================================================= */
+
+.acciones-equipo {
+  width: 100%;
+
+  margin-top: 16px;
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 11px;
+}
+
+.acciones-equipo button {
+  min-height: 49px;
+
+  border: none;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.acciones-equipo button:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.04);
+}
+
+.acciones-equipo button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   BOTÓN CONFIRMAR
+========================================================= */
+
+.btn-confirmar {
+  background: #04ad73;
+}
+
+.btn-confirmar:hover {
+  background: #049d68;
+}
+
+
+/* =========================================================
+   ICONO CHECK
+========================================================= */
+
+.icono-check {
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #04ad73;
+
+  font-size: 11px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   BOTÓN REPORTE
+========================================================= */
+
+.btn-reporte {
+  background: #e62b51;
+}
+
+.btn-reporte:hover {
+  background: #d92349;
+}
+
+
+/* =========================================================
+   ICONO ALERTA
+========================================================= */
+
+.icono-alerta {
+  width: 18px;
+
+  flex-shrink: 0;
+
+  color: #ffffff;
+
+  font-size: 17px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   TEXTO DE LOS BOTONES
+========================================================= */
+
+.texto-boton {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+}
+
+.texto-boton strong {
+  font-size: 10px;
+
+  font-weight: 700;
+
+  line-height: 1.1;
+}
+
+.texto-boton small {
+  margin-top: 3px;
+
+  font-size: 7px;
+
+  line-height: 1;
+
+  opacity: 0.95;
+}
+
+
+/* =========================================================
+   ESTADO DE CARGA
+========================================================= */
+
+.estado-carga {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  text-align: center;
+}
+
+.estado-carga strong {
+  color: #17345d;
+
+  font-size: 14px;
+}
+
+.estado-carga span {
+  max-width: 320px;
+
+  color: #63758d;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.spinner {
+  width: 35px;
+  height: 35px;
+
+  margin-bottom: 5px;
+
+  border: 4px solid #dce9f5;
+
+  border-top-color: #2474df;
+
+  border-radius: 50%;
+
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   ESTADO DE ERROR
+========================================================= */
+
+.estado-error {
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  text-align: center;
+}
+
+.estado-error strong {
+  color: #17345d;
+
+  font-size: 14px;
+}
+
+.estado-error span {
+  max-width: 320px;
+
+  color: #63758d;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   ICONO ERROR
+========================================================= */
+
+.icono-error {
+  width: 40px;
+  height: 40px;
+
+  margin-bottom: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #fde8ed;
+
+  color: #e52b51;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer-aprendiz {
+  width: 100%;
+  height: 46px;
+
+  flex-shrink: 0;
+
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #19427e;
+
+  border-top: 2px solid #1598ee;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   FOOTER IZQUIERDO
+========================================================= */
+
+.footer-left {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.footer-left strong {
+  font-size: 9px;
+}
+
+.footer-left span {
+  padding-left: 11px;
+
+  border-left: 1px solid #5879a3;
+
+  color: #9db3d0;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   FOOTER DERECHO
+========================================================= */
+
+.footer-right {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  text-align: right;
+}
+
+.footer-right strong {
+  font-size: 9px;
+}
+
+.footer-right span {
+  max-width: 300px;
+
+  padding-left: 13px;
+
+  border-left: 1px solid #5879a3;
+
+  color: #9db3d0;
+
+  font-size: 7px;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 950px) {
+
+  .contenido-aprendiz {
+    padding: 45px 25px 55px;
+
+    gap: 30px;
+  }
+
+  .presentacion {
+    width: 220px;
+  }
+
+  .tarjeta-equipo {
+    width: 520px;
+  }
+
+  .imagen-equipo {
+    width: 190px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET PEQUEÑA
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .contenido-aprendiz {
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    padding-top: 45px;
+  }
+
+  .presentacion {
+    width: 100%;
+
+    max-width: 565px;
+
+    text-align: center;
+  }
+
+  .linea-decorativa {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .presentacion .frase {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tarjeta-equipo {
+    width: 100%;
+
+    max-width: 565px;
+  }
+
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .header-aprendiz {
+    height: auto;
+
+    min-height: 55px;
+
+    padding: 8px 12px;
+  }
+
+  .logo-container h1 {
+    font-size: 14px;
+  }
+
+  .logo-container span {
+    display: none;
+  }
+
+  .header-nav {
+    gap: 7px;
+  }
+
+  .btn-inicio {
+    padding: 0 9px;
+
+    font-size: 8px;
+  }
+
+  .usuario-header {
+    padding-right: 6px;
+  }
+
+  .usuario-header > span {
+    display: none;
+  }
+
+  .btn-cerrar span:last-child {
+    display: none;
+  }
+
+  .contenido-aprendiz {
+    padding: 30px 14px 40px;
+  }
+
+  .presentacion h2 {
+    font-size: 27px;
+  }
+
+  .tarjeta-equipo {
+    padding: 15px;
+
+    border-radius: 14px;
+  }
+
+  .informacion-equipo {
+    flex-direction: column;
+  }
+
+  .imagen-equipo {
+    width: 100%;
+
+    height: 160px;
+  }
+
+  .datos-equipo {
+    width: 100%;
+  }
+
+  .acciones-equipo {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-aprendiz {
+    height: auto;
+
+    min-height: 45px;
+
+    padding: 10px 14px;
+  }
+
+  .footer-right {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   CELULAR PEQUEÑO
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .dato {
+    grid-template-columns: 90px 1fr;
+  }
+
+  .dato > strong {
+    font-size: 9px;
+  }
+
+  .dato > span:first-child {
+    font-size: 9px;
+  }
+
+}

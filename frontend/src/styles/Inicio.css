@@ -1,0 +1,521 @@
+/* =========================================================
+   DATAVENTOR - INICIO
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+.inicio-container {
+    width: 100%;
+    height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: #0b1730;
+}
+
+/* =========================================================
+   VIDEO
+   ========================================================= */
+
+.inicio-video {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    object-fit: cover;
+
+    z-index: 0;
+}
+
+/* =========================================================
+   CAPA OSCURA
+   ========================================================= */
+
+.inicio-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 18, 42, 0.72),
+            rgba(8, 18, 42, 0.40)
+        );
+
+    z-index: 1;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.inicio-header {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    height: 82px;
+
+    padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255, 255, 255, 0.97);
+
+    border-bottom: 1px solid
+        rgba(255, 255, 255, 0.25);
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.logo-data {
+    color: #4361ee;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    line-height: 30px;
+
+    letter-spacing: -1px;
+}
+
+.logo small {
+    margin-top: 4px;
+
+    color: #6f7a8c;
+
+    font-size: 9px;
+
+    font-weight: 500;
+}
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+
+.inicio-nav {
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 42px;
+}
+
+.inicio-nav span {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: 100%;
+
+    color: #202a3b;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+}
+
+.inicio-nav span:hover {
+    color: #4361ee;
+}
+
+.inicio-nav .nav-active {
+    color: #4361ee;
+}
+
+.inicio-nav .nav-active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    bottom: 0;
+
+    height: 3px;
+
+    background: #4361ee;
+
+    border-radius:
+        3px 3px 0 0;
+}
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.inicio-main {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+    height: calc(100vh - 82px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px 20px;
+}
+
+/* =========================================================
+   TARJETA DE ROLES
+   ========================================================= */
+
+.rol-card {
+    width: 620px;
+
+    padding: 48px 55px;
+
+    background:
+        rgba(255, 255, 255, 0.97);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.24);
+
+    text-align: center;
+}
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.rol-card h1 {
+    margin: 0;
+
+    color: #17233f;
+
+    font-size: 38px;
+
+    line-height: 45px;
+
+    font-weight: 800;
+
+    letter-spacing: -0.7px;
+}
+
+.rol-card p {
+    margin: 12px 0 32px;
+
+    color: #66748b;
+
+    font-size: 16px;
+
+    line-height: 23px;
+}
+
+/* =========================================================
+   BOTONES DE ROL
+   ========================================================= */
+
+.rol-button {
+    width: 100%;
+
+    height: 100px;
+
+    margin-bottom: 18px;
+
+    padding: 0 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    border-radius: 17px;
+
+    background: white;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.rol-button:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   APRENDIZ
+   ========================================================= */
+
+.rol-button.aprendiz {
+    border: 2px solid #d9b8ff;
+
+    background:
+        linear-gradient(
+            90deg,
+            #fbf5ff,
+            #ffffff
+        );
+}
+
+.rol-button.aprendiz:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(123, 44, 191, 0.12);
+
+    background: #faf4ff;
+}
+
+/* =========================================================
+   ADMINISTRADOR
+   ========================================================= */
+
+.rol-button.administrador {
+    border: 2px solid #b8d3ff;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f3f7ff,
+            #ffffff
+        );
+}
+
+.rol-button.administrador:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(67, 97, 238, 0.12);
+
+    background: #f2f6ff;
+}
+
+/* =========================================================
+   ICONOS
+   ========================================================= */
+
+.rol-icon {
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 27px;
+}
+
+.aprendiz .rol-icon {
+    background: #ead8ff;
+}
+
+.administrador .rol-icon {
+    background: #dceaff;
+}
+
+/* =========================================================
+   TEXTO DEL BOTÓN
+   ========================================================= */
+
+.rol-button span {
+    flex: 1;
+
+    color: #202c46;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+.rol-button strong {
+    color: #4361ee;
+
+    font-size: 31px;
+
+    line-height: 1;
+
+    font-weight: 400;
+
+    transition:
+        transform 0.2s ease;
+}
+
+.rol-button:hover strong {
+    transform: translateX(5px);
+}
+
+.aprendiz strong {
+    color: #7b2cbf;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .inicio-header {
+        padding: 0 30px;
+    }
+
+    .inicio-nav {
+        gap: 20px;
+    }
+
+    .inicio-nav span {
+        font-size: 12px;
+    }
+
+    .rol-card {
+        width: 560px;
+
+        padding: 40px;
+    }
+}
+
+@media (max-width: 650px) {
+
+    body {
+        overflow-y: auto;
+    }
+
+    .inicio-header {
+        height: auto;
+
+        min-height: 75px;
+
+        padding: 15px 20px;
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .inicio-nav {
+        height: 35px;
+
+        gap: 15px;
+    }
+
+    .inicio-nav span {
+        font-size: 11px;
+    }
+
+    .inicio-main {
+        min-height: calc(100vh - 75px);
+
+        height: auto;
+
+        padding: 35px 15px;
+    }
+
+    .rol-card {
+        width: 100%;
+
+        padding: 30px 20px;
+
+        border-radius: 18px;
+    }
+
+    .rol-card h1 {
+        font-size: 30px;
+
+        line-height: 36px;
+    }
+
+    .rol-card p {
+        font-size: 13px;
+    }
+
+    .rol-button {
+        height: 80px;
+
+        padding: 0 15px;
+
+        gap: 12px;
+    }
+
+    .rol-icon {
+        width: 45px;
+        height: 45px;
+
+        font-size: 21px;
+    }
+
+    .rol-button span {
+        font-size: 15px;
+    }
+
+    .rol-button strong {
+        font-size: 25px;
+    }
+}

@@ -1,85 +1,64 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import Login from "../pages/Login";
-import RegistrarUsuarios from "../pages/RegistrarUsuarios";
-import DashboardAdmin from "../pages/DashboardAdmin";
-import DashboardAprendiz from "../pages/DashboardAprendiz";
-import DashboardTecnico from "../pages/DashboardTecnico";
-import DashboardInstructor from "../pages/DashboardInstructor";
-import CrearReporte from "../pages/CrearReporte";
-import MisReportes from "../pages/MisReportes";
-import MisReportesTecnico from "../pages/MisReportesTecnico";
-import DetalleReporte from "../pages/DetalleReporte";
- import ReportesAdmin from "../pages/ReportesAdmin";
+import Inicio from "../pages/Inicio";
+import DashboardAdmin from "../pages/AdminCoordinador/DashboardAdmin";
+import DashboardAmbientes from "../pages/AdminCoordinador/DashboardAmbientes";
+import LoginCoordinador from "../pages/AdminCoordinador/LoginCoordinador";
+import RegistrarAmbiente from "../pages/AdminCoordinador/RegistrarAmbiente";
+import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
+import CrearReporte from "../pages/Aprendiz/CrearReporte";
 
 
 export default function AppRoutes() {
   return (
     <Routes>
 
+      {/* INICIO */}
       <Route
         path="/"
-        element={<Navigate to="/login" replace />}
+        element={<Inicio />}
       />
 
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
-      <Route
-        path="/registro"
-        element={<RegistrarUsuarios />}
-      />
-
-      <Route
-        path="/dashboard-admin"
-        element={<DashboardAdmin />}
-      />
-
+      {/* APRENDIZ */}
       <Route
         path="/dashboard-aprendiz"
         element={<DashboardAprendiz />}
       />
 
+      {/* ADMINISTRADOR */}
       <Route
-        path="/dashboard-tecnico"
-        element={<DashboardTecnico />}
+        path="/dashboard-admin"
+        element={<DashboardAdmin />}
       />
 
+      {/* LOGIN_COORDINADOR */}
       <Route
-        path="/dashboard-instructor"
-        element={<DashboardInstructor />}
+        path="/login-coordinador"
+        element={<LoginCoordinador />}
       />
 
+      {/* AMBIENTES */}
+      <Route
+        path="/ambientes"
+        element={<DashboardAmbientes />}
+      />
+
+      {/* REGISTRAR_AMBIENTE */}
+      <Route
+        path="/registrar-ambiente"
+        element={<RegistrarAmbiente />}
+      />
+
+      {/* CREAR REPORTE */}
+      <Route
+        path="/crear-reporte"
+        element={<CrearReporte />}
+      />
+
+      {/* CUALQUIER RUTA DESCONOCIDA */}
       <Route
         path="*"
-        element={<Navigate to="/login" replace />}
-      />
-       
-      <Route path="/crear-reporte" 
-      element={<CrearReporte />} 
-      />
-
-      <Route path="/mis-reportes"
-      element={<MisReportes />}
-      />
-
-      <Route path="/mis-reportes-tecnico"
-      element={<MisReportesTecnico />}
-      />
-
-      <Route path="/detalle-reporte/:id"
-      element={<DetalleReporte />}
-      />
-
-      <Route
-      path="/registrar-usuario"
-      element={<RegistrarUsuarios />}
-      />
- 
-      <Route path="/reportes-admin"
-      element={<ReportesAdmin />}
+        element={<Navigate to="/" replace />}
       />
 
     </Routes>

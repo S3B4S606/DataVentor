@@ -1,5 +1,9 @@
 const API_URL = "http://127.0.0.1:5001";
 
+// ==============================
+// INTERFACES
+// ==============================
+
 export interface Reporte {
   id_reporte?: number;
   id_equipo: number;
@@ -56,32 +60,39 @@ export interface RegistroResponse {
   };
 }
 
-export interface LoginResponse {
-  mensaje: string;
-
-  usuario: {
-    id_usuario: number;
-    nombre: string;
-    apellido: string;
-    tipo_documento: string;
-    documento: string;
-    correo: string;
-    telefono?: string;
-    rol: string;
-  };
-}
-
 export interface HistorialReporte {
   id_historial: number;
   id_reporte: number;
   id_usuario: number;
-  estado: "pendiente" | "en_revision" | "resuelto" | "cerrado";
+  estado:
+    | "pendiente"
+    | "en_revision"
+    | "resuelto"
+    | "cerrado";
   fecha: string;
   observaciones?: string | null;
   nombre?: string;
   apellido?: string;
   correo?: string;
 }
+
+// ==============================
+// INTERFACE INICIO
+// ==============================
+
+export interface InicioResponse {
+  mensaje: string;
+  estado: string;
+
+  roles: {
+    nombre: string;
+    ruta: string;
+  }[];
+}
+
+// ==============================
+// PETICIÓN GENERAL
+// ==============================
 
 async function request<T>(
   endpoint: string,
@@ -112,7 +123,15 @@ async function request<T>(
   return response.json();
 }
 
+// ==============================
+// API
+// ==============================
+
 export const api = {
+
+  // ==============================
+  // SALUD DEL BACKEND
+  // ==============================
 
   comprobarBackend: (): Promise<{
     backend: string;
@@ -120,6 +139,18 @@ export const api = {
   }> => {
     return request("/api/salud");
   },
+
+  // ==============================
+  // INICIO
+  // ==============================
+
+  getInicio: (): Promise<InicioResponse> => {
+    return request<InicioResponse>("/api/inicio");
+  },
+
+  // ==============================
+  // REGISTRO DE USUARIOS
+  // ==============================
 
   registrar: (datos: {
     tipo_documento: string;
@@ -139,43 +170,37 @@ export const api = {
     );
   },
 
-  login: (
-    tipo_documento: string,
-    documento: string,
-    contrasena: string
-  ): Promise<LoginResponse> => {
-    return request<LoginResponse>(
-      "/api/login",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          tipo_documento,
-          documento,
-          contrasena,
-        }),
-      }
-    );
-  },
+  // ==============================
+  // REPORTES
+  // ==============================
 
   getReportes: (
     id_usuario?: number
   ): Promise<Reporte[]> => {
+
     const url = id_usuario
       ? `/api/reportes?usuario=${id_usuario}`
       : "/api/reportes";
 
     return request<Reporte[]>(url);
   },
-  
-  
+
+  // ==============================
+  // REPORTE POR ID
+  // ==============================
 
   getReporteById: (
     id: number
   ): Promise<Reporte> => {
+
     return request<Reporte>(
       `/api/reportes/${id}`
     );
   },
+
+  // ==============================
+  // CREAR REPORTE
+  // ==============================
 
   crearReporte: (
     reporte: Reporte
@@ -183,6 +208,7 @@ export const api = {
     mensaje: string;
     id_reporte: number;
   }> => {
+
     return request(
       "/api/reportes",
       {
@@ -192,12 +218,17 @@ export const api = {
     );
   },
 
+  // ==============================
+  // ACTUALIZAR ESTADO DEL REPORTE
+  // ==============================
+
   actualizarEstadoReporte: (
     id: number,
     datos: ActualizarEstadoPayload
   ): Promise<{
     mensaje: string;
   }> => {
+
     return request(
       `/api/reportes/${id}/estado`,
       {
@@ -207,27 +238,46 @@ export const api = {
     );
   },
 
- getHistorialReporte: (
-  id: number
-): Promise<HistorialReporte[]> => {
-  return request<HistorialReporte[]>(
-    `/api/reportes/${id}/historial`
-  );
-},
+  // ==============================
+  // HISTORIAL DEL REPORTE
+  // ==============================
+
+  getHistorialReporte: (
+    id: number
+  ): Promise<HistorialReporte[]> => {
+
+    return request<HistorialReporte[]>(
+      `/api/reportes/${id}/historial`
+    );
+  },
+
+  // ==============================
+  // EQUIPOS
+  // ==============================
 
   getEquipos: () => {
     return request("/api/equipos");
   },
 
+  // ==============================
+  // EQUIPO POR ID
+  // ==============================
+
   getEquipoById: (
     id: number
   ) => {
+
     return request(
       `/api/equipos/${id}`
     );
   },
 
+  // ==============================
+  // IDENTIFICAR EQUIPO AUTOMÁTICAMENTE
+  // ==============================
+
   getIdentificadorEquipo: () => {
+
     return request(
       "/api/equipos/identificador"
     );
