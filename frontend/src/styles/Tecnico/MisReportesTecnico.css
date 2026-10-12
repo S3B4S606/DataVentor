@@ -1,0 +1,682 @@
+
+.mis-reportes-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #20243a;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.mis-reportes-page * {
+  box-sizing: border-box;
+}
+
+/* ENCABEZADO */
+.mis-reportes-page .reportes-header {
+  min-height: 92px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 15px 3.2%;
+  background: #1d477f;
+  color: #ffffff;
+}
+
+.mis-reportes-page .marca-data-ventor h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.mis-reportes-page .marca-data-ventor p {
+  margin: 5px 0 0;
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.mis-reportes-page .menu-reportes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.mis-reportes-page .menu-reportes button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mis-reportes-page .menu-inicio {
+  background: #2d70e3;
+  color: #ffffff;
+}
+
+.mis-reportes-page .menu-inicio:hover {
+  background: #2461c7;
+}
+
+.mis-reportes-page .menu-aprendiz {
+  background: #edf3fc;
+  color: #174477;
+}
+
+.mis-reportes-page .menu-aprendiz:hover {
+  background: #dce8f8;
+}
+
+.mis-reportes-page .menu-reportes .menu-salir {
+  background: transparent;
+  color: #ffffff;
+}
+
+.mis-reportes-page .menu-reportes .menu-salir:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* CONTENEDOR */
+.mis-reportes-page .reportes-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 42px 30px 60px;
+  flex: 1;
+}
+
+/* INTRODUCCIÓN */
+.mis-reportes-page .intro-reportes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+.mis-reportes-page .section-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+  color: #7659dc;
+}
+
+.mis-reportes-page .intro-reportes h2 {
+  margin: 6px 0 7px;
+  font-size: 31px;
+  font-weight: 700;
+  color: #25273b;
+}
+
+.mis-reportes-page .intro-reportes p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #858b9d;
+}
+
+.mis-reportes-page .total-reportes {
+  min-width: 150px;
+  padding: 18px 23px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e8eaf1;
+  text-align: right;
+}
+
+.mis-reportes-page .total-reportes span,
+.mis-reportes-page .total-reportes strong {
+  display: block;
+}
+
+.mis-reportes-page .total-reportes span {
+  font-size: 11px;
+  color: #9196a8;
+  margin-bottom: 3px;
+}
+
+.mis-reportes-page .total-reportes strong {
+  font-size: 30px;
+  color: #5d3fd3;
+}
+
+.mis-reportes-page .total-reportes small {
+  font-size: 10px;
+  color: #a0a4b2;
+}
+
+/* RESUMEN */
+.mis-reportes-page .resumen-reportes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.mis-reportes-page .resumen-item {
+  background: #ffffff;
+  border: 1px solid #e8eaf1;
+  border-radius: 16px;
+  padding: 19px 21px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mis-reportes-page .resumen-icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.mis-reportes-page .pendiente-icon {
+  background: #fff2dc;
+  color: #e49a24;
+}
+
+.mis-reportes-page .proceso-icon {
+  background: #e8f0ff;
+  color: #4779db;
+}
+
+.mis-reportes-page .resuelto-icon {
+  background: #e4f8ed;
+  color: #35a96d;
+}
+
+.mis-reportes-page .resumen-item span {
+  display: block;
+  font-size: 12px;
+  color: #8c91a3;
+  margin-bottom: 4px;
+}
+
+.mis-reportes-page .resumen-item strong {
+  font-size: 22px;
+  color: #292c40;
+}
+
+/* BUSCADOR Y FILTROS */
+.mis-reportes-page .herramientas-reportes {
+  background: #ffffff;
+  border: 1px solid #e8eaf1;
+  border-radius: 18px;
+  padding: 19px;
+  margin-bottom: 30px;
+}
+
+.mis-reportes-page .buscador {
+  min-height: 48px;
+  border: 1px solid #e0e3eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #fafbfc;
+}
+
+.mis-reportes-page .buscador span {
+  font-size: 24px;
+  color: #8b91a4;
+  margin-right: 11px;
+}
+
+.mis-reportes-page .buscador input {
+  width: 100%;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: #35384c;
+}
+
+.mis-reportes-page .buscador input::placeholder {
+  color: #a1a5b2;
+}
+
+.mis-reportes-page .filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 15px;
+}
+
+.mis-reportes-page .filtro-btn {
+  border: 1px solid #e0e3eb;
+  background: #ffffff;
+  color: #777d91;
+  border-radius: 20px;
+  padding: 8px 17px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.mis-reportes-page .filtro-btn:hover {
+  border-color: #7659dc;
+  color: #7659dc;
+}
+
+.mis-reportes-page .filtro-btn.activo {
+  background: #6950d6;
+  border-color: #6950d6;
+  color: #ffffff;
+}
+
+/* LISTA DE REPORTES */
+.mis-reportes-page .lista-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mis-reportes-page .lista-header h3 {
+  margin: 5px 0 0;
+  font-size: 18px;
+  color: #292b3e;
+}
+
+.mis-reportes-page .cantidad-resultados {
+  font-size: 11px;
+  color: #9297a8;
+}
+
+.mis-reportes-page .reportes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mis-reportes-page .reporte-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e7e9f0;
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 65px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.mis-reportes-page .reporte-card:hover {
+  border-color: #cfc6f5;
+  box-shadow: 0 5px 18px rgba(45, 39, 87, 0.06);
+}
+
+.mis-reportes-page .reporte-identificador {
+  border-right: 1px solid #eceef3;
+  padding-right: 18px;
+}
+
+.mis-reportes-page .reporte-identificador span {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #a0a5b5;
+  margin-bottom: 5px;
+}
+
+.mis-reportes-page .reporte-identificador strong {
+  font-size: 14px;
+  color: #6250bb;
+}
+
+.mis-reportes-page .reporte-info-principal {
+  min-width: 0;
+}
+
+.mis-reportes-page .equipo-linea {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.mis-reportes-page .equipo-linea h4 {
+  margin: 0;
+  font-size: 15px;
+  color: #292c3f;
+}
+
+.mis-reportes-page .estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.mis-reportes-page .estado-punto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+  background: currentColor;
+}
+
+.mis-reportes-page .estado-pendiente {
+  background: #fff3df;
+  color: #ce881a;
+}
+
+.mis-reportes-page .estado-proceso {
+  background: #e8f0ff;
+  color: #426fc7;
+}
+
+.mis-reportes-page .estado-resuelto {
+  background: #e4f7ed;
+  color: #29915c;
+}
+
+.mis-reportes-page .datos-reporte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 9px;
+}
+
+.mis-reportes-page .datos-reporte span {
+  font-size: 11px;
+  color: #9297a8;
+}
+
+.mis-reportes-page .descripcion-original {
+  margin: 0 0 16px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #777d90;
+  overflow-wrap: anywhere;
+}
+
+/* CUADRO DE OBSERVACIONES */
+.mis-reportes-page .label-observaciones,
+.mis-reportes-page .label-estado {
+  display: block;
+  margin-bottom: 7px;
+  color: #34374a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mis-reportes-page .campo-observaciones {
+  display: block;
+  width: 100%;
+  min-height: 85px;
+  resize: vertical;
+  padding: 12px 13px;
+  border: 1px solid #dfe3ec;
+  border-radius: 10px;
+  background: #fafbfe;
+  color: #35384c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.mis-reportes-page .campo-observaciones::placeholder {
+  color: #a1a5b2;
+}
+
+.mis-reportes-page .campo-observaciones:focus {
+  border-color: #7659dc;
+  box-shadow: 0 0 0 3px rgba(118, 89, 220, 0.1);
+}
+
+.mis-reportes-page .campo-observaciones:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* CAMBIO DE ESTADO */
+.mis-reportes-page .acciones-reporte {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.mis-reportes-page .acciones-reporte .label-estado {
+  margin: 0;
+}
+
+.mis-reportes-page .estado-select {
+  max-width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e0e3eb;
+  border-radius: 9px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.mis-reportes-page .estado-select:focus {
+  border-color: #7659dc;
+}
+
+.mis-reportes-page .mensaje-actualizando {
+  font-size: 12px;
+  color: #7659dc;
+}
+
+.mis-reportes-page .btn-detalle {
+  border: none;
+  background: #f2efff;
+  color: #644bd0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.mis-reportes-page .btn-detalle span {
+  font-size: 15px;
+}
+
+.mis-reportes-page .btn-detalle:hover {
+  background: #6950d6;
+  color: #ffffff;
+}
+
+/* SIN RESULTADOS */
+.mis-reportes-page .sin-resultados {
+  background: #ffffff;
+  border: 1px solid #e7e9f0;
+  border-radius: 17px;
+  text-align: center;
+  padding: 55px 20px;
+}
+
+.mis-reportes-page .sin-resultados-icon {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  background: #f0edff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.mis-reportes-page .sin-resultados h3 {
+  margin: 0 0 7px;
+  font-size: 16px;
+  color: #34374a;
+}
+
+.mis-reportes-page .sin-resultados p {
+  margin: 0;
+  font-size: 12px;
+  color: #9297a8;
+}
+
+.mis-reportes-page .btn-reintentar {
+  margin-top: 14px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #6950d6;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* PIE DE PÁGINA */
+.mis-reportes-page .footer {
+  margin-top: auto;
+  background: #172554;
+  color: #ffffff;
+  text-align: center;
+  padding: 18px;
+  font-size: 13px;
+}
+
+/* TABLET */
+@media (max-width: 800px) {
+  .mis-reportes-page .reportes-header {
+    padding: 15px 20px;
+  }
+
+  .mis-reportes-page .reportes-container {
+    padding: 30px 18px 45px;
+  }
+
+  .mis-reportes-page .intro-reportes {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mis-reportes-page .total-reportes {
+    width: 100%;
+    text-align: left;
+  }
+
+  .mis-reportes-page .resumen-reportes {
+    grid-template-columns: 1fr;
+  }
+
+  .mis-reportes-page .reporte-card {
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .mis-reportes-page .btn-detalle {
+    grid-column: 2;
+    width: fit-content;
+  }
+}
+
+/* MÓVIL */
+@media (max-width: 500px) {
+  .mis-reportes-page .reportes-header {
+    min-height: 70px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .mis-reportes-page .marca-data-ventor h1 {
+    font-size: 23px;
+  }
+
+  .mis-reportes-page .marca-data-ventor p {
+    font-size: 11px;
+  }
+
+  .mis-reportes-page .menu-reportes {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mis-reportes-page .menu-reportes button {
+    font-size: 11px;
+    padding: 8px 11px;
+  }
+
+  .mis-reportes-page .intro-reportes h2 {
+    font-size: 26px;
+  }
+
+  .mis-reportes-page .filtros {
+    flex-wrap: wrap;
+  }
+
+  .mis-reportes-page .filtro-btn {
+    flex: 1;
+  }
+
+  .mis-reportes-page .reporte-card {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .mis-reportes-page .reporte-identificador {
+    border-right: none;
+    border-bottom: 1px solid #eceef3;
+    padding: 0 0 9px;
+  }
+
+  .mis-reportes-page .equipo-linea {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .mis-reportes-page .datos-reporte {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .mis-reportes-page .btn-detalle {
+    grid-column: 1;
+    width: 100%;
+  }
+
+  .mis-reportes-page .acciones-reporte {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mis-reportes-page .estado-select {
+    width: 100%;
+  }
+}

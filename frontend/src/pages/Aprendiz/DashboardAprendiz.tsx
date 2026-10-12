@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/Aprendiz/DashboardAprendiz.css";
 
@@ -11,33 +12,22 @@ interface Equipo {
   estado: string;
 }
 
-const DashboardAprendiz: React.FC = () => {
+const DashboardAprendiz = () => {
   const navigate = useNavigate();
-
   const [equipo, setEquipo] = useState<Equipo | null>(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
+  const [confirmando, setConfirmando] = useState(false);
 
-
-  // OBTENER EQUIPO DETECTADO
   useEffect(() => {
     const obtenerEquipo = async () => {
       try {
-        setCargando(true);
-        setError("");
-
         const token = localStorage.getItem("token");
-
         const respuesta = await fetch(
           "http://localhost:5000/api/equipos/detectado",
           {
-            method: "GET",
             headers: {
-              "Content-Type": "application/json",
-
-              ...(token && {
-                Authorization: `Bearer ${token}`,
-              }),
+              ...(token ? { Authorization: `Bearer ${token}` } : {}),
             },
           }
         );
@@ -47,12 +37,12 @@ const DashboardAprendiz: React.FC = () => {
         }
 
         const datos: Equipo = await respuesta.json();
-
         setEquipo(datos);
-      } catch (error) {
-        console.error("Error obteniendo equipo:", error);
-
-        setError("No fue posible detectar el equipo.");
+      } catch (err) {
+        console.error("Error obteniendo equipo:", err);
+        setError(
+          "No fue posible detectar el equipo. El backend debe estar disponible para consultar los datos."
+        );
       } finally {
         setCargando(false);
       }
@@ -61,30 +51,21 @@ const DashboardAprendiz: React.FC = () => {
     obtenerEquipo();
   }, []);
 
-  // CONFIRMAR BUEN ESTADO
-
-
   const confirmarBuenEstado = async () => {
-    if (!equipo) {
-      return;
-    }
+    if (!equipo || confirmando) return;
+
+    setConfirmando(true);
 
     try {
       const token = localStorage.getItem("token");
-
       const respuesta = await fetch(
         "http://localhost:5000/api/equipos/confirmar-estado",
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
-
-            ...(token && {
-              Authorization: `Bearer ${token}`,
-            }),
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
           },
-
           body: JSON.stringify({
             registro_unico: equipo.registro_unico,
           }),
@@ -92,140 +73,62 @@ const DashboardAprendiz: React.FC = () => {
       );
 
       if (!respuesta.ok) {
-        throw new Error(
-          "No fue posible confirmar el estado del equipo."
-        );
+        throw new Error("No fue posible confirmar el estado.");
       }
 
       alert("El estado del equipo fue confirmado correctamente.");
-    } catch (error) {
-      console.error("Error confirmando estado:", error);
-
-      alert("No fue posible confirmar el estado del equipo.");
+    } catch (err) {
+      console.error("Error confirmando estado:", err);
+      alert("No fue posible confirmar el estado. Verifica la conexión.");
+    } finally {
+      setConfirmando(false);
     }
   };
-
-  // =====================================================
-  // HACER REPORTE
-  // =====================================================
-
-  const hacerReporte = () => {
-    navigate("/crear-reporte");
-  };
-
-  // =====================================================
-  // IR A INICIO
-  // =====================================================
-
-  const irInicio = () => {
-    navigate("/");
-  };
-
-  // =====================================================
-  // CERRAR SESIÓN
-  // =====================================================
 
   const cerrarSesion = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
-
     navigate("/login");
   };
 
-  // =====================================================
-  // INTERFAZ
-  // =====================================================
-
   return (
     <div className="dashboard-aprendiz">
-
-      {/* =================================================
-          HEADER
-      ================================================= */}
-
       <header className="header-aprendiz">
-
         <div className="logo-container">
-
-          <h1>
-            DataVentor
-          </h1>
-
-          <span>
-            Gestión de equipos en ambientes SENA
-          </span>
-
+          <h1>DataVentor</h1>
+          <span>Gestión de equipos en ambientes SENA</span>
         </div>
 
-
         <nav className="header-nav">
-
           <button
             type="button"
             className="btn-inicio"
-            onClick={irInicio}
+            onClick={() => navigate("/")}
           >
-
-            <span className="home-icon">
-              ⌂
-            </span>
-
-            <span>
-              Inicio
-            </span>
-
+            <span className="home-icon">⌂</span>
+            Inicio
           </button>
 
-
           <div className="usuario-header">
-
             <div className="usuario-icon">
-              <span>
-                ♙
-              </span>
+              <span>♙</span>
             </div>
-
-            <span>
-              Aprendiz
-            </span>
-
+            <span>Aprendiz</span>
           </div>
-
 
           <button
             type="button"
             className="btn-cerrar"
             onClick={cerrarSesion}
           >
-
-            <span className="logout-icon">
-              ↪
-            </span>
-
-            <span>
-              Cerrar sesión
-            </span>
-
+            <span className="logout-icon">↪</span>
+            Cerrar sesión
           </button>
-
         </nav>
-
       </header>
 
-
-      {/* =================================================
-          CONTENIDO PRINCIPAL
-      ================================================= */}
-
       <main className="contenido-aprendiz">
-
-
-        {/* =================================================
-            PRESENTACIÓN
-        ================================================= */}
-
         <section className="presentacion">
-
           <h2>
             ¡Hola,
             <br />
@@ -233,391 +136,182 @@ const DashboardAprendiz: React.FC = () => {
           </h2>
 
           <p>
-            Gestiona y reporta el estado de los
-            equipos en tu ambiente de forma rápida
-            y sencilla.
+            Gestiona y reporta el estado de los equipos en tu ambiente de
+            forma rápida y sencilla.
           </p>
 
-          <div className="linea-decorativa"></div>
+          <div className="linea-decorativa" />
 
           <p className="frase">
-            “Ambientes que funcionan,
-            aprendices que avanzan”
+            “Ambientes que funcionan, aprendices que avanzan”
           </p>
-
         </section>
 
-
-        {/* =================================================
-            TARJETA DEL EQUIPO
-        ================================================= */}
-
         <section className="tarjeta-equipo">
-
-
-          {/* =================================================
-              CARGANDO
-          ================================================= */}
-
           {cargando && (
-
             <div className="estado-carga">
-
-              <div className="spinner"></div>
-
-              <strong>
-                Detectando equipo...
-              </strong>
-
-              <span>
-                Estamos buscando el equipo asociado a tu ambiente.
-              </span>
-
+              <div className="spinner" />
+              <strong>Consultando equipo...</strong>
+              <span>Estamos buscando el equipo asociado a tu ambiente.</span>
             </div>
-
           )}
-
-
-          {/* =================================================
-              ERROR
-          ================================================= */}
 
           {!cargando && error && (
-
             <div className="estado-error">
-
-              <div className="icono-error">
-                !
-              </div>
-
-              <strong>
-                No fue posible detectar el equipo
-              </strong>
-
-              <span>
-                {error}
-              </span>
-
+              <div className="icono-error">!</div>
+              <strong>No fue posible detectar el equipo</strong>
+              <span>{error}</span>
             </div>
-
           )}
 
-
-          {/* =================================================
-              EQUIPO ENCONTRADO
-          ================================================= */}
-
           {!cargando && !error && equipo && (
-
             <>
-
-              {/* AVISO */}
-
               <div className="equipo-detectado">
-
-                <div className="check-detectado">
-                  ✓
-                </div>
-
+                <div className="check-detectado">✓</div>
                 <div className="texto-detectado">
-
-                  <strong>
-                    Equipo detectado automáticamente
-                  </strong>
-
-                  <p>
-                    Se ha identificado un equipo en tu ambiente.
-                  </p>
-
+                  <strong>Equipo detectado correctamente</strong>
+                  <p>Estos son los datos del equipo consultado.</p>
                 </div>
-
               </div>
 
-
-              {/* INFORMACIÓN DEL EQUIPO */}
-
               <div className="informacion-equipo">
-
-
-                {/* IMAGEN */}
-
                 <div className="imagen-equipo">
-
                   <svg
                     className="icono-computador"
                     viewBox="0 0 220 170"
                     xmlns="http://www.w3.org/2000/svg"
+                    aria-label="Ilustración de un computador"
+                    role="img"
                   >
-
                     <rect
+                      className="computador-pantalla"
                       x="43"
                       y="20"
                       width="134"
                       height="92"
                       rx="5"
-                      className="computador-pantalla"
                     />
-
                     <rect
+                      className="computador-pantalla-interior"
                       x="51"
                       y="28"
                       width="118"
                       height="76"
                       rx="2"
-                      className="computador-pantalla-interior"
                     />
-
-                    <circle
-                      cx="110"
-                      cy="25"
-                      r="2"
-                      className="computador-camara"
-                    />
-
+                    <circle className="computador-camara" cx="110" cy="25" r="2" />
                     <rect
+                      className="computador-soporte"
                       x="94"
                       y="112"
                       width="32"
                       height="7"
                       rx="2"
-                      className="computador-soporte"
                     />
-
                     <rect
+                      className="computador-base"
                       x="28"
                       y="121"
                       width="164"
                       height="8"
                       rx="5"
-                      className="computador-base"
                     />
-
                   </svg>
-
                 </div>
-
-
-                {/* DATOS */}
 
                 <div className="datos-equipo">
-
-
                   <div className="dato">
-
-                    <span>
-                      Registro único:
-                    </span>
-
-                    <strong>
-                      {equipo.registro_unico}
-                    </strong>
-
+                    <span>Registro único:</span>
+                    <strong>{equipo.registro_unico}</strong>
                   </div>
 
-
                   <div className="dato">
-
-                    <span>
-                      Serial:
-                    </span>
-
-                    <strong>
-                      {equipo.serial}
-                    </strong>
-
+                    <span>Serial:</span>
+                    <strong>{equipo.serial}</strong>
                   </div>
 
-
                   <div className="dato">
-
-                    <span>
-                      Modelo:
-                    </span>
-
-                    <strong>
-                      {equipo.modelo}
-                    </strong>
-
+                    <span>Modelo:</span>
+                    <strong>{equipo.modelo}</strong>
                   </div>
 
-
                   <div className="dato">
-
-                    <span>
-                      Sede:
-                    </span>
-
-                    <strong>
-                      {equipo.sede}
-                    </strong>
-
+                    <span>Sede:</span>
+                    <strong>{equipo.sede}</strong>
                   </div>
 
-
                   <div className="dato">
-
-                    <span>
-                      Ambiente:
-                    </span>
-
-                    <strong>
-                      {equipo.ambiente}
-                    </strong>
-
+                    <span>Ambiente:</span>
+                    <strong>{equipo.ambiente}</strong>
                   </div>
-
 
                   <div className="dato estado-row">
-
-                    <span>
-                      Estado actual:
-                    </span>
-
+                    <span>Estado actual:</span>
                     <strong className="estado-equipo">
-
-                      <span className="estado-punto"></span>
-
+                      <span className="estado-punto" />
                       {equipo.estado}
-
                     </strong>
-
                   </div>
-
                 </div>
-
               </div>
 
-
-              {/* =================================================
-                  BOTONES
-              ================================================= */}
-
               <div className="acciones-equipo">
-
-
-                {/* CONFIRMAR BUEN ESTADO */}
-
                 <button
                   type="button"
                   className="btn-confirmar"
                   onClick={confirmarBuenEstado}
+                  disabled={confirmando}
                 >
-
                   <span className="icono-check">
-                    ✓
+                    {confirmando ? "…" : "✓"}
                   </span>
-
                   <div className="texto-boton">
-
                     <strong>
-                      Confirmar buen estado
+                      {confirmando ? "Confirmando..." : "Confirmar buen estado"}
                     </strong>
-
-                    <small>
-                      Se guarda en temporal
-                    </small>
-
+                    <small>Registrar confirmación</small>
                   </div>
-
                 </button>
-
-
-                {/* HACER REPORTE */}
 
                 <button
                   type="button"
                   className="btn-reporte"
-                  onClick={hacerReporte}
+                  onClick={() => navigate("/crear-reporte")}
                 >
-
-                  <span className="icono-alerta">
-                    ⚠
-                  </span>
-
+                  <span className="icono-alerta">!</span>
                   <div className="texto-boton">
-
-                    <strong>
-                      Hacer reporte
-                    </strong>
-
-                    <small>
-                      Requiere iniciar sesión
-                    </small>
-
+                    <strong>Hacer reporte</strong>
+                    <small>Reportar una novedad</small>
                   </div>
-
                 </button>
-
               </div>
-
             </>
-
           )}
-
-
-          {/* =================================================
-              SIN EQUIPO
-          ================================================= */}
 
           {!cargando && !error && !equipo && (
-
             <div className="estado-error">
-
-              <div className="icono-error">
-                !
-              </div>
-
-              <strong>
-                No se encontró ningún equipo
-              </strong>
-
-              <span>
-                No hay un equipo asociado al ambiente actual.
-              </span>
-
+              <div className="icono-error">!</div>
+              <strong>No se encontró ningún equipo</strong>
+              <span>No hay un equipo asociado al ambiente actual.</span>
             </div>
-
           )}
-
         </section>
-
       </main>
 
-
-      {/* =================================================
-          FOOTER
-      ================================================= */}
-
       <footer className="footer-aprendiz">
-
         <div className="footer-left">
-
-          <strong>
-            DataVentor
-          </strong>
-
-          <span>
-            Gestión de equipos en ambientes SENA
-          </span>
-
+          <strong>DataVentor</strong>
+          <span>Gestión de equipos en ambientes SENA</span>
         </div>
-
 
         <div className="footer-right">
-
-          <strong>
-            SENA
-          </strong>
-
+          <strong>SENA</strong>
           <span>
-            Centro de Gestión de Mercados,
-            Logística y Tecnologías de la Información
+            Centro de Gestión de Mercados, Logística y Tecnologías de la
+            Información
           </span>
-
         </div>
-
       </footer>
-
     </div>
   );
 };

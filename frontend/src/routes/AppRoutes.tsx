@@ -7,6 +7,8 @@ import LoginCoordinador from "../pages/AdminCoordinador/LoginCoordinador";
 import RegistrarAmbiente from "../pages/AdminCoordinador/RegistrarAmbiente";
 import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
 import CrearReporte from "../pages/Aprendiz/CrearReporte";
+import DashboardTecnico from "../pages/Tecnico/DashboardTecnico";
+import MisReportesTecnico from "../pages/Tecnico/MisReportesTecnico"; // Asegúrate de que la ruta sea correcta según tu estructura de archivosT
 
 
 export default function AppRoutes() {
@@ -59,6 +61,17 @@ export default function AppRoutes() {
       <Route
         path="*"
         element={<Navigate to="/" replace />}
+      />
+
+      {/* TECNICO */}
+      <Route
+        path="/dashboard-tecnico"
+        element={<DashboardTecnico />}
+      />  
+
+      <Route
+        path="/mis-reportes-tecnico"
+        element={<MisReportesTecnico />}
       />
 
     </Routes>

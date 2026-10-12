@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import "../styles/Inicio.css";
+// @ts-ignore CSS files are loaded by the bundler and have no TypeScript declarations.
+import "../styles/Aprendiz/inicio.css";;
 
 const Inicio = () => {
     const navigate = useNavigate();
@@ -103,6 +104,44 @@ const Inicio = () => {
 
                         <span>
                             Admin / Coordinador
+                        </span>
+
+                        <strong>
+                            →
+                        </strong>
+                    </button>
+
+                      <button
+                        className="rol-button tecnico"
+                        onClick={() =>
+                            navigate("/login-tecnico")
+                        }
+                    >
+                        <div className="rol-icon">
+                            ⚙️
+                        </div>
+
+                        <span>
+                            Técnico
+                        </span>
+
+                        <strong>
+                            →
+                        </strong>
+                    </button>
+
+                      <button
+                        className="rol-button instructor"
+                        onClick={() =>
+                            navigate("/login-instructor")
+                        }
+                    >
+                        <div className="rol-icon">
+                            💻
+                        </div>
+
+                        <span>
+                            Instructor
                         </span>
 
                         <strong>

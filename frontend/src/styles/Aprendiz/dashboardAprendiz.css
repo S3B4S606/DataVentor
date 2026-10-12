@@ -1,1121 +1,779 @@
-/* =========================================================
-   DASHBOARD APRENDIZ - DATAVENTOR
-========================================================= */
-
-/* =========================================================
-   RESET
-========================================================= */
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #142c4e;
+}
+
+button {
+  font-family: inherit;
+}
+
 .dashboard-aprendiz {
   width: 100%;
   min-height: 100vh;
-
-  margin: 0;
-  padding: 0;
-
   display: flex;
   flex-direction: column;
-
-  font-family: Arial, Helvetica, sans-serif;
-
+  overflow-x: hidden;
   color: #142c4e;
-
   background:
-    radial-gradient(
-      circle at 8% 32%,
-      rgba(255, 255, 255, 0.75) 0,
-      rgba(255, 255, 255, 0.75) 170px,
-      transparent 171px
-    ),
-    radial-gradient(
-      circle at 91% 73%,
-      rgba(255, 255, 255, 0.25) 0,
-      rgba(255, 255, 255, 0.25) 190px,
-      transparent 191px
-    ),
-    linear-gradient(
-      135deg,
-      #edf6fd 0%,
-      #dcecf9 100%
-    );
+    radial-gradient(circle at 8% 30%, rgba(255,255,255,.75) 0 135px, transparent 136px),
+    radial-gradient(circle at 94% 76%, rgba(255,255,255,.3) 0 170px, transparent 171px),
+    linear-gradient(135deg, #edf6fd 0%, #dcecf9 100%);
 }
 
+/* ENCABEZADO */
 
-/* =========================================================
-   HEADER
-========================================================= */
-
-.header-aprendiz {
+.dashboard-aprendiz .header-aprendiz {
   width: 100%;
-  height: 51px;
-
-  flex-shrink: 0;
-
-  padding: 0 24px;
-
+  min-height: 78px;
+  padding: 12px 4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  gap: 24px;
+  flex-shrink: 0;
   background: #19427e;
-
   border-bottom: 3px solid #1598ee;
 }
 
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo-container {
+.dashboard-aprendiz .logo-container {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-
-  line-height: 1;
-}
-
-.logo-container h1 {
-  margin: 0;
-
-  color: #ffffff;
-
-  font-size: 16px;
-  font-weight: 800;
-
-  letter-spacing: -0.3px;
-}
-
-.logo-container span {
-  margin-top: 3px;
-
-  color: #a8bdd7;
-
-  font-size: 8px;
-  font-weight: 400;
-}
-
-
-/* =========================================================
-   NAVEGACIÓN HEADER
-========================================================= */
-
-.header-nav {
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-}
-
-
-/* =========================================================
-   BOTÓN INICIO
-========================================================= */
-
-.btn-inicio {
-  height: 27px;
-
-  padding: 0 14px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   gap: 5px;
-
-  border: none;
-  border-radius: 16px;
-
-  background: #2d6ee0;
-
-  color: #ffffff;
-
-  font-size: 10px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
-.btn-inicio:hover {
-  background: #3b7aeb;
-
-  transform: translateY(-1px);
+.dashboard-aprendiz .logo-container h1 {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  color: #fff !important;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -.5px;
 }
 
-.home-icon {
-  font-size: 13px;
-
-  line-height: 1;
+.dashboard-aprendiz .logo-container span {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  color: #c8dcf5 !important;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
+/* NAVEGACIÓN */
 
-/* =========================================================
-   USUARIO
-========================================================= */
-
-.usuario-header {
-  height: 32px;
-
-  padding: 3px 10px 3px 4px;
-
+.dashboard-aprendiz .header-nav {
   display: flex;
   align-items: center;
-
-  gap: 6px;
-
-  border-radius: 18px;
-
-  background: #aabbd0;
-
-  color: #18365c;
-
-  font-size: 9px;
-  font-weight: 500;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.usuario-icon {
-  width: 25px;
-  height: 25px;
+.dashboard-aprendiz .header-nav button {
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
 
-  flex-shrink: 0;
-
-  display: flex;
+.dashboard-aprendiz .btn-inicio {
+  min-height: 38px;
+  padding: 9px 17px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 7px;
+  border: none;
+  border-radius: 22px;
+  background: #2d6ee0;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+}
 
-  border-radius: 50%;
+.dashboard-aprendiz .btn-inicio:hover {
+  background: #4383ef;
+  transform: translateY(-2px);
+}
 
-  background: #1689db;
-
-  color: #0b3861;
-
-  border: 1px solid rgba(255, 255, 255, 0.45);
-
+.dashboard-aprendiz .home-icon {
   font-size: 15px;
 }
 
-.usuario-icon span {
-  transform: translateY(-1px);
-}
-
-
-/* =========================================================
-   CERRAR SESIÓN
-========================================================= */
-
-.btn-cerrar {
-  height: 28px;
-
-  padding: 0;
-
+.dashboard-aprendiz .usuario-header {
+  min-height: 40px;
+  padding: 5px 13px 5px 5px;
   display: flex;
   align-items: center;
-
-  gap: 5px;
-
-  border: none;
-
-  background: transparent;
-
-  color: #ffffff;
-
-  font-size: 9px;
-
-  cursor: pointer;
-
-  transition: opacity 0.2s ease;
+  gap: 8px;
+  border: 1px solid #ffffff55;
+  border-radius: 25px;
+  background: #e1edfa;
+  color: #18365c;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-.btn-cerrar:hover {
-  opacity: 0.75;
-}
-
-.logout-icon {
-  font-size: 16px;
-
-  line-height: 1;
-}
-
-
-/* =========================================================
-   CONTENIDO PRINCIPAL
-========================================================= */
-
-.contenido-aprendiz {
-  width: 100%;
-  max-width: 1100px;
-
-  flex: 1;
-
-  margin: 0 auto;
-
-  padding: 64px 45px 76px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 55px;
-}
-
-
-/* =========================================================
-   PRESENTACIÓN
-========================================================= */
-
-.presentacion {
-  width: 250px;
-
+.dashboard-aprendiz .usuario-icon {
+  width: 29px;
+  height: 29px;
   flex-shrink: 0;
-
-  margin-top: -5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #1689db;
+  color: #fff;
+  font-size: 17px;
 }
 
-.presentacion h2 {
-  margin: 0 0 13px;
+.dashboard-aprendiz .btn-cerrar {
+  min-height: 38px;
+  padding: 8px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  transition: opacity .2s;
+}
 
+.dashboard-aprendiz .btn-cerrar:hover {
+  opacity: .75;
+}
+
+.dashboard-aprendiz .logout-icon {
+  font-size: 18px;
+}
+
+/* CONTENIDO */
+
+.dashboard-aprendiz .contenido-aprendiz {
+  width: 100%;
+  max-width: 1400px;
+  flex: 1;
+  margin: 0 auto;
+  padding: 50px 40px;
+  display: grid;
+  grid-template-columns: minmax(240px, .8fr) minmax(0, 1.5fr);
+  align-items: center;
+  gap: clamp(35px, 5vw, 75px);
+}
+
+/* PRESENTACIÓN */
+
+.dashboard-aprendiz .presentacion {
+  width: 100%;
+  max-width: 360px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-aprendiz .presentacion h2 {
+  margin: 0 0 18px;
   color: #10284a;
-
-  font-size: 30px;
-
-  line-height: 1.04;
-
+  font-size: clamp(32px, 3vw, 44px);
   font-weight: 800;
-
-  letter-spacing: -0.6px;
+  line-height: 1.1;
+  letter-spacing: -.8px;
 }
 
-.presentacion h2 span {
+.dashboard-aprendiz .presentacion h2 span {
   display: inline-block;
-
-  font-size: 25px;
-
-  transform: translateY(-1px);
+  font-size: .8em;
 }
 
-.presentacion > p {
+.dashboard-aprendiz .presentacion > p {
   margin: 0;
-
-  color: #5b708a;
-
-  font-size: 11px;
-
-  line-height: 1.65;
+  color: #526984;
+  font-size: 14px;
+  line-height: 1.8;
 }
 
-
-/* =========================================================
-   LÍNEA DECORATIVA
-========================================================= */
-
-.linea-decorativa {
-  width: 32px;
-  height: 3px;
-
-  margin: 17px 0 16px;
-
+.dashboard-aprendiz .linea-decorativa {
+  width: 44px;
+  height: 4px;
+  margin: 22px 0 18px;
   border-radius: 5px;
-
   background: #0abbd7;
 }
 
-
-/* =========================================================
-   FRASE
-========================================================= */
-
-.presentacion .frase {
-  max-width: 210px;
-
+.dashboard-aprendiz .presentacion .frase {
+  max-width: 290px;
   color: #24527f;
-
-  font-size: 10px;
-
-  line-height: 1.55;
-
+  font-size: 12px;
+  line-height: 1.7;
   font-style: italic;
 }
 
+/* TARJETA */
 
-/* =========================================================
-   TARJETA DEL EQUIPO
-========================================================= */
-
-.tarjeta-equipo {
-  width: 565px;
-
-  flex-shrink: 0;
-
-  padding: 22px;
-
-  background: #ffffff;
-
-  border-radius: 17px;
-
-  box-shadow:
-    0 15px 35px rgba(38, 73, 111, 0.13);
-}
-
-
-/* =========================================================
-   EQUIPO DETECTADO
-========================================================= */
-
-.equipo-detectado {
+.dashboard-aprendiz .tarjeta-equipo {
   width: 100%;
-
-  min-height: 49px;
-
-  padding: 9px 11px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 10px;
-
-  border-radius: 11px;
-
-  background: #e9f8f0;
-
-  color: #087347;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+  padding: 32px;
+  border: 1px solid #ffffff;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 20px 50px rgba(25,66,126,.12);
 }
 
-.check-detectado {
-  width: 25px;
-  height: 25px;
+/* CARGA Y ERROR */
 
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #08b579;
-
-  color: #ffffff;
-
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.texto-detectado {
+.dashboard-aprendiz .estado-carga,
+.dashboard-aprendiz .estado-error {
+  min-height: 290px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
-}
-
-.equipo-detectado strong {
-  margin-bottom: 2px;
-
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.equipo-detectado p {
-  margin: 0;
-
-  color: #32765c;
-
-  font-size: 9px;
-
-  line-height: 1.2;
-}
-
-
-/* =========================================================
-   INFORMACIÓN DEL EQUIPO
-========================================================= */
-
-.informacion-equipo {
-  width: 100%;
-
-  margin-top: 16px;
-
-  display: flex;
-
-  gap: 21px;
-}
-
-
-/* =========================================================
-   IMAGEN DEL EQUIPO
-========================================================= */
-
-.imagen-equipo {
-  width: 215px;
-  height: 175px;
-
-  flex-shrink: 0;
-
-  display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 11px;
-
-  background: #f0f4f8;
-}
-
-.icono-computador {
-  width: 175px;
-
-  height: auto;
-}
-
-
-/* =========================================================
-   COLORES DEL SVG DEL COMPUTADOR
-========================================================= */
-
-.computador-pantalla {
-  fill: #66768b;
-
-  stroke: #192a43;
-
-  stroke-width: 7;
-}
-
-.computador-pantalla-interior {
-  fill: #6c7d93;
-}
-
-.computador-camara {
-  fill: #25354c;
-}
-
-.computador-soporte {
-  fill: #1c2e47;
-}
-
-.computador-base {
-  fill: #91a2b8;
-}
-
-
-/* =========================================================
-   DATOS DEL EQUIPO
-========================================================= */
-
-.datos-equipo {
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: center;
-
-  gap: 9px;
-}
-
-.dato {
-  width: 100%;
-
-  min-height: 15px;
-
-  display: grid;
-
-  grid-template-columns: 95px 1fr;
-
-  align-items: center;
-
-  font-size: 10px;
-}
-
-.dato > span:first-child {
-  color: #526681;
-
-  font-weight: 400;
-}
-
-.dato > strong {
-  color: #142c4e;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  white-space: nowrap;
-}
-
-
-/* =========================================================
-   ESTADO DEL EQUIPO
-========================================================= */
-
-.estado-row {
-  align-items: center;
-}
-
-.estado-equipo {
-  width: fit-content;
-
-  padding: 4px 8px;
-
-  display: flex;
-  align-items: center;
-
-  gap: 5px;
-
-  border-radius: 11px;
-
-  background: #dff8ec;
-
-  color: #08794c !important;
-
-  font-size: 9px !important;
-}
-
-.estado-punto {
-  width: 5px;
-  height: 5px;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: #06b779;
-}
-
-
-/* =========================================================
-   BOTONES DE ACCIONES
-========================================================= */
-
-.acciones-equipo {
-  width: 100%;
-
-  margin-top: 16px;
-
-  display: grid;
-
-  grid-template-columns: 1fr 1fr;
-
-  gap: 11px;
-}
-
-.acciones-equipo button {
-  min-height: 49px;
-
-  border: none;
-  border-radius: 10px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  color: #ffffff;
-
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    filter 0.2s ease;
-}
-
-.acciones-equipo button:hover {
-  transform: translateY(-1px);
-
-  filter: brightness(1.04);
-}
-
-.acciones-equipo button:active {
-  transform: translateY(0);
-}
-
-
-/* =========================================================
-   BOTÓN CONFIRMAR
-========================================================= */
-
-.btn-confirmar {
-  background: #04ad73;
-}
-
-.btn-confirmar:hover {
-  background: #049d68;
-}
-
-
-/* =========================================================
-   ICONO CHECK
-========================================================= */
-
-.icono-check {
-  width: 18px;
-  height: 18px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background: #ffffff;
-
-  color: #04ad73;
-
-  font-size: 11px;
-  font-weight: bold;
-}
-
-
-/* =========================================================
-   BOTÓN REPORTE
-========================================================= */
-
-.btn-reporte {
-  background: #e62b51;
-}
-
-.btn-reporte:hover {
-  background: #d92349;
-}
-
-
-/* =========================================================
-   ICONO ALERTA
-========================================================= */
-
-.icono-alerta {
-  width: 18px;
-
-  flex-shrink: 0;
-
-  color: #ffffff;
-
-  font-size: 17px;
-
-  line-height: 1;
-}
-
-
-/* =========================================================
-   TEXTO DE LOS BOTONES
-========================================================= */
-
-.texto-boton {
-  display: flex;
-  flex-direction: column;
-
-  align-items: flex-start;
-}
-
-.texto-boton strong {
-  font-size: 10px;
-
-  font-weight: 700;
-
-  line-height: 1.1;
-}
-
-.texto-boton small {
-  margin-top: 3px;
-
-  font-size: 7px;
-
-  line-height: 1;
-
-  opacity: 0.95;
-}
-
-
-/* =========================================================
-   ESTADO DE CARGA
-========================================================= */
-
-.estado-carga {
-  min-height: 300px;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
+  gap: 12px;
   text-align: center;
 }
 
-.estado-carga strong {
+.dashboard-aprendiz .estado-carga strong,
+.dashboard-aprendiz .estado-error strong {
+  margin: 0;
   color: #17345d;
-
-  font-size: 14px;
-}
-
-.estado-carga span {
-  max-width: 320px;
-
-  color: #63758d;
-
-  font-size: 10px;
-
+  font-size: 17px;
   line-height: 1.5;
 }
 
-
-/* =========================================================
-   SPINNER
-========================================================= */
-
-.spinner {
-  width: 35px;
-  height: 35px;
-
-  margin-bottom: 5px;
-
-  border: 4px solid #dce9f5;
-
-  border-top-color: #2474df;
-
-  border-radius: 50%;
-
-  animation: girar 0.8s linear infinite;
+.dashboard-aprendiz .estado-carga span,
+.dashboard-aprendiz .estado-error span {
+  max-width: 380px;
+  color: #63758d;
+  font-size: 13px;
+  line-height: 1.7;
 }
 
-@keyframes girar {
+.dashboard-aprendiz .spinner {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 8px;
+  border: 4px solid #dce9f5;
+  border-top-color: #2474df;
+  border-radius: 50%;
+  animation: dataventor-girar .8s linear infinite;
+}
+
+@keyframes dataventor-girar {
   to {
     transform: rotate(360deg);
   }
 }
 
-
-/* =========================================================
-   ESTADO DE ERROR
-========================================================= */
-
-.estado-error {
-  min-height: 300px;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  text-align: center;
-}
-
-.estado-error strong {
-  color: #17345d;
-
-  font-size: 14px;
-}
-
-.estado-error span {
-  max-width: 320px;
-
-  color: #63758d;
-
-  font-size: 10px;
-
-  line-height: 1.5;
-}
-
-
-/* =========================================================
-   ICONO ERROR
-========================================================= */
-
-.icono-error {
-  width: 40px;
-  height: 40px;
-
-  margin-bottom: 5px;
-
+.dashboard-aprendiz .icono-error {
+  width: 46px;
+  height: 46px;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  flex-shrink: 0;
   border-radius: 50%;
-
   background: #fde8ed;
-
   color: #e52b51;
+  font-size: 23px;
+  font-weight: 700;
+}
 
-  font-size: 20px;
+/* EQUIPO DETECTADO */
+
+.dashboard-aprendiz .equipo-detectado {
+  width: 100%;
+  min-height: 60px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 13px;
+  background: #e9f8f0;
+  color: #087347;
+}
+
+.dashboard-aprendiz .check-detectado {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #08b579;
+  color: #fff;
+  font-size: 17px;
   font-weight: bold;
 }
 
+.dashboard-aprendiz .texto-detectado {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-/* =========================================================
-   FOOTER
-========================================================= */
+.dashboard-aprendiz .equipo-detectado strong {
+  font-size: 13px;
+}
 
-.footer-aprendiz {
+.dashboard-aprendiz .equipo-detectado p {
+  margin: 0;
+  color: #32765c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* INFORMACIÓN DEL EQUIPO */
+
+.dashboard-aprendiz .informacion-equipo {
   width: 100%;
-  height: 46px;
+  margin-top: 23px;
+  display: flex;
+  align-items: stretch;
+  gap: 22px;
+}
 
+.dashboard-aprendiz .imagen-equipo {
+  width: 40%;
+  min-width: 0;
+  min-height: 185px;
   flex-shrink: 0;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  background: #f0f4f8;
+}
 
-  padding: 0 24px;
+.dashboard-aprendiz .icono-computador {
+  display: block;
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+}
 
+.dashboard-aprendiz .computador-pantalla {
+  fill: #66768b;
+  stroke: #192a43;
+  stroke-width: 7;
+}
+
+.dashboard-aprendiz .computador-pantalla-interior {
+  fill: #6c7d93;
+}
+
+.dashboard-aprendiz .computador-camara {
+  fill: #25354c;
+}
+
+.dashboard-aprendiz .computador-soporte {
+  fill: #1c2e47;
+}
+
+.dashboard-aprendiz .computador-base {
+  fill: #91a2b8;
+}
+
+/* DATOS */
+
+.dashboard-aprendiz .datos-equipo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.dashboard-aprendiz .dato {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(90px, .85fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.dashboard-aprendiz .dato > span:first-child {
+  color: #526681;
+  line-height: 1.5;
+}
+
+.dashboard-aprendiz .dato > strong {
+  min-width: 0;
+  color: #142c4e;
+  font-size: 12px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-aprendiz .estado-equipo {
+  width: fit-content;
+  max-width: 100%;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 16px;
+  background: #dff8ec;
+  color: #08794c !important;
+  font-size: 11px !important;
+}
+
+.dashboard-aprendiz .estado-punto {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #06b779;
+}
+
+/* BOTONES */
+
+.dashboard-aprendiz .acciones-equipo {
+  width: 100%;
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.dashboard-aprendiz .acciones-equipo button {
+  min-width: 0;
+  min-height: 64px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform .2s, filter .2s, box-shadow .2s;
+}
+
+.dashboard-aprendiz .acciones-equipo button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 6px 16px rgba(20,44,78,.13);
+}
+
+.dashboard-aprendiz .acciones-equipo button:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.dashboard-aprendiz .btn-confirmar {
+  background: #04ad73;
+}
+
+.dashboard-aprendiz .btn-reporte {
+  background: #e62b51;
+}
+
+.dashboard-aprendiz .icono-check {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  color: #04ad73;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.dashboard-aprendiz .icono-alerta {
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 21px;
+}
+
+.dashboard-aprendiz .texto-boton {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  text-align: left;
+}
+
+.dashboard-aprendiz .texto-boton strong {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.dashboard-aprendiz .texto-boton small {
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+/* PIE DE PÁGINA */
+
+.dashboard-aprendiz .footer-aprendiz {
+  width: 100%;
+  min-height: 57px;
+  margin-top: auto;
+  padding: 13px 4%;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  background: #19427e;
-
+  gap: 20px;
   border-top: 2px solid #1598ee;
-
-  color: #ffffff;
+  background: #19427e;
+  color: #fff;
 }
 
-
-/* =========================================================
-   FOOTER IZQUIERDO
-========================================================= */
-
-.footer-left {
+.dashboard-aprendiz .footer-left,
+.dashboard-aprendiz .footer-right {
+  min-width: 0;
   display: flex;
   align-items: center;
-
   gap: 12px;
 }
 
-.footer-left strong {
-  font-size: 9px;
+.dashboard-aprendiz .footer-left strong,
+.dashboard-aprendiz .footer-right strong {
+  flex-shrink: 0;
+  font-size: 12px;
 }
 
-.footer-left span {
-  padding-left: 11px;
-
+.dashboard-aprendiz .footer-left span,
+.dashboard-aprendiz .footer-right span {
+  padding-left: 12px;
   border-left: 1px solid #5879a3;
-
-  color: #9db3d0;
-
-  font-size: 8px;
+  color: #b6cae2;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
-
-/* =========================================================
-   FOOTER DERECHO
-========================================================= */
-
-.footer-right {
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-
+.dashboard-aprendiz .footer-right {
+  justify-content: flex-end;
   text-align: right;
 }
 
-.footer-right strong {
-  font-size: 9px;
-}
-
-.footer-right span {
-  max-width: 300px;
-
-  padding-left: 13px;
-
-  border-left: 1px solid #5879a3;
-
-  color: #9db3d0;
-
-  font-size: 7px;
-
-  white-space: nowrap;
-
-  overflow: hidden;
-
-  text-overflow: ellipsis;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
+/* TABLET */
 
 @media (max-width: 950px) {
-
-  .contenido-aprendiz {
-    padding: 45px 25px 55px;
-
-    gap: 30px;
+  .dashboard-aprendiz .contenido-aprendiz {
+    padding: 38px 25px;
+    gap: 28px;
   }
 
-  .presentacion {
-    width: 220px;
+  .dashboard-aprendiz .tarjeta-equipo {
+    padding: 23px;
   }
 
-  .tarjeta-equipo {
-    width: 520px;
+  .dashboard-aprendiz .informacion-equipo {
+    gap: 15px;
   }
 
-  .imagen-equipo {
-    width: 190px;
+  .dashboard-aprendiz .dato {
+    grid-template-columns: minmax(85px, .8fr) minmax(0, 1fr);
   }
-
 }
 
+/* MÓVIL */
 
-/* =========================================================
-   TABLET PEQUEÑA
-========================================================= */
+@media (max-width: 760px) {
+  .dashboard-aprendiz .header-aprendiz {
+    flex-wrap: wrap;
+    padding: 14px 20px;
+  }
 
-@media (max-width: 800px) {
-
-  .contenido-aprendiz {
-    flex-direction: column;
-
-    align-items: center;
-
+  .dashboard-aprendiz .header-nav {
     justify-content: flex-start;
-
-    padding-top: 45px;
+    flex-wrap: wrap;
   }
 
-  .presentacion {
+  .dashboard-aprendiz .contenido-aprendiz {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 32px 22px;
+  }
+
+  .dashboard-aprendiz .presentacion {
+    max-width: 600px;
+  }
+
+  .dashboard-aprendiz .tarjeta-equipo {
     width: 100%;
-
-    max-width: 565px;
-
-    text-align: center;
+    max-width: 680px;
+    justify-self: center;
   }
 
-  .linea-decorativa {
-    margin-left: auto;
-    margin-right: auto;
+  .dashboard-aprendiz .footer-aprendiz {
+    flex-wrap: wrap;
   }
-
-  .presentacion .frase {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .tarjeta-equipo {
-    width: 100%;
-
-    max-width: 565px;
-  }
-
 }
 
-
-/* =========================================================
-   CELULAR
-========================================================= */
-
-@media (max-width: 600px) {
-
-  .header-aprendiz {
-    height: auto;
-
-    min-height: 55px;
-
-    padding: 8px 12px;
+@media (max-width: 520px) {
+  .dashboard-aprendiz .header-aprendiz {
+    padding: 14px 15px;
+    gap: 12px;
   }
 
-  .logo-container h1 {
-    font-size: 14px;
+  .dashboard-aprendiz .logo-container h1 {
+    font-size: 21px;
   }
 
-  .logo-container span {
-    display: none;
+  .dashboard-aprendiz .logo-container span {
+    font-size: 10px;
   }
 
-  .header-nav {
+  .dashboard-aprendiz .header-nav {
+    width: 100%;
+    justify-content: space-between;
     gap: 7px;
   }
 
-  .btn-inicio {
-    padding: 0 9px;
-
-    font-size: 8px;
+  .dashboard-aprendiz .btn-inicio {
+    padding: 8px 11px;
+    font-size: 11px;
   }
 
-  .usuario-header {
-    padding-right: 6px;
+  .dashboard-aprendiz .usuario-header {
+    min-height: 34px;
+    padding-right: 9px;
+    font-size: 11px;
   }
 
-  .usuario-header > span {
-    display: none;
+  .dashboard-aprendiz .usuario-icon {
+    width: 25px;
+    height: 25px;
   }
 
-  .btn-cerrar span:last-child {
-    display: none;
+  .dashboard-aprendiz .btn-cerrar {
+    font-size: 10px;
   }
 
-  .contenido-aprendiz {
-    padding: 30px 14px 40px;
+  .dashboard-aprendiz .contenido-aprendiz {
+    padding: 26px 15px;
+    gap: 23px;
   }
 
-  .presentacion h2 {
-    font-size: 27px;
+  .dashboard-aprendiz .presentacion h2 {
+    font-size: 30px;
   }
 
-  .tarjeta-equipo {
-    padding: 15px;
-
-    border-radius: 14px;
+  .dashboard-aprendiz .presentacion > p {
+    font-size: 13px;
   }
 
-  .informacion-equipo {
+  .dashboard-aprendiz .tarjeta-equipo {
+    padding: 17px;
+    border-radius: 17px;
+  }
+
+  .dashboard-aprendiz .estado-error,
+  .dashboard-aprendiz .estado-carga {
+    min-height: 230px;
+    padding: 18px 8px;
+  }
+
+  .dashboard-aprendiz .estado-error strong,
+  .dashboard-aprendiz .estado-carga strong {
+    font-size: 15px;
+  }
+
+  .dashboard-aprendiz .estado-error span,
+  .dashboard-aprendiz .estado-carga span {
+    font-size: 12px;
+  }
+
+  .dashboard-aprendiz .informacion-equipo {
     flex-direction: column;
   }
 
-  .imagen-equipo {
+  .dashboard-aprendiz .imagen-equipo {
     width: 100%;
-
-    height: 160px;
+    min-height: 150px;
   }
 
-  .datos-equipo {
-    width: 100%;
+  .dashboard-aprendiz .icono-computador {
+    max-width: 175px;
   }
 
-  .acciones-equipo {
+  .dashboard-aprendiz .datos-equipo {
+    gap: 13px;
+  }
+
+  .dashboard-aprendiz .dato {
+    grid-template-columns: minmax(100px, .85fr) minmax(0, 1fr);
+  }
+
+  .dashboard-aprendiz .acciones-equipo {
     grid-template-columns: 1fr;
+    margin-top: 20px;
   }
 
-  .footer-aprendiz {
-    height: auto;
-
-    min-height: 45px;
-
-    padding: 10px 14px;
+  .dashboard-aprendiz .acciones-equipo button {
+    min-height: 58px;
+    justify-content: flex-start;
+    padding: 12px 18px;
   }
 
-  .footer-right {
+  .dashboard-aprendiz .footer-aprendiz {
+    padding: 14px 15px;
+  }
+
+  .dashboard-aprendiz .footer-left {
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .dashboard-aprendiz .footer-right {
     display: none;
   }
-
 }
 
+.dashboard-aprendiz button:focus-visible {
+  outline: 3px solid #0abbd7;
+  outline-offset: 3px;
+}
 
-/* =========================================================
-   CELULAR PEQUEÑO
-========================================================= */
-
-@media (max-width: 400px) {
-
-  .dato {
-    grid-template-columns: 90px 1fr;
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-aprendiz *,
+  .dashboard-aprendiz *::before,
+  .dashboard-aprendiz *::after {
+    animation: none !important;
+    transition: none !important;
   }
-
-  .dato > strong {
-    font-size: 9px;
-  }
-
-  .dato > span:first-child {
-    font-size: 9px;
-  }
-
 }

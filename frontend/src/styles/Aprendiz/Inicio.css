@@ -333,7 +333,7 @@ body {
    ========================================================= */
 
 .rol-button.administrador {
-    border: 2px solid #b8d3ff;
+    border: 2px solid #b8d3ff;;
 
     background:
         linear-gradient(
@@ -350,8 +350,58 @@ body {
         0 8px 20px
         rgba(67, 97, 238, 0.12);
 
-    background: #f2f6ff;
+    background: #cfe5ff;
 }
+
+/* =========================================================
+   tecnico
+   ========================================================= */
+.rol-button.tecnico {
+    border: 2px solid #7af8a4;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f3f7ff,
+            #ffffff
+        );
+}
+
+.rol-button.tecnico:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(67, 97, 238, 0.12);
+
+    background: #c8ffdf;
+}
+
+/* =========================================================
+   Instructor
+   ========================================================= */
+.rol-button.instructor {
+    border: 2px solid #c973fa;
+
+    background:
+        linear-gradient(
+            90deg,
+            #f3f7ff,
+            #ffffff
+        );
+}
+
+.rol-button.instructor:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px
+        rgba(67, 97, 238, 0.12);
+
+    background: #e2c6f5;
+}
+
+
 
 /* =========================================================
    ICONOS
@@ -380,6 +430,14 @@ body {
 
 .administrador .rol-icon {
     background: #dceaff;
+}
+
+.tecnico .rol-icon {
+    background: #d4ffe0;
+}
+
+.instructor .rol-icon {
+    background: #f0d9ff;
 }
 
 /* =========================================================
