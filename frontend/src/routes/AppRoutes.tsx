@@ -9,6 +9,10 @@ import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
 import CrearReporte from "../pages/Aprendiz/CrearReporte";
 import DashboardTecnico from "../pages/Tecnico/DashboardTecnico";
 import MisReportesTecnico from "../pages/Tecnico/MisReportesTecnico"; // Asegúrate de que la ruta sea correcta según tu estructura de archivosT
+import LoginInstructor from "../pages/Instructor/LoginInstructor";
+import DashboardInstructor from "../pages/Instructor/DashboardInstructor";
+import CrearReporteInstructor from "../pages/Instructor/CrearReporteInstructor";
+import MisReportesInstructor from "../pages/Instructor/MisReportesInstructor";
 
 
 export default function AppRoutes() {
@@ -72,6 +76,28 @@ export default function AppRoutes() {
       <Route
         path="/mis-reportes-tecnico"
         element={<MisReportesTecnico />}
+      />
+
+
+      {/* INSTRUCTOR */}
+      <Route
+      path="/login-instructor"
+      element={<LoginInstructor />}
+      />
+
+      <Route
+      path="/dashboard-instructor"
+      element={<DashboardInstructor />}
+      />
+
+      <Route
+      path="/crear-reporte-instructor"
+    element={<CrearReporteInstructor />}
+    />
+
+      <Route
+      path="/mis-reportes-instructor"
+      element={<MisReportesInstructor />}
       />
 
     </Routes>

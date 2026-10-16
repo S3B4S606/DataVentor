@@ -1,0 +1,328 @@
+/* ==============================
+   CONTENEDOR GENERAL
+============================== */
+
+.crear-reporte-instructor {
+  min-height: 100vh;
+  background: #f3f5fc;
+  color: #182033;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.crear-reporte-instructor * {
+  box-sizing: border-box;
+}
+
+/* ENCABEZADO */
+.cri-header {
+  min-height: 92px;
+  box-sizing: border-box;
+  padding: 15px 3.2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: #1d477f;
+  color: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+
+.cri-header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.cri-header p {
+  margin: 3px 0 0;
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.cri-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 8px;
+  background: transparent;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cri-back:hover {
+  color: #ffffff;
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ==============================
+   CONTENIDO Y TARJETA
+============================== */
+
+.cri-main {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+.cri-card {
+  width: 100%;
+  padding: 26px;
+  border: 1px solid #dfe4ec;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 12px 35px rgba(31, 43, 67, 0.07);
+}
+
+/* ==============================
+   TÍTULO DEL FORMULARIO
+============================== */
+
+.cri-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.cri-icon {
+  width: 55px;
+  height: 55px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 13px;
+  background: #e8eeff;
+  color: #4361ee;
+  font-size: 22px;
+}
+
+.cri-title h2 {
+  margin: 0 0 6px;
+  color: #17233d;
+  font-size: 25px;
+}
+
+.cri-title p {
+  margin: 0;
+  color: #7d8797;
+  font-size: 13px;
+}
+
+/* ==============================
+   CAMPOS DEL FORMULARIO
+============================== */
+
+.cri-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
+}
+
+.cri-group {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cri-group label {
+  color: #202c40;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cri-group select,
+.cri-group textarea {
+  width: 100%;
+  border: 1px solid #d9dfeb;
+  border-radius: 8px;
+  background: #fff;
+  color: #273247;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.cri-group select {
+  height: 43px;
+  padding: 0 12px;
+}
+
+.cri-group select:focus,
+.cri-group textarea:focus {
+  outline: none;
+  border-color: #4361ee;
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.10);
+}
+
+/* ==============================
+   DESCRIPCIÓN
+============================== */
+
+.cri-description {
+  margin-top: 18px;
+}
+
+.cri-group textarea {
+  min-height: 105px;
+  padding: 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.cri-group textarea::placeholder {
+  color: #a1a9b6;
+}
+
+.cri-description small {
+  align-self: flex-end;
+  color: #8993a3;
+  font-size: 11px;
+}
+
+/* ==============================
+   MENSAJE DE VALIDACIÓN
+============================== */
+
+.cri-message {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #edf2ff;
+  color: #3550a4;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ==============================
+   BOTONES
+============================== */
+
+.cri-buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cri-buttons button {
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cri-cancel {
+  border: 1px solid #d9dfeb;
+  background: #fff;
+  color: #536075;
+}
+
+.cri-cancel:hover {
+  border-color: #4361ee;
+  color: #4361ee;
+}
+
+.cri-submit {
+  border: none;
+  background: #4361ee;
+  color: #fff;
+}
+
+.cri-submit:hover {
+  background: #3550d2;
+}
+
+/* ==============================
+   PANTALLAS MEDIANAS Y PEQUEÑAS
+============================== */
+
+@media (max-width: 700px) {
+  .cri-header {
+    padding: 13px 18px;
+  }
+
+  .cri-header h1 {
+    font-size: 20px;
+  }
+
+  .cri-back {
+    padding: 9px;
+    font-size: 12px;
+  }
+
+  .cri-main {
+    padding: 20px 14px 32px;
+  }
+
+  .cri-card {
+    padding: 20px;
+  }
+
+  .cri-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .cri-title {
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .cri-title h2 {
+    font-size: 21px;
+  }
+
+  .cri-title p {
+    line-height: 1.4;
+  }
+
+  .cri-buttons {
+    justify-content: stretch;
+  }
+
+  .cri-buttons button {
+    flex: 1;
+    padding: 0 12px;
+  }
+}
+
+/* ==============================
+   CELULARES MUY ESTRECHOS
+============================== */
+
+@media (max-width: 400px) {
+  .cri-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cri-back {
+    align-self: flex-start;
+  }
+
+  .cri-card {
+    padding: 16px;
+  }
+
+  .cri-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 19px;
+  }
+
+}
