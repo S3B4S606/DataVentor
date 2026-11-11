@@ -93,9 +93,9 @@ export default function CrearReporte() {
                   <label htmlFor="sede">Sede <span>*</span></label>
                   <select id="sede" name="sede" value={form.sede} onChange={handleChange} required>
                     <option value="">Selecciona la sede</option>
-                    <option value="Unigermania">Unigermania</option>
+                    <option value="Unigermana">Unigermana</option>
+                    <option value="Fontibón">Fontibón</option>
                     <option value="Calle 52">Calle 52</option>
-                    <option value="Marly">Marly</option>
                   </select>
                 </div>
 
