@@ -47,7 +47,7 @@ function LoginInstructor() {
     localStorage.setItem("numeroDocumentoInstructor", numeroDocumento);
     localStorage.setItem("rol", "instructor");
 
-    navigate("/crear-reporte-instructor");
+    navigate("/dashboard-instructor");
   };
 
   return (

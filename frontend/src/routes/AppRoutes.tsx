@@ -102,4 +102,9 @@ export default function AppRoutes() {
 
     </Routes>
   );
+
+      <Route
+      path="*"
+      element={<Navigate to="/" replace />}
+      />
 }
