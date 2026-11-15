@@ -17,8 +17,9 @@ function LoginInstructor() {
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
-  const ingresar = (e: React.FormEvent<HTMLFormElement>) => {
+  const ingresar = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -42,12 +43,50 @@ function LoginInstructor() {
       return;
     }
 
-    // Validación provisional: todavía no consulta el backend.
-    localStorage.setItem("tipoDocumentoInstructor", tipoDocumento);
-    localStorage.setItem("numeroDocumentoInstructor", numeroDocumento);
-    localStorage.setItem("rol", "instructor");
+    setCargando(true);
 
-    navigate("/dashboard-instructor");
+    try {
+      const respuesta = await fetch("http://127.0.0.1:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          tipo_documento: tipoDocumento,
+          documento: numeroDocumento,
+          contrasena: contrasena,
+        }),
+      });
+
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok) {
+        setError(datos.mensaje || "No fue posible iniciar sesión.");
+        return;
+      }
+
+      if (
+        datos.usuario?.rol !== "instructor" ||
+        !datos.usuario?.id_usuario ||
+        !datos.token
+      ) {
+        setError("No se pudo validar el acceso como Instructor.");
+        return;
+      }
+
+      localStorage.setItem("usuario", JSON.stringify(datos.usuario));
+      localStorage.setItem("token", datos.token);
+      localStorage.setItem("rol", "instructor");
+      localStorage.setItem("tipoDocumentoInstructor", tipoDocumento);
+      localStorage.setItem("numeroDocumentoInstructor", numeroDocumento);
+
+      navigate("/dashboard-instructor");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      setError("No fue posible conectar con el backend.");
+    } finally {
+      setCargando(false);
+    }
   };
 
   return (
@@ -93,6 +132,7 @@ function LoginInstructor() {
                   id="tipoDocumentoInstructor"
                   value={tipoDocumento}
                   onChange={(e) => setTipoDocumento(e.target.value)}
+                  required
                 >
                   <option value="">Selecciona una opción</option>
                   <option value="CC">Cédula de ciudadanía</option>
@@ -118,6 +158,7 @@ function LoginInstructor() {
                   onChange={(e) =>
                     setNumeroDocumento(e.target.value.replace(/\D/g, ""))
                   }
+                  required
                 />
               </div>
             </div>
@@ -136,6 +177,7 @@ function LoginInstructor() {
                   placeholder="Ingresa tu contraseña"
                   value={contrasena}
                   onChange={(e) => setContrasena(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -149,8 +191,9 @@ function LoginInstructor() {
             <button
               type="submit"
               className="login-instructor-button"
+              disabled={cargando}
             >
-              Ingresar
+              {cargando ? "Ingresando..." : "Ingresar"}
             </button>
           </form>
 

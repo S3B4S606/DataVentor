@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo, useState } from "react";
 import {
   FaHome,
@@ -18,20 +19,27 @@ import { useNavigate } from "react-router-dom";
 
 import "../../styles/AdminCoordinador/DashboardAmbientes.css";
 
-const API_URL = "http://127.0.0.1:5001";
+const API_URL = "http://127.0.0.1:5000";
+const POR_PAGINA = 5;
+
+interface Sede {
+  id_sede: number;
+  descripcion: string;
+}
 
 interface Equipo {
-  id_equipo?: number;
-  id_ambiente?: number;
-  estado?: string;
+  id_equipo: number;
+  id_ambiente: number;
+  estado: string;
   estado_equipo?: string;
 }
 
 interface Ambiente {
-  id_ambiente?: number;
+  id_ambiente: number;
+  id_sede: number;
   nombre?: string;
-  descripcion?: string;
-  id_sede?: number;
+  descripcion: string;
+  sede?: string;
 }
 
 interface AmbienteConEstadisticas extends Ambiente {
@@ -39,201 +47,174 @@ interface AmbienteConEstadisticas extends Ambiente {
   buenos: number;
   dañados: number;
   sinPrender: number;
+  enRevision: number;
 }
 
 function DashboardAmbientes() {
   const navigate = useNavigate();
 
+  const [sedes, setSedes] = useState<Sede[]>([]);
   const [ambientes, setAmbientes] = useState<Ambiente[]>([]);
   const [equipos, setEquipos] = useState<Equipo[]>([]);
 
   const [busqueda, setBusqueda] = useState("");
+  const [sedeSeleccionada, setSedeSeleccionada] = useState("");
+  const [pagina, setPagina] = useState(1);
   const [cargando, setCargando] = useState(true);
-
-  /* =====================================================
-     CARGAR DATOS
-     ===================================================== */
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    const controlador = new AbortController();
+
     const cargarDatos = async () => {
       try {
         setCargando(true);
+        setError("");
 
-        const [
-          ambientesResponse,
-          equiposResponse,
-        ] = await Promise.all([
-          fetch(`${API_URL}/api/ambientes`),
-          fetch(`${API_URL}/api/equipos`),
+        const respuestas = await Promise.all([
+          fetch(`${API_URL}/api/sedes`, {
+            signal: controlador.signal,
+          }),
+          fetch(`${API_URL}/api/ambientes`, {
+            signal: controlador.signal,
+          }),
+          fetch(`${API_URL}/api/equipos`, {
+            signal: controlador.signal,
+          }),
         ]);
 
-        const ambientesData =
-          await ambientesResponse.json();
-
-        const equiposData =
-          await equiposResponse.json();
-
-        if (!ambientesResponse.ok) {
+        if (respuestas.some((r) => !r.ok)) {
           throw new Error(
-            ambientesData?.mensaje ||
-              "No se pudieron cargar los ambientes."
+            "No fue posible consultar los datos del backend."
           );
         }
 
-        if (!equiposResponse.ok) {
-          throw new Error(
-            equiposData?.mensaje ||
-              "No se pudieron cargar los equipos."
+        const [sedesData, ambientesData, equiposData] =
+          await Promise.all(
+            respuestas.map((r) => r.json())
           );
+
+        if (
+          !Array.isArray(sedesData) ||
+          !Array.isArray(ambientesData) ||
+          !Array.isArray(equiposData)
+        ) {
+          throw new Error("La respuesta del backend no es válida.");
         }
 
-        setAmbientes(
-          Array.isArray(ambientesData)
-            ? ambientesData
-            : []
-        );
-
-        setEquipos(
-          Array.isArray(equiposData)
-            ? equiposData
-            : []
-        );
-      } catch (error) {
-        console.error(
-          "Error cargando ambientes:",
-          error
-        );
+        if (!controlador.signal.aborted) {
+          setSedes(sedesData);
+          setAmbientes(ambientesData);
+          setEquipos(equiposData);
+        }
+      } catch (err) {
+        if (!controlador.signal.aborted) {
+          console.error("Error al consultar datos:", err);
+          setError(
+            "No fue posible cargar los ambientes. Verifica FastAPI."
+          );
+        }
       } finally {
-        setCargando(false);
+        if (!controlador.signal.aborted) {
+          setCargando(false);
+        }
       }
     };
 
     cargarDatos();
+
+    return () => controlador.abort();
   }, []);
 
-  /* =====================================================
-     ESTADO DE EQUIPO
-     ===================================================== */
-
-  const obtenerEstadoEquipo = (
-    equipo: Equipo
-  ) => {
-    return String(
-      equipo.estado_equipo ??
-        equipo.estado ??
-        ""
-    ).toLowerCase();
-  };
-
-  /* =====================================================
-     ESTADÍSTICAS DE CADA AMBIENTE
-     ===================================================== */
-
-  const ambientesConEstadisticas =
-    useMemo<AmbienteConEstadisticas[]>(() => {
-      return ambientes.map((ambiente) => {
-        const equiposAmbiente =
-          equipos.filter(
-            (equipo) =>
-              String(equipo.id_ambiente) ===
-              String(ambiente.id_ambiente)
-          );
-
-        let buenos = 0;
-        let dañados = 0;
-        let sinPrender = 0;
-
-        equiposAmbiente.forEach((equipo) => {
-          const estado =
-            obtenerEstadoEquipo(equipo);
-
-          if (
-            estado.includes("bueno") ||
-            estado.includes("operativo") ||
-            estado.includes("disponible") ||
-            estado.includes("funciona") ||
-            estado.includes("activo")
-          ) {
-            buenos++;
-          } else if (
-            estado.includes("dañado") ||
-            estado.includes("danado") ||
-            estado.includes("averiado") ||
-            estado.includes("daño") ||
-            estado.includes("mantenimiento")
-          ) {
-            dañados++;
-          } else if (
-            estado.includes("sin") ||
-            estado.includes("apagado") ||
-            estado.includes("inactivo")
-          ) {
-            sinPrender++;
-          }
-        });
-
-        return {
-          ...ambiente,
-          total: equiposAmbiente.length,
-          buenos,
-          dañados,
-          sinPrender,
-        };
-      });
-    }, [ambientes, equipos]);
-
-  /* =====================================================
-     FILTRAR AMBIENTES
-     ===================================================== */
-
-  const ambientesFiltrados =
-    useMemo(() => {
-      const texto =
-        busqueda.trim().toLowerCase();
-
-      if (!texto) {
-        return ambientesConEstadisticas;
-      }
-
-      return ambientesConEstadisticas.filter(
-        (ambiente) =>
-          String(
-            ambiente.nombre || ""
-          )
-            .toLowerCase()
-            .includes(texto) ||
-          String(
-            ambiente.descripcion || ""
-          )
-            .toLowerCase()
-            .includes(texto) ||
-          String(
-            ambiente.id_ambiente || ""
-          )
-            .includes(texto)
+  const ambientesConEstadisticas = useMemo<
+    AmbienteConEstadisticas[]
+  >(() => {
+    return ambientes.map((ambiente) => {
+      const equiposAmbiente = equipos.filter(
+        (equipo) =>
+          Number(equipo.id_ambiente) ===
+          Number(ambiente.id_ambiente)
       );
-    }, [
-      ambientesConEstadisticas,
-      busqueda,
-    ]);
 
-  /* =====================================================
-     ESTADO GENERAL
-     ===================================================== */
+      let buenos = 0;
+      let dañados = 0;
+      let enRevision = 0;
+
+      equiposAmbiente.forEach((equipo) => {
+        const estado = String(
+          equipo.estado_equipo || equipo.estado || ""
+        ).toLowerCase();
+
+        if (estado === "buen_estado") {
+          buenos++;
+        } else if (estado === "mal_estado") {
+          dañados++;
+        } else if (estado === "en_revision") {
+          enRevision++;
+        }
+      });
+
+      return {
+        ...ambiente,
+        total: equiposAmbiente.length,
+        buenos,
+        dañados,
+        sinPrender: 0,
+        enRevision,
+      };
+    });
+  }, [ambientes, equipos]);
+
+  const ambientesFiltrados = useMemo(() => {
+    const texto = busqueda.trim().toLowerCase();
+
+    return ambientesConEstadisticas.filter((ambiente) => {
+      const coincideSede =
+        !sedeSeleccionada ||
+        String(ambiente.id_sede) === sedeSeleccionada;
+
+      const contenido = [
+        ambiente.nombre,
+        ambiente.descripcion,
+        ambiente.sede,
+        ambiente.id_ambiente,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return coincideSede && contenido.includes(texto);
+    });
+  }, [ambientesConEstadisticas, busqueda, sedeSeleccionada]);
+
+  const totalPaginas = Math.max(
+    1,
+    Math.ceil(ambientesFiltrados.length / POR_PAGINA)
+  );
+
+  const paginaActual = Math.min(pagina, totalPaginas);
+
+  const ambientesPagina = ambientesFiltrados.slice(
+    (paginaActual - 1) * POR_PAGINA,
+    paginaActual * POR_PAGINA
+  );
 
   const obtenerEstadoGeneral = (
     ambiente: AmbienteConEstadisticas
   ) => {
-    if (ambiente.dañados > 0) {
+    if (
+      ambiente.dañados > 0 ||
+      ambiente.enRevision > 0 ||
+      ambiente.sinPrender > 0
+    ) {
       return {
         texto: "Con novedades",
         clase: "novedades",
       };
     }
 
-    if (ambiente.sinPrender > 0) {
+    if (ambiente.total === 0) {
       return {
-        texto: "Con novedades",
+        texto: "Sin equipos",
         clase: "novedades",
       };
     }
@@ -244,544 +225,349 @@ function DashboardAmbientes() {
     };
   };
 
-  /* =====================================================
-     FECHA
-     ===================================================== */
-
-  const fechaActual =
-    new Date().toLocaleDateString(
-      "es-CO",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }
-    );
-
-  /* =====================================================
-     CERRAR SESIÓN
-     ===================================================== */
+  const fechaActual = new Date().toLocaleDateString(
+    "es-CO",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }
+  );
 
   const cerrarSesion = () => {
-    navigate("/login");
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("rol");
+    navigate("/");
   };
-
-  /* =====================================================
-     RENDER
-     ===================================================== */
 
   return (
     <div className="dashboard-ambientes">
-
-      {/* =================================================
-          HEADER
-          ================================================= */}
-
       <header className="ambientes-header">
-
         <div className="ambientes-logo">
-
           <div className="logo-text">
-
             <strong>
               Data<span>Ventor</span>
             </strong>
-
             <small>
               Gestión de equipos en ambientes SENA
             </small>
-
           </div>
-
         </div>
 
         <nav className="ambientes-navigation">
-
           <button
+            type="button"
             className="nav-link"
-            onClick={() =>
-              navigate("/dashboard-admin")
-            }
+            onClick={() => navigate("/dashboard-admin")}
           >
             <FaHome />
             Inicio
           </button>
 
           <button
+            type="button"
             className="nav-link active"
           >
             <FaBuilding />
             Ambientes
           </button>
-
         </nav>
 
         <div className="ambientes-header-right">
-
           <div className="coordinator">
-
             <div className="coordinator-icon">
               <FaUser />
             </div>
-
             <div>
-              <strong>
-                Coordinador
-              </strong>
-
-              <small>
-                Centro de Gestión
-              </small>
+              <strong>Coordinador</strong>
+              <small>Centro de Gestión</small>
             </div>
-
           </div>
 
           <div className="header-separator" />
 
           <button
+            type="button"
             className="logout"
             onClick={cerrarSesion}
           >
             <FaSignOutAlt />
             Cerrar sesión
           </button>
-
         </div>
-
       </header>
 
-      {/* =================================================
-          CONTENIDO
-          ================================================= */}
-
       <main className="ambientes-content">
-
-        {/* =================================================
-            FILTROS SUPERIORES
-            ================================================= */}
-
         <section className="ambientes-filters">
-
-          {/* SEDE */}
-
           <div className="filter-card">
-
             <div className="filter-icon blue">
               <FaBuilding />
             </div>
-
             <div className="filter-info">
-
-              <span>
-                Sede
-              </span>
-
-              <strong>
-                Centro de Gestión
-              </strong>
-
+              <span>Sede</span>
+              <select
+                aria-label="Seleccionar sede"
+                value={sedeSeleccionada}
+                onChange={(e) => {
+                  setSedeSeleccionada(e.target.value);
+                  setPagina(1);
+                }}
+              >
+                <option value="">Todas las sedes</option>
+                {sedes.map((sede) => (
+                  <option
+                    key={sede.id_sede}
+                    value={sede.id_sede}
+                  >
+                    {sede.descripcion}
+                  </option>
+                ))}
+              </select>
             </div>
-
           </div>
 
-          {/* AMBIENTE */}
-
           <div className="filter-card">
-
             <div className="filter-icon purple">
               <FaMapMarkerAlt />
             </div>
-
             <div className="filter-info">
-
-              <span>
-                Ambiente
-              </span>
-
+              <span>Ambiente</span>
               <strong>
-                Todos los ambientes
+                {ambientesFiltrados.length} ambientes
               </strong>
-
             </div>
-
           </div>
 
-          {/* FECHA */}
-
           <div className="filter-card">
-
             <div className="filter-icon blue">
               <FaCalendarAlt />
             </div>
-
             <div className="filter-info">
-
-              <span>
-                Fecha
-              </span>
-
-              <strong>
-                {fechaActual}
-              </strong>
-
+              <span>Fecha</span>
+              <strong>{fechaActual}</strong>
             </div>
-
           </div>
 
-          {/* COORDINADOR */}
-
           <div className="filter-card">
-
             <div className="filter-icon purple">
               <FaUser />
             </div>
-
             <div className="filter-info">
-
-              <span>
-                Coordinador
-              </span>
-
-              <strong>
-                Coordinador
-              </strong>
-
+              <span>Coordinador</span>
+              <strong>Coordinador</strong>
             </div>
-
           </div>
-
         </section>
 
-        {/* =================================================
-            LISTA DE AMBIENTES
-            ================================================= */}
-
         <section className="ambientes-list-card">
-
-          {/* ENCABEZADO */}
-
           <div className="list-header">
-
             <div className="list-title">
-
               <div className="list-icon">
                 <FaMapMarkerAlt />
               </div>
-
               <div>
-
-                <h1>
-                  Lista de ambientes
-                </h1>
-
+                <h1>Lista de ambientes</h1>
                 <p>
-                  Consulta los ambientes y el estado
-                  de sus equipos.
+                  Consulta los ambientes y el estado de sus equipos.
                 </p>
-
               </div>
-
             </div>
 
             <div className="list-actions">
-
-              {/* BUSCAR */}
-
               <div className="search-box">
-
                 <FaSearch />
-
                 <input
                   type="text"
                   placeholder="Buscar ambiente..."
                   value={busqueda}
-                  onChange={(e) =>
-                    setBusqueda(
-                      e.target.value
-                    )
-                  }
+                  onChange={(e) => {
+                    setBusqueda(e.target.value);
+                    setPagina(1);
+                  }}
                 />
-
               </div>
 
-              {/* AGREGAR */}
-
               <button
+                type="button"
                 className="add-button"
                 onClick={() =>
-                  navigate(
-                    "/registrar-ambiente"
-                  )
+                  navigate("/registrar-ambiente")
                 }
               >
                 <FaPlus />
                 Agregar ambiente
               </button>
-
             </div>
-
           </div>
 
-          {/* =================================================
-              TABLA
-              ================================================= */}
-
           <div className="ambientes-table-wrapper">
-
             <table className="ambientes-table">
-
               <thead>
-
                 <tr>
-
                   <th>#</th>
-
-                  <th>
-                    Ambiente
-                  </th>
-
-                  <th>
-                    Descripción
-                  </th>
-
-                  <th>
-                    Total equipos
-                  </th>
-
-                  <th>
-                    Buenos
-                  </th>
-
-                  <th>
-                    Dañados
-                  </th>
-
-                  <th>
-                    Sin prender
-                  </th>
-
-                  <th>
-                    Estado general
-                  </th>
-
-                  <th>
-                    Acciones
-                  </th>
-
+                  <th>Ambiente</th>
+                  <th>Descripción</th>
+                  <th>Total equipos</th>
+                  <th>Buenos</th>
+                  <th>Dañados</th>
+                  <th>Sin prender</th>
+                  <th>Estado general</th>
+                  <th>Acciones</th>
                 </tr>
-
               </thead>
 
               <tbody>
-
-                {cargando ? (
-
+                {cargando || error ? (
                   <tr>
-
-                    <td
-                      colSpan={9}
-                      className="empty-row"
-                    >
-                      Cargando ambientes...
+                    <td colSpan={9} className="empty-row">
+                      {cargando
+                        ? "Cargando ambientes..."
+                        : error}
                     </td>
-
                   </tr>
-
-                ) : ambientesFiltrados.length ===
-                  0 ? (
-
+                ) : ambientesPagina.length === 0 ? (
                   <tr>
-
-                    <td
-                      colSpan={9}
-                      className="empty-row"
-                    >
+                    <td colSpan={9} className="empty-row">
                       No se encontraron ambientes.
                     </td>
-
                   </tr>
-
                 ) : (
+                  ambientesPagina.map((ambiente, index) => {
+                    const estado =
+                      obtenerEstadoGeneral(ambiente);
 
-                  ambientesFiltrados.map(
-                    (ambiente, index) => {
+                    const nombre =
+                      ambiente.nombre ||
+                      ambiente.descripcion;
 
-                      const estado =
-                        obtenerEstadoGeneral(
-                          ambiente
-                        );
+                    return (
+                      <tr key={ambiente.id_ambiente}>
+                        <td className="number-cell">
+                          {(paginaActual - 1) * POR_PAGINA +
+                            index +
+                            1}
+                        </td>
 
-                      return (
+                        <td>
+                          <strong className="ambiente-name">
+                            {nombre}
+                          </strong>
+                        </td>
 
-                        <tr
-                          key={
-                            ambiente.id_ambiente
-                          }
-                        >
+                        <td>
+                          <span className="ambiente-description">
+                            {ambiente.descripcion}
+                          </span>
+                        </td>
 
-                          <td className="number-cell">
-                            {index + 1}
-                          </td>
+                        <td className="number-value">
+                          {ambiente.total}
+                        </td>
 
-                          <td>
+                        <td className="good-value">
+                          {ambiente.buenos}
+                        </td>
 
-                            <strong className="ambiente-name">
+                        <td className="damaged-value">
+                          {ambiente.dañados}
+                        </td>
 
-                              {ambiente.nombre ||
-                                `Ambiente ${
-                                  ambiente.id_ambiente
-                                }`}
+                        <td className="off-value">
+                          {ambiente.sinPrender}
+                        </td>
 
-                            </strong>
+                        <td>
+                          <span
+                            className={`general-status ${estado.clase}`}
+                          >
+                            {estado.clase === "operativo" ? (
+                              <FaCheckCircle />
+                            ) : (
+                              <FaExclamationTriangle />
+                            )}
+                            {estado.texto}
+                          </span>
+                        </td>
 
-                          </td>
-
-                          <td>
-
-                            <span className="ambiente-description">
-
-                              {ambiente.descripcion ||
-                                "Sin descripción"}
-
-                            </span>
-
-                          </td>
-
-                          <td className="number-value">
-                            {ambiente.total}
-                          </td>
-
-                          <td className="good-value">
-                            {ambiente.buenos}
-                          </td>
-
-                          <td className="damaged-value">
-                            {ambiente.dañados}
-                          </td>
-
-                          <td className="off-value">
-                            {ambiente.sinPrender}
-                          </td>
-
-                          <td>
-
-                            <span
-                              className={`general-status ${estado.clase}`}
-                            >
-
-                              {estado.clase ===
-                                "operativo" ? (
-                                <FaCheckCircle />
-                              ) : (
-                                <FaExclamationTriangle />
-                              )}
-
-                              {estado.texto}
-
-                            </span>
-
-                          </td>
-
-                          <td>
-
-                            <button
-                              className="details-button"
-                              onClick={() =>
-                                navigate(
-                                  `/dashboard-admin?ambiente=${ambiente.id_ambiente}`
-                                )
-                              }
-                            >
-
-                              <FaEye />
-
-                              Ver detalles
-
-                            </button>
-
-                          </td>
-
-                        </tr>
-
-                      );
-                    }
-                  )
-
+                        <td>
+                          <button
+                            type="button"
+                            className="details-button"
+                            onClick={() =>
+                              navigate(
+                                `/dashboard-admin?ambiente=${ambiente.id_ambiente}`
+                              )
+                            }
+                          >
+                            <FaEye />
+                            Ver detalles
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
-
               </tbody>
-
             </table>
-
           </div>
 
-          {/* =================================================
-              PIE DE TABLA
-              ================================================= */}
-
           <div className="table-footer">
-
             <span>
-              Mostrando{" "}
-              {ambientesFiltrados.length} de{" "}
-              {ambientes.length} ambientes
+              Mostrando {ambientesPagina.length} de{" "}
+              {ambientesFiltrados.length} ambientes
             </span>
 
             <div className="pagination">
-
-              <button>
+              <button
+                type="button"
+                disabled={paginaActual === 1}
+                onClick={() =>
+                  setPagina((p) => Math.max(1, p - 1))
+                }
+              >
                 <FaChevronLeft />
               </button>
 
-              <button className="active-page">
-                1
+              <button
+                type="button"
+                className="active-page"
+              >
+                {paginaActual}
               </button>
 
-              <button>
+              <button
+                type="button"
+                disabled={paginaActual >= totalPaginas}
+                onClick={() =>
+                  setPagina((p) =>
+                    Math.min(totalPaginas, p + 1)
+                  )
+                }
+              >
                 <FaChevronRight />
               </button>
-
             </div>
-
           </div>
-
         </section>
-
       </main>
 
-      {/* =================================================
-          FOOTER
-          ================================================= */}
-
       <footer className="ambientes-footer">
-
         <div className="footer-left">
-
           <strong>
             Data<span>Ventor</span>
           </strong>
-
-          <span>
-            Conocimiento que transforma
-          </span>
-
+          <span>Conocimiento que transforma</span>
         </div>
 
         <div className="footer-right">
-
-          <strong>
-            SENA
-          </strong>
-
+          <strong>SENA</strong>
           <span>
-            Centro de Gestión de Mercados,
-            Logística y Tecnologías de la Información
+            Centro de Gestión de Mercados, Logística y
+            Tecnologías de la Información
           </span>
-
         </div>
-
       </footer>
-
     </div>
   );
 }

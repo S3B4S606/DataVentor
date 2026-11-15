@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import {
   FaArrowLeft,
   FaBuilding,
@@ -10,19 +11,55 @@ import { useNavigate } from "react-router-dom";
 
 import "../../styles/AdminCoordinador/RegistrarAmbiente.css";
 
+const API = "http://127.0.0.1:5000";
+
+interface Sede {
+  id_sede: number;
+  descripcion: string;
+}
+
 function RegistrarAmbiente() {
   const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [sede, setSede] = useState("Centro de Gestión");
+  const [sede, setSede] = useState("");
 
+  const [sedes, setSedes] = useState<Sede[]>([]);
   const [error, setError] = useState("");
+  const [mensaje, setMensaje] = useState("");
+  const [cargando, setCargando] = useState(true);
+  const [guardando, setGuardando] = useState(false);
 
-  const guardarAmbiente = (e: React.FormEvent) => {
+  useEffect(() => {
+    const cargarSedes = async () => {
+      try {
+        const respuesta = await fetch(`${API}/api/sedes`);
+
+        if (!respuesta.ok) {
+          throw new Error("No se pudieron cargar las sedes.");
+        }
+
+        const datos: Sede[] = await respuesta.json();
+        setSedes(datos);
+      } catch (err) {
+        console.error("Error al cargar sedes:", err);
+        setError("No fue posible consultar las sedes.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarSedes();
+  }, []);
+
+  const guardarAmbiente = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     setError("");
+    setMensaje("");
 
     if (!nombre.trim()) {
       setError("Ingresa el nombre del ambiente.");
@@ -34,36 +71,59 @@ function RegistrarAmbiente() {
       return;
     }
 
-    if (!sede.trim()) {
+    if (!sede) {
       setError("Selecciona una sede.");
       return;
     }
 
-    /*
-      Por ahora mostramos el flujo del formulario.
-      Después conectaremos este botón con el backend
-      y PostgreSQL.
-    */
+    setGuardando(true);
 
-    console.log("Ambiente a registrar:", {
-      nombre,
-      descripcion,
-      sede,
-    });
+    try {
+      const respuesta = await fetch(`${API}/api/ambientes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: nombre.trim(),
+          descripcion: descripcion.trim(),
+          id_sede: Number(sede),
+        }),
+      });
 
-    navigate("/ambientes");
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok) {
+        throw new Error(
+          datos.mensaje ||
+            "No fue posible registrar el ambiente."
+        );
+      }
+
+      setMensaje(
+        `Ambiente registrado correctamente. ID: ${datos.id_ambiente}`
+      );
+
+      setNombre("");
+      setDescripcion("");
+      setSede("");
+    } catch (err) {
+      console.error("Error al registrar ambiente:", err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Ocurrió un error al registrar el ambiente."
+      );
+    } finally {
+      setGuardando(false);
+    }
   };
 
   return (
     <div className="registrar-ambiente">
-
-      {/* HEADER */}
-
       <header className="registrar-header">
-
         <div className="registrar-logo">
           <strong>DataVentor</strong>
-
           <small>
             Gestión de equipos en ambientes SENA
           </small>
@@ -77,24 +137,15 @@ function RegistrarAmbiente() {
           <FaArrowLeft />
           Volver a ambientes
         </button>
-
       </header>
 
-      {/* CONTENIDO */}
-
       <main className="registrar-content">
-
         <section className="registrar-card">
-
-          {/* ICONO */}
-
           <div className="registrar-icon">
             <FaBuilding />
           </div>
 
-          <h1>
-            Registrar ambiente
-          </h1>
+          <h1>Registrar ambiente</h1>
 
           <p className="registrar-subtitle">
             Ingresa la información del nuevo ambiente
@@ -102,17 +153,12 @@ function RegistrarAmbiente() {
           </p>
 
           <form onSubmit={guardarAmbiente}>
-
-            {/* NOMBRE */}
-
             <div className="registrar-group">
-
               <label htmlFor="nombre">
                 Nombre del ambiente
               </label>
 
               <div className="registrar-input">
-
                 <FaBuilding />
 
                 <input
@@ -123,22 +169,17 @@ function RegistrarAmbiente() {
                   onChange={(e) =>
                     setNombre(e.target.value)
                   }
+                  required
                 />
-
               </div>
-
             </div>
 
-            {/* DESCRIPCIÓN */}
-
             <div className="registrar-group">
-
               <label htmlFor="descripcion">
                 Descripción
               </label>
 
               <div className="registrar-input registrar-textarea">
-
                 <FaAlignLeft />
 
                 <textarea
@@ -148,22 +189,17 @@ function RegistrarAmbiente() {
                   onChange={(e) =>
                     setDescripcion(e.target.value)
                   }
+                  required
                 />
-
               </div>
-
             </div>
 
-            {/* SEDE */}
-
             <div className="registrar-group">
-
               <label htmlFor="sede">
                 Sede
               </label>
 
               <div className="registrar-input">
-
                 <FaMapMarkerAlt />
 
                 <select
@@ -172,29 +208,48 @@ function RegistrarAmbiente() {
                   onChange={(e) =>
                     setSede(e.target.value)
                   }
+                  required
+                  disabled={cargando}
                 >
-                  <option value="Centro de Gestión">
-                    Centro de Gestión
+                  <option value="">
+                    Selecciona una sede
                   </option>
 
+                  {sedes.map((item) => (
+                    <option
+                      key={item.id_sede}
+                      value={item.id_sede}
+                    >
+                      {item.descripcion}
+                    </option>
+                  ))}
                 </select>
-
               </div>
-
             </div>
 
-            {/* ERROR */}
-
             {error && (
-              <div className="registrar-error">
+              <div
+                className="registrar-error"
+                role="alert"
+              >
                 {error}
               </div>
             )}
 
-            {/* BOTONES */}
+            {mensaje && (
+              <div
+                className="registrar-error"
+                role="status"
+                style={{
+                  backgroundColor: "#e6f7ed",
+                  color: "#087443",
+                }}
+              >
+                {mensaje}
+              </div>
+            )}
 
             <div className="registrar-actions">
-
               <button
                 type="button"
                 className="btn-cancelar"
@@ -208,26 +263,25 @@ function RegistrarAmbiente() {
               <button
                 type="submit"
                 className="btn-guardar"
+                disabled={
+                  guardando ||
+                  cargando ||
+                  sedes.length === 0
+                }
               >
                 <FaSave />
-                Guardar ambiente
+                {guardando
+                  ? "Guardando..."
+                  : "Guardar ambiente"}
               </button>
-
             </div>
-
           </form>
-
         </section>
-
       </main>
 
-      {/* FOOTER */}
-
       <footer className="registrar-footer">
-
         <div>
           <strong>DataVentor</strong>
-
           <small>
             Conocimiento que transforma
           </small>
@@ -235,15 +289,12 @@ function RegistrarAmbiente() {
 
         <div>
           <strong>SENA</strong>
-
           <small>
             Centro de Gestión de Mercados,
             Logística y Tecnologías de la Información
           </small>
         </div>
-
       </footer>
-
     </div>
   );
 }

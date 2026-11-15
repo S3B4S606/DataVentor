@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../../styles/AdminCoordinador/DashboardAdmin.css";
 
-const API_URL = "http://127.0.0.1:5001";
+const API_URL = "http://127.0.0.1:5000";
 
 interface Equipo {
   id_equipo?: number;
@@ -35,6 +35,7 @@ interface Ambiente {
   nombre?: string;
   descripcion?: string;
   id_sede?: number;
+  sede?: string;
 }
 
 interface Reporte {
@@ -63,6 +64,7 @@ function DashboardAdmin() {
     useState<string>("");
 
   const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
   /* =====================================================
      CARGAR INFORMACIÓN
@@ -72,6 +74,7 @@ function DashboardAdmin() {
     const cargarDatos = async () => {
       try {
         setCargando(true);
+        setError("");
 
         const [
           equiposResponse,
@@ -108,32 +111,31 @@ function DashboardAdmin() {
           );
         }
 
-        const equiposLista = Array.isArray(equiposData)
-          ? equiposData
-          : [];
+        if (!Array.isArray(equiposData) ||
+            !Array.isArray(ambientesData) ||
+            !Array.isArray(reportesData)) {
+          throw new Error("La API no devolvió listas válidas.");
+        }
 
-        const ambientesLista = Array.isArray(ambientesData)
-          ? ambientesData
-          : [];
-
-        const reportesLista = Array.isArray(reportesData)
-          ? reportesData
-          : [];
+        const equiposLista: Equipo[] = equiposData;
+        const ambientesLista: Ambiente[] = ambientesData;
+        const reportesLista: Reporte[] = reportesData;
 
         setEquipos(equiposLista);
         setAmbientes(ambientesLista);
         setReportes(reportesLista);
 
         if (ambientesLista.length > 0) {
-          setAmbienteSeleccionado(
-            String(ambientesLista[0].id_ambiente ?? "")
-          );
+          const parametro = new URLSearchParams(window.location.search)
+            .get("ambiente");
+          const ambienteInicial = ambientesLista.find(
+            (a) => String(a.id_ambiente) === parametro
+          ) ?? ambientesLista[0];
+          setAmbienteSeleccionado(String(ambienteInicial.id_ambiente));
         }
       } catch (error) {
-        console.error(
-          "Error cargando Dashboard Admin:",
-          error
-        );
+        console.error("Error cargando Dashboard Admin:", error);
+        setError("No se pudieron cargar los datos. Verifica que FastAPI esté ejecutándose en el puerto 5000.");
       } finally {
         setCargando(false);
       }
@@ -185,47 +187,22 @@ function DashboardAdmin() {
   const estadisticas = useMemo(() => {
     let buenos = 0;
     let dañados = 0;
-    let sinPrender = 0;
+    let enRevision = 0;
 
     equiposDelAmbiente.forEach((equipo) => {
       const estado = obtenerEstado(equipo);
-
-      if (
-        estado.includes("bueno") ||
-        estado.includes("operativo") ||
-        estado.includes("disponible") ||
-        estado.includes("funciona") ||
-        estado.includes("activo")
-      ) {
-        buenos++;
-      } else if (
-        estado.includes("dañado") ||
-        estado.includes("danado") ||
-        estado.includes("averiado") ||
-        estado.includes("daño") ||
-        estado.includes("mantenimiento")
-      ) {
-        dañados++;
-      } else if (
-        estado.includes("sin") ||
-        estado.includes("apagado") ||
-        estado.includes("inactivo")
-      ) {
-        sinPrender++;
-      }
+      if (estado === "buen_estado") buenos++;
+      else if (estado === "mal_estado") dañados++;
+      else if (estado === "en_revision") enRevision++;
     });
 
     return {
       total: equiposDelAmbiente.length,
       buenos,
       dañados,
-      sinPrender,
+      enRevision,
     };
   }, [equiposDelAmbiente]);
-
-  /* =====================================================
-     REPORTES DEL AMBIENTE
-     ===================================================== */
 
   const reportesRecientes = useMemo(() => {
     let reportesFiltrados = reportes;
@@ -346,7 +323,10 @@ function DashboardAdmin() {
      ===================================================== */
 
   const cerrarSesion = () => {
-    navigate("/login");
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
+    localStorage.removeItem("rol");
+    navigate("/");
   };
 
   return (
@@ -449,7 +429,7 @@ function DashboardAdmin() {
             <div className="filter-info">
               <span>Sede</span>
               <strong>
-                Centro de Gestión
+                {ambienteActual?.sede || "Todas las sedes"}
               </strong>
             </div>
 
@@ -489,7 +469,7 @@ function DashboardAdmin() {
                           ambiente.id_ambiente
                         }
                       >
-                        {ambiente.nombre ||
+                        {ambiente.nombre || ambiente.descripcion ||
                           `Ambiente ${ambiente.id_ambiente}`}
                       </option>
                     )
@@ -537,6 +517,12 @@ function DashboardAdmin() {
         {/* ===============================================
             CUERPO PRINCIPAL
             =============================================== */}
+
+        {error && (
+          <p role="alert" style={{ color: "#b91c1c", padding: "12px" }}>
+            {error}
+          </p>
+        )}
 
         <section className="dashboard-grid">
 
@@ -660,14 +646,14 @@ function DashboardAdmin() {
                   </div>
 
                   <span>
-                    Equipos sin prender
+                    Equipos en revisión
                   </span>
                 </div>
 
                 <strong>
                   {cargando
                     ? "..."
-                    : estadisticas.sinPrender}
+                    : estadisticas.enRevision}
                 </strong>
 
               </div>
