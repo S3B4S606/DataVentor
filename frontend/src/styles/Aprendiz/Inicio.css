@@ -577,3 +577,108 @@ body {
         font-size: 25px;
     }
 }
+/* ==========================================
+   DATAVENTOR - EFECTO CRISTAL TRANSPARENTE
+   ========================================== */
+
+/* BARRA SUPERIOR TRANSPARENTE */
+.inicio-header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+}
+
+/* TARJETA CENTRAL TRANSPARENTE */
+.rol-card {
+    background: rgba(255, 255, 255, 0.20);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.20);
+}
+
+/* BOTONES SEMITRANSPARENTES */
+.rol-button.aprendiz {
+    background: rgba(255, 255, 255, 0.50);
+}
+
+.rol-button.administrador {
+    background: rgba(255, 255, 255, 0.50);
+}
+
+.rol-button.tecnico {
+    background: rgba(255, 255, 255, 0.50);
+}
+
+.rol-button.instructor {
+    background: rgba(255, 255, 255, 0.50);
+}
+
+/* TEXTOS LEGIBLES */
+.rol-card h1,
+.rol-button span {
+    color: #17233f;
+}
+
+.rol-card p {
+    color: #344563;
+}
+
+/* LOGO DATAVENTOR */
+.logo-data {
+    color: #4361ee;
+}
+
+
+/* ==========================================
+   DATAVENTOR - TEXTOS BLANCOS
+   ========================================== */
+
+/* TITULO Y DESCRIPCION */
+.rol-card h1,
+.rol-card p {
+    color: #ffffff;
+}
+
+/* TEXTOS DE LOS BOTONES */
+.rol-button span {
+    color: #ffffff;
+}
+
+/* FLECHAS */
+.rol-button strong,
+.aprendiz strong {
+    color: #ffffff;
+}
+
+/* LOGO DATAVENTOR */
+.logo-data {
+    color: #ffffff;
+}
+
+/* SUBTITULO DEL LOGO */
+.logo small {
+    color: #ffffff;
+}
+
+/* NAVEGACION SUPERIOR */
+.inicio-nav span,
+.inicio-nav .nav-active {
+    color: #ffffff;
+}
+
+/* LINEA DE INICIO */
+.inicio-nav .nav-active::after {
+    background: #ffffff;
+}
+
+/* BOTONES OSCUROS TRANSPARENTES PARA LEER EL TEXTO */
+.rol-button.aprendiz,
+.rol-button.administrador,
+.rol-button.tecnico,
+.rol-button.instructor {
+    background: rgba(15, 25, 50, 0.40);
+}
+

@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
-// @ts-ignore CSS files are loaded by the bundler and have no TypeScript declarations.
-import "../styles/Aprendiz/inicio.css";;
+﻿import { useNavigate } from "react-router-dom";
+import "../styles/Aprendiz/inicio.css";
 
 const Inicio = () => {
     const navigate = useNavigate();
@@ -16,10 +15,7 @@ const Inicio = () => {
                 loop
                 playsInline
             >
-                <source
-                src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
-                type="video/mp4"
-/>
+                <source src="/FondoData.mp4" type="video/mp4" />
             </video>
 
             {/* CAPA OSCURA */}
@@ -34,27 +30,9 @@ const Inicio = () => {
                     </span>
 
                     <small>
-                        Gestión de equipos en ambientes SENA
+                        {"Gesti\u00f3n de equipos en ambientes SENA"}
                     </small>
                 </div>
-
-                <nav className="inicio-nav">
-                    <span className="nav-active">
-                        Inicio
-                    </span>
-
-                    <span>
-                        Servicios
-                    </span>
-
-                    <span>
-                        Presencial
-                    </span>
-
-                    <span>
-                        Canales
-                    </span>
-                </nav>
 
             </header>
 
@@ -79,16 +57,12 @@ const Inicio = () => {
                         }
                     >
                         <div className="rol-icon">
-                            🎓
+                            {"\uD83C\uDF93"}
                         </div>
 
-                        <span>
-                            Aprendiz
-                        </span>
+                        <span>Aprendiz</span>
 
-                        <strong>
-                            →
-                        </strong>
+                        <strong>{"\u2192"}</strong>
                     </button>
 
                     {/* ADMIN / COORDINADOR */}
@@ -99,54 +73,44 @@ const Inicio = () => {
                         }
                     >
                         <div className="rol-icon">
-                            🛡️
+                            {"\uD83D\uDEE1\uFE0F"}
                         </div>
 
-                        <span>
-                            Admin / Coordinador
-                        </span>
+                        <span>Admin / Coordinador</span>
 
-                        <strong>
-                            →
-                        </strong>
+                        <strong>{"\u2192"}</strong>
                     </button>
 
-                      <button
+                    {/* TECNICO */}
+                    <button
                         className="rol-button tecnico"
                         onClick={() =>
                             navigate("/login-tecnico")
                         }
                     >
                         <div className="rol-icon">
-                            ⚙️
+                            {"\u2699\uFE0F"}
                         </div>
 
-                        <span>
-                            Técnico
-                        </span>
+                        <span>{"T\u00e9cnico"}</span>
 
-                        <strong>
-                            →
-                        </strong>
+                        <strong>{"\u2192"}</strong>
                     </button>
 
-                      <button
+                    {/* INSTRUCTOR */}
+                    <button
                         className="rol-button instructor"
                         onClick={() =>
                             navigate("/login-instructor")
                         }
                     >
                         <div className="rol-icon">
-                            💻
+                            {"\uD83D\uDCBB"}
                         </div>
 
-                        <span>
-                            Instructor
-                        </span>
+                        <span>Instructor</span>
 
-                        <strong>
-                            →
-                        </strong>
+                        <strong>{"\u2192"}</strong>
                     </button>
 
                 </div>
