@@ -69,6 +69,33 @@ def listar_equipos():
         return [dict(row) for row in cur.fetchall()]
 
 
+@router.get("/equipos/por-codigo/{codigo}")
+def obtener_equipo_por_codigo(codigo: str):
+    codigo = codigo.strip()
+
+    if not codigo:
+        raise HTTPException(
+            status_code=400,
+            detail="Debes proporcionar un código de equipo."
+        )
+
+    with get_connection() as conn, dict_cursor(conn) as cur:
+        cur.execute(
+            _EQUIPOS_SQL + " WHERE e.registro_unico = %s",
+            (codigo,)
+        )
+
+        row = cur.fetchone()
+
+        if not row:
+            raise HTTPException(
+                status_code=404,
+                detail="No se encontró un equipo con ese código."
+            )
+
+        return dict(row)
+
+
 @router.get("/equipos/identificador")
 def obtener_identificador_equipo():
     with get_connection() as conn, dict_cursor(conn) as cur:

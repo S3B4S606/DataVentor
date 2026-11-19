@@ -23,14 +23,25 @@ const DashboardAprendiz = () => {
     const obtenerEquipo = async () => {
       try {
         const token = localStorage.getItem("token");
-        const respuesta = await fetch(
-          "http://localhost:5000/api/equipos/detectado",
-          {
-            headers: {
-              ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            },
-          }
-        );
+        
+  const parametros = new URLSearchParams(window.location.search);
+  const codigoEquipo = parametros.get("equipo")?.trim();
+
+  if (!codigoEquipo) {
+    setError(
+      "No se ha identificado un equipo. Abre DataVentor desde el acceso directo o código QR asignado a tu computador."
+    );
+    return;
+  }
+
+  const respuesta = await fetch(
+    `http://127.0.0.1:5000/api/equipos/por-codigo/${encodeURIComponent(codigoEquipo)}`,
+    {
+      headers: {
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+    }
+  );
 
         if (!respuesta.ok) {
           throw new Error("No fue posible obtener el equipo.");
@@ -40,9 +51,9 @@ const DashboardAprendiz = () => {
         setEquipo(datos);
       } catch (err) {
         console.error("Error obteniendo equipo:", err);
-        setError(
-          "No fue posible detectar el equipo. El backend debe estar disponible para consultar los datos."
-        );
+      setError(
+        "No fue posible consultar el equipo. Verifica que el código sea correcto y que DataVentor esté disponible."
+      );
       } finally {
         setCargando(false);
       }
