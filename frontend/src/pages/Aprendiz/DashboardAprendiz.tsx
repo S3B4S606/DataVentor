@@ -24,8 +24,19 @@ const DashboardAprendiz = () => {
       try {
         const token = localStorage.getItem("token");
         
-  const parametros = new URLSearchParams(window.location.search);
-  const codigoEquipo = parametros.get("equipo")?.trim();
+
+const parametros = new URLSearchParams(window.location.search);
+
+const codigoDesdeEnlace = parametros.get("equipo")?.trim();
+
+if (codigoDesdeEnlace) {
+  localStorage.setItem("equipoAsignado", codigoDesdeEnlace);
+}
+
+const codigoEquipo =
+  codigoDesdeEnlace ||
+  localStorage.getItem("equipoAsignado")?.trim();
+
 
   if (!codigoEquipo) {
     setError(
