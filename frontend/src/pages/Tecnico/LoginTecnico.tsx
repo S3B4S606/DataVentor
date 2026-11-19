@@ -6,6 +6,8 @@ import {
   FaIdCard,
   FaLock,
   FaTools,
+  FaEye,
+  FaEyeSlash,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +19,7 @@ function LoginTecnico() {
   const [tipoDocumento, setTipoDocumento] = useState("");
   const [numeroDocumento, setNumeroDocumento] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(false);
 
@@ -197,14 +200,46 @@ function LoginTecnico() {
 
                 <input
                   id="contrasenaTecnico"
-                  type="password"
+                  type={mostrarContrasena ? "text" : "password"}
                   placeholder="Ingresa tu contraseña"
                   value={contrasena}
                   onChange={(e) =>
                     setContrasena(e.target.value)
                   }
                   required
+                  style={{ paddingRight: "45px" }}
                 />
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setMostrarContrasena(!mostrarContrasena)
+                  }
+                  aria-label={
+                    mostrarContrasena
+                      ? "Ocultar contraseña"
+                      : "Mostrar contraseña"
+                  }
+                  aria-pressed={mostrarContrasena}
+                  title={
+                    mostrarContrasena
+                      ? "Ocultar contraseña"
+                      : "Mostrar contraseña"
+                  }
+                  style={{
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                    color: "#64748b",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "5px",
+                    flexShrink: 0,
+                  }}
+                >
+                  {mostrarContrasena ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
             </div>
 
