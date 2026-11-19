@@ -84,9 +84,40 @@ export default function CrearReporte() {
           await resAmbientes.json();
         const datosEquipos: Equipo[] = await resEquipos.json();
 
-        setSedes(datosSedes);
-        setAmbientes(datosAmbientes);
-        setEquipos(datosEquipos);
+
+setSedes(datosSedes);
+setAmbientes(datosAmbientes);
+setEquipos(datosEquipos);
+
+// Recuperar el equipo asignado a este navegador.
+const codigoEquipo = localStorage.getItem("equipoAsignado")?.trim();
+
+if (codigoEquipo) {
+  const equipoDetectado = datosEquipos.find(
+    (equipo) => equipo.registro_unico === codigoEquipo
+  );
+
+  if (equipoDetectado) {
+    const ambienteDetectado = datosAmbientes.find(
+      (ambiente) =>
+        ambiente.id_ambiente === equipoDetectado.id_ambiente
+    );
+
+    if (ambienteDetectado) {
+      setForm((prev) => ({
+        ...prev,
+        sede: String(ambienteDetectado.id_sede),
+        ambiente: String(ambienteDetectado.id_ambiente),
+        equipo: String(equipoDetectado.id_equipo),
+      }));
+    }
+  } else {
+    setMensaje(
+      "El equipo asignado no está registrado. Verifica la configuración del computador."
+    );
+  }
+}
+
       } catch (error) {
         console.error("Error cargando datos:", error);
         setMensaje(
