@@ -1,110 +1,97 @@
+
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Inicio from "../pages/Inicio";
+
+// ADMINISTRADOR / COORDINADOR
 import DashboardAdmin from "../pages/AdminCoordinador/DashboardAdmin";
 import DashboardAmbientes from "../pages/AdminCoordinador/DashboardAmbientes";
 import LoginCoordinador from "../pages/AdminCoordinador/LoginCoordinador";
 import RegistrarAmbiente from "../pages/AdminCoordinador/RegistrarAmbiente";
+
+// APRENDIZ
 import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
 import CrearReporte from "../pages/Aprendiz/CrearReporte";
+
+// TÉCNICO
+import LoginTecnico from "../pages/Tecnico/LoginTecnico";
 import DashboardTecnico from "../pages/Tecnico/DashboardTecnico";
-import MisReportesTecnico from "../pages/Tecnico/MisReportesTecnico"; // Asegúrate de que la ruta sea correcta según tu estructura de archivosT
+import MisReportesTecnico from "../pages/Tecnico/MisReportesTecnico";
+
+// INSTRUCTOR
 import LoginInstructor from "../pages/Instructor/LoginInstructor";
 import DashboardInstructor from "../pages/Instructor/DashboardInstructor";
 import CrearReporteInstructor from "../pages/Instructor/CrearReporteInstructor";
 import MisReportesInstructor from "../pages/Instructor/MisReportesInstructor";
 
-
 export default function AppRoutes() {
   return (
     <Routes>
-
       {/* INICIO */}
-      <Route
-        path="/"
-        element={<Inicio />}
-      />
+      <Route path="/" element={<Inicio />} />
 
       {/* APRENDIZ */}
       <Route
         path="/dashboard-aprendiz"
         element={<DashboardAprendiz />}
       />
-
-      {/* ADMINISTRADOR */}
-      <Route
-        path="/dashboard-admin"
-        element={<DashboardAdmin />}
-      />
-
-      {/* LOGIN_COORDINADOR */}
-      <Route
-        path="/login-coordinador"
-        element={<LoginCoordinador />}
-      />
-
-      {/* AMBIENTES */}
-      <Route
-        path="/ambientes"
-        element={<DashboardAmbientes />}
-      />
-
-      {/* REGISTRAR_AMBIENTE */}
-      <Route
-        path="/registrar-ambiente"
-        element={<RegistrarAmbiente />}
-      />
-
-      {/* CREAR REPORTE */}
       <Route
         path="/crear-reporte"
         element={<CrearReporte />}
       />
 
-      {/* CUALQUIER RUTA DESCONOCIDA */}
+      {/* ADMINISTRADOR / COORDINADOR */}
       <Route
-        path="*"
-        element={<Navigate to="/" replace />}
+        path="/login-coordinador"
+        element={<LoginCoordinador />}
+      />
+      <Route
+        path="/dashboard-admin"
+        element={<DashboardAdmin />}
+      />
+      <Route
+        path="/ambientes"
+        element={<DashboardAmbientes />}
+      />
+      <Route
+        path="/registrar-ambiente"
+        element={<RegistrarAmbiente />}
       />
 
-      {/* TECNICO */}
+      {/* TÉCNICO */}
+      <Route
+        path="/login-tecnico"
+        element={<LoginTecnico />}
+      />
       <Route
         path="/dashboard-tecnico"
         element={<DashboardTecnico />}
-      />  
-
+      />
       <Route
         path="/mis-reportes-tecnico"
         element={<MisReportesTecnico />}
       />
 
-
       {/* INSTRUCTOR */}
       <Route
-      path="/login-instructor"
-      element={<LoginInstructor />}
+        path="/login-instructor"
+        element={<LoginInstructor />}
+      />
+      <Route
+        path="/dashboard-instructor"
+        element={<DashboardInstructor />}
+      />
+      <Route
+        path="/crear-reporte-instructor"
+        element={<CrearReporteInstructor />}
+      />
+      <Route
+        path="/mis-reportes-instructor"
+        element={<MisReportesInstructor />}
       />
 
-      <Route
-      path="/dashboard-instructor"
-      element={<DashboardInstructor />}
-      />
-
-      <Route
-      path="/crear-reporte-instructor"
-    element={<CrearReporteInstructor />}
-    />
-
-      <Route
-      path="/mis-reportes-instructor"
-      element={<MisReportesInstructor />}
-      />
-
+      {/* RUTAS DESCONOCIDAS */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
-
-      <Route
-      path="*"
-      element={<Navigate to="/" replace />}
-      />
 }
