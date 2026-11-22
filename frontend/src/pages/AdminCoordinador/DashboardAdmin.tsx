@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo, useState } from "react";
 import {
   FaHome,
@@ -66,9 +67,9 @@ function DashboardAdmin() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
 
-  /* =====================================================
-     CARGAR INFORMACIÓN
-     ===================================================== */
+  // ==========================================
+  // CARGAR INFORMACIÓN DESDE FASTAPI
+  // ==========================================
 
   useEffect(() => {
     const cargarDatos = async () => {
@@ -111,9 +112,11 @@ function DashboardAdmin() {
           );
         }
 
-        if (!Array.isArray(equiposData) ||
-            !Array.isArray(ambientesData) ||
-            !Array.isArray(reportesData)) {
+        if (
+          !Array.isArray(equiposData) ||
+          !Array.isArray(ambientesData) ||
+          !Array.isArray(reportesData)
+        ) {
           throw new Error("La API no devolvió listas válidas.");
         }
 
@@ -126,16 +129,24 @@ function DashboardAdmin() {
         setReportes(reportesLista);
 
         if (ambientesLista.length > 0) {
-          const parametro = new URLSearchParams(window.location.search)
-            .get("ambiente");
-          const ambienteInicial = ambientesLista.find(
-            (a) => String(a.id_ambiente) === parametro
-          ) ?? ambientesLista[0];
-          setAmbienteSeleccionado(String(ambienteInicial.id_ambiente));
+          const parametro = new URLSearchParams(
+            window.location.search
+          ).get("ambiente");
+
+          const ambienteInicial =
+            ambientesLista.find(
+              (a) => String(a.id_ambiente) === parametro
+            ) ?? ambientesLista[0];
+
+          setAmbienteSeleccionado(
+            String(ambienteInicial.id_ambiente)
+          );
         }
-      } catch (error) {
-        console.error("Error cargando Dashboard Admin:", error);
-        setError("No se pudieron cargar los datos. Verifica que FastAPI esté ejecutándose en el puerto 5000.");
+      } catch (err) {
+        console.error("Error cargando Dashboard Admin:", err);
+        setError(
+          "No se pudieron cargar los datos. Verifica que FastAPI esté ejecutándose en el puerto 5000."
+        );
       } finally {
         setCargando(false);
       }
@@ -144,9 +155,9 @@ function DashboardAdmin() {
     cargarDatos();
   }, []);
 
-  /* =====================================================
-     AMBIENTE SELECCIONADO
-     ===================================================== */
+  // ==========================================
+  // AMBIENTE SELECCIONADO
+  // ==========================================
 
   const ambienteActual = useMemo(() => {
     return ambientes.find(
@@ -156,9 +167,9 @@ function DashboardAdmin() {
     );
   }, [ambientes, ambienteSeleccionado]);
 
-  /* =====================================================
-     EQUIPOS DEL AMBIENTE
-     ===================================================== */
+  // ==========================================
+  // EQUIPOS DEL AMBIENTE
+  // ==========================================
 
   const equiposDelAmbiente = useMemo(() => {
     if (!ambienteSeleccionado) {
@@ -172,15 +183,13 @@ function DashboardAdmin() {
     );
   }, [equipos, ambienteSeleccionado]);
 
-  /* =====================================================
-     ESTADO DE EQUIPOS
-     ===================================================== */
+  // ==========================================
+  // ESTADOS DE LOS EQUIPOS
+  // ==========================================
 
   const obtenerEstado = (equipo: Equipo) => {
     return String(
-      equipo.estado_equipo ??
-        equipo.estado ??
-        ""
+      equipo.estado_equipo ?? equipo.estado ?? ""
     ).toLowerCase();
   };
 
@@ -191,9 +200,14 @@ function DashboardAdmin() {
 
     equiposDelAmbiente.forEach((equipo) => {
       const estado = obtenerEstado(equipo);
-      if (estado === "buen_estado") buenos++;
-      else if (estado === "mal_estado") dañados++;
-      else if (estado === "en_revision") enRevision++;
+
+      if (estado === "buen_estado") {
+        buenos++;
+      } else if (estado === "mal_estado") {
+        dañados++;
+      } else if (estado === "en_revision") {
+        enRevision++;
+      }
     });
 
     return {
@@ -204,6 +218,10 @@ function DashboardAdmin() {
     };
   }, [equiposDelAmbiente]);
 
+  // ==========================================
+  // ÚLTIMOS CINCO REPORTES
+  // ==========================================
+
   const reportesRecientes = useMemo(() => {
     let reportesFiltrados = reportes;
 
@@ -211,8 +229,7 @@ function DashboardAdmin() {
       const idsEquipos = equiposDelAmbiente
         .map((equipo) => equipo.id_equipo)
         .filter(
-          (id): id is number =>
-            typeof id === "number"
+          (id): id is number => typeof id === "number"
         );
 
       reportesFiltrados = reportes.filter((reporte) =>
@@ -223,27 +240,19 @@ function DashboardAdmin() {
     return [...reportesFiltrados]
       .sort((a, b) => {
         const fechaA =
-          new Date(
-            a.fecha_reporte || ""
-          ).getTime() || 0;
+          new Date(a.fecha_reporte || "").getTime() || 0;
 
         const fechaB =
-          new Date(
-            b.fecha_reporte || ""
-          ).getTime() || 0;
+          new Date(b.fecha_reporte || "").getTime() || 0;
 
         return fechaB - fechaA;
       })
       .slice(0, 5);
-  }, [
-    reportes,
-    ambienteSeleccionado,
-    equiposDelAmbiente,
-  ]);
+  }, [reportes, ambienteSeleccionado, equiposDelAmbiente]);
 
-  /* =====================================================
-     FECHA
-     ===================================================== */
+  // ==========================================
+  // FECHAS
+  // ==========================================
 
   const fechaActual = new Date().toLocaleDateString(
     "es-CO",
@@ -263,26 +272,19 @@ function DashboardAdmin() {
       return fecha;
     }
 
-    return fechaObjeto.toLocaleDateString(
-      "es-CO",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }
-    );
+    return fechaObjeto.toLocaleDateString("es-CO", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
   };
 
-  /* =====================================================
-     ESTADO DEL REPORTE
-     ===================================================== */
+  // ==========================================
+  // ESTADOS DE LOS REPORTES
+  // ==========================================
 
-  const obtenerEstadoReporte = (
-    estado?: string
-  ) => {
-    const valor = String(
-      estado || ""
-    ).toLowerCase();
+  const obtenerEstadoReporte = (estado?: string) => {
+    const valor = String(estado || "").toLowerCase();
 
     if (valor === "pendiente") {
       return {
@@ -318,9 +320,9 @@ function DashboardAdmin() {
     };
   };
 
-  /* =====================================================
-     CERRAR SESIÓN
-     ===================================================== */
+  // ==========================================
+  // CERRAR SESIÓN
+  // ==========================================
 
   const cerrarSesion = () => {
     localStorage.removeItem("usuario");
@@ -331,9 +333,10 @@ function DashboardAdmin() {
 
   return (
     <div className="dashboard-admin">
-      {/* =================================================
+
+      {/* ======================================
           HEADER
-          ================================================= */}
+          ====================================== */}
 
       <header className="admin-header">
 
@@ -354,12 +357,9 @@ function DashboardAdmin() {
         </div>
 
         <nav className="admin-navigation">
-
           <button
             className="nav-link active"
-            onClick={() =>
-              navigate("/dashboard-admin")
-            }
+            onClick={() => navigate("/dashboard-admin")}
           >
             <FaHome />
             Inicio
@@ -367,20 +367,15 @@ function DashboardAdmin() {
 
           <button
             className="nav-link"
-            onClick={() =>
-              navigate("/ambientes")
-            }
+            onClick={() => navigate("/ambientes")}
           >
             <FaFileAlt />
             Ambientes
           </button>
-
         </nav>
 
         <div className="admin-header-right">
-
           <div className="coordinator">
-
             <div className="coordinator-icon">
               <FaUser />
             </div>
@@ -389,7 +384,6 @@ function DashboardAdmin() {
               <strong>Coordinador</strong>
               <small>Centro de Gestión</small>
             </div>
-
           </div>
 
           <div className="header-separator" />
@@ -401,27 +395,22 @@ function DashboardAdmin() {
             <FaSignOutAlt />
             Cerrar sesión
           </button>
-
         </div>
-
       </header>
 
-      {/* =================================================
+      {/* ======================================
           CONTENIDO
-          ================================================= */}
+          ====================================== */}
 
       <main className="admin-content">
 
-        {/* ===============================================
-            FILTROS SUPERIORES
-            =============================================== */}
+        {/* FILTROS SUPERIORES */}
 
         <section className="filters">
 
           {/* SEDE */}
 
           <div className="filter-card">
-
             <div className="filter-icon blue">
               <FaBuilding />
             </div>
@@ -432,13 +421,11 @@ function DashboardAdmin() {
                 {ambienteActual?.sede || "Todas las sedes"}
               </strong>
             </div>
-
           </div>
 
           {/* AMBIENTE */}
 
           <div className="filter-card">
-
             <div className="filter-icon purple">
               <FaBuilding />
             </div>
@@ -449,9 +436,7 @@ function DashboardAdmin() {
               <select
                 value={ambienteSeleccionado}
                 onChange={(e) =>
-                  setAmbienteSeleccionado(
-                    e.target.value
-                  )
+                  setAmbienteSeleccionado(e.target.value)
                 }
               >
                 {ambientes.length === 0 ? (
@@ -459,33 +444,26 @@ function DashboardAdmin() {
                     Sin ambientes
                   </option>
                 ) : (
-                  ambientes.map(
-                    (ambiente) => (
-                      <option
-                        key={
-                          ambiente.id_ambiente
-                        }
-                        value={
-                          ambiente.id_ambiente
-                        }
-                      >
-                        {ambiente.nombre || ambiente.descripcion ||
-                          `Ambiente ${ambiente.id_ambiente}`}
-                      </option>
-                    )
-                  )
+                  ambientes.map((ambiente) => (
+                    <option
+                      key={ambiente.id_ambiente}
+                      value={ambiente.id_ambiente}
+                    >
+                      {ambiente.nombre ||
+                        ambiente.descripcion ||
+                        `Ambiente ${ambiente.id_ambiente}`}
+                    </option>
+                  ))
                 )}
               </select>
 
               <FaChevronDown className="select-arrow" />
             </div>
-
           </div>
 
           {/* FECHA */}
 
           <div className="filter-card">
-
             <div className="filter-icon blue">
               <FaCalendarAlt />
             </div>
@@ -494,13 +472,11 @@ function DashboardAdmin() {
               <span>Fecha</span>
               <strong>{fechaActual}</strong>
             </div>
-
           </div>
 
           {/* COORDINADOR */}
 
           <div className="filter-card">
-
             <div className="filter-icon purple">
               <FaUser />
             </div>
@@ -509,37 +485,38 @@ function DashboardAdmin() {
               <span>Coordinador</span>
               <strong>Coordinador</strong>
             </div>
-
           </div>
-
         </section>
 
-        {/* ===============================================
-            CUERPO PRINCIPAL
-            =============================================== */}
+        {/* MENSAJE DE ERROR */}
 
         {error && (
-          <p role="alert" style={{ color: "#b91c1c", padding: "12px" }}>
+          <p
+            role="alert"
+            style={{
+              color: "#b91c1c",
+              padding: "12px",
+            }}
+          >
             {error}
           </p>
         )}
 
+        {/* ======================================
+            CUERPO PRINCIPAL
+            ====================================== */}
+
         <section className="dashboard-grid">
 
-          {/* =============================================
-              IZQUIERDA
-              ============================================= */}
+          {/* COLUMNA IZQUIERDA */}
 
           <div className="left-column">
 
             {/* INFORMACIÓN DEL AMBIENTE */}
 
             <article className="environment-card">
-
               <div className="environment-header">
-
                 <div className="environment-title">
-
                   <div className="environment-icon">
                     <FaLaptop />
                   </div>
@@ -550,36 +527,28 @@ function DashboardAdmin() {
                     </h2>
 
                     <p>
-                      Resumen del estado de los
-                      equipos
+                      Resumen del estado de los equipos
                     </p>
                   </div>
-
                 </div>
 
                 <div className="environment-number">
-
                   <span>
                     N.º DEL AMBIENTE
                   </span>
 
                   <strong>
-                    {ambienteActual?.id_ambiente ??
-                      "--"}
+                    {ambienteActual?.id_ambiente ?? "--"}
                   </strong>
-
                 </div>
-
               </div>
-
             </article>
 
-            {/* ESTADOS */}
+            {/* ESTADOS DE EQUIPOS */}
 
             <article className="equipment-status-card">
 
               <div className="status-row total">
-
                 <div className="status-left">
                   <div className="status-icon">
                     <FaLaptop />
@@ -591,15 +560,11 @@ function DashboardAdmin() {
                 </div>
 
                 <strong>
-                  {cargando
-                    ? "..."
-                    : estadisticas.total}
+                  {cargando ? "..." : estadisticas.total}
                 </strong>
-
               </div>
 
               <div className="status-row good">
-
                 <div className="status-left">
                   <div className="status-icon">
                     <FaCheckCircle />
@@ -611,15 +576,11 @@ function DashboardAdmin() {
                 </div>
 
                 <strong>
-                  {cargando
-                    ? "..."
-                    : estadisticas.buenos}
+                  {cargando ? "..." : estadisticas.buenos}
                 </strong>
-
               </div>
 
               <div className="status-row damaged">
-
                 <div className="status-left">
                   <div className="status-icon">
                     <FaExclamationTriangle />
@@ -631,15 +592,11 @@ function DashboardAdmin() {
                 </div>
 
                 <strong>
-                  {cargando
-                    ? "..."
-                    : estadisticas.dañados}
+                  {cargando ? "..." : estadisticas.dañados}
                 </strong>
-
               </div>
 
               <div className="status-row off">
-
                 <div className="status-left">
                   <div className="status-icon">
                     <FaPowerOff />
@@ -651,27 +608,22 @@ function DashboardAdmin() {
                 </div>
 
                 <strong>
-                  {cargando
-                    ? "..."
-                    : estadisticas.enRevision}
+                  {cargando ? "..." : estadisticas.enRevision}
                 </strong>
-
               </div>
 
             </article>
-
           </div>
 
-          {/* =============================================
-              DERECHA - REPORTES
-              ============================================= */}
+          {/* ======================================
+              COLUMNA DERECHA - REPORTES
+              ====================================== */}
 
           <article className="reports-card">
 
             <div className="reports-header">
 
               <div className="reports-title">
-
                 <div className="reports-icon">
                   <FaFileAlt />
                 </div>
@@ -686,14 +638,14 @@ function DashboardAdmin() {
                     ambiente seleccionado.
                   </p>
                 </div>
-
               </div>
 
+              {/* BOTÓN VER TODOS CORREGIDO */}
+
               <button
+                type="button"
                 className="view-all"
-                onClick={() =>
-                  navigate("/reportes-admin")
-                }
+                onClick={() => navigate("/gestion-reportes")}
               >
                 Ver todos
                 <FaChevronRight />
@@ -701,8 +653,9 @@ function DashboardAdmin() {
 
             </div>
 
-            <div className="reports-table-wrapper">
+            {/* TABLA DE REPORTES */}
 
+            <div className="reports-table-wrapper">
               <table className="reports-table">
 
                 <thead>
@@ -717,7 +670,6 @@ function DashboardAdmin() {
                 </thead>
 
                 <tbody>
-
                   {cargando ? (
                     <tr>
                       <td
@@ -727,8 +679,7 @@ function DashboardAdmin() {
                         Cargando información...
                       </td>
                     </tr>
-                  ) : reportesRecientes.length ===
-                    0 ? (
+                  ) : reportesRecientes.length === 0 ? (
                     <tr>
                       <td
                         colSpan={6}
@@ -750,27 +701,20 @@ function DashboardAdmin() {
                           reporte.modelo ||
                           reporte.serial ||
                           `PC-${String(
-                            reporte.id_equipo ??
-                              0
+                            reporte.id_equipo ?? 0
                           ).padStart(3, "0")}`;
 
                         const usuario =
                           reporte.nombre
                             ? `${reporte.nombre} ${
-                                reporte.apellido ||
-                                ""
+                                reporte.apellido || ""
                               }`
                             : `Usuario #${
-                                reporte.id_usuario ??
-                                "-"
+                                reporte.id_usuario ?? "-"
                               }`;
 
                         return (
-                          <tr
-                            key={
-                              reporte.id_reporte
-                            }
-                          >
+                          <tr key={reporte.id_reporte}>
 
                             <td className="number-cell">
                               {index + 1}
@@ -814,35 +758,27 @@ function DashboardAdmin() {
                       }
                     )
                   )}
-
                 </tbody>
 
               </table>
-
             </div>
 
           </article>
 
         </section>
-
       </main>
 
-      {/* =================================================
-          FRASE
-          ================================================= */}
+      {/* FRASE */}
 
       <div className="sena-phrase">
         Tecnología que impulsa aprendizajes
       </div>
 
-      {/* =================================================
-          FOOTER
-          ================================================= */}
+      {/* FOOTER */}
 
       <footer className="admin-footer">
 
         <div className="footer-left">
-
           <strong>
             Data<span>Ventor</span>
           </strong>
@@ -850,18 +786,15 @@ function DashboardAdmin() {
           <span>
             Conocimiento que transforma
           </span>
-
         </div>
 
         <div className="footer-right">
-
           <strong>SENA</strong>
 
           <span>
             Centro de Gestión de Mercados,
             Logística y Tecnologías de la Información
           </span>
-
         </div>
 
       </footer>

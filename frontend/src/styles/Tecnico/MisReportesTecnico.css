@@ -1,9 +1,14 @@
 
+/* =====================================================
+   DATAVENTOR - MIS REPORTES TÉCNICO
+   DISEÑO VERDE INSTITUCIONAL
+===================================================== */
+
 .mis-reportes-page {
   min-height: 100vh;
-  background: #f5f7fb;
-  color: #20243a;
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(120deg, #f0fff7, #e9fff5, #d9f7e8);
+  color: #00573f;
+  font-family: "Segoe UI", Arial, sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -12,16 +17,19 @@
   box-sizing: border-box;
 }
 
-/* ENCABEZADO */
+/* =====================================================
+   ENCABEZADO
+===================================================== */
+
 .mis-reportes-page .reportes-header {
   min-height: 92px;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   padding: 15px 3.2%;
-  background: #1d477f;
+  background: #00573f;
+  border-bottom: 3px solid #78c914;
   color: #ffffff;
 }
 
@@ -33,9 +41,13 @@
   font-weight: 800;
 }
 
+.mis-reportes-page .marca-data-ventor h1 span {
+  color: #78c914;
+}
+
 .mis-reportes-page .marca-data-ventor p {
   margin: 5px 0 0;
-  color: #ffffff;
+  color: #e5f7ed;
   font-size: 12px;
 }
 
@@ -51,30 +63,30 @@
   padding: 8px 14px;
   border: none;
   border-radius: 24px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .mis-reportes-page .menu-inicio {
-  background: #2d70e3;
+  background: #78c914;
   color: #ffffff;
 }
 
 .mis-reportes-page .menu-inicio:hover {
-  background: #2461c7;
+  background: #65b20f;
 }
 
 .mis-reportes-page .menu-aprendiz {
-  background: #edf3fc;
-  color: #174477;
+  background: #e9fff5;
+  color: #00573f;
 }
 
 .mis-reportes-page .menu-aprendiz:hover {
-  background: #dce8f8;
+  background: #caf2df;
 }
 
 .mis-reportes-page .menu-reportes .menu-salir {
@@ -86,7 +98,10 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-/* CONTENEDOR */
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
 .mis-reportes-page .reportes-container {
   width: 100%;
   max-width: 1180px;
@@ -95,7 +110,10 @@
   flex: 1;
 }
 
-/* INTRODUCCIÓN */
+/* =====================================================
+   INTRODUCCIÓN
+===================================================== */
+
 .mis-reportes-page .intro-reportes {
   display: flex;
   align-items: center;
@@ -108,30 +126,33 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.7px;
-  color: #7659dc;
+  color: #198754;
 }
 
 .mis-reportes-page .intro-reportes h2 {
   margin: 6px 0 7px;
   font-size: 31px;
   font-weight: 700;
-  color: #25273b;
+  color: #00573f;
 }
 
 .mis-reportes-page .intro-reportes p {
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
-  color: #858b9d;
+  color: #648176;
 }
+
+/* TOTAL DE REPORTES */
 
 .mis-reportes-page .total-reportes {
   min-width: 150px;
   padding: 18px 23px;
   background: #ffffff;
   border-radius: 16px;
-  border: 1px solid #e8eaf1;
+  border: 1px solid #d3ecde;
   text-align: right;
+  box-shadow: 0 5px 18px rgba(0, 87, 63, 0.05);
 }
 
 .mis-reportes-page .total-reportes span,
@@ -141,21 +162,24 @@
 
 .mis-reportes-page .total-reportes span {
   font-size: 11px;
-  color: #9196a8;
+  color: #648176;
   margin-bottom: 3px;
 }
 
 .mis-reportes-page .total-reportes strong {
   font-size: 30px;
-  color: #5d3fd3;
+  color: #198754;
 }
 
 .mis-reportes-page .total-reportes small {
   font-size: 10px;
-  color: #a0a4b2;
+  color: #648176;
 }
 
-/* RESUMEN */
+/* =====================================================
+   TARJETAS DE RESUMEN
+===================================================== */
+
 .mis-reportes-page .resumen-reportes {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -165,12 +189,13 @@
 
 .mis-reportes-page .resumen-item {
   background: #ffffff;
-  border: 1px solid #e8eaf1;
+  border: 1px solid #d3ecde;
   border-radius: 16px;
   padding: 19px 21px;
   display: flex;
   align-items: center;
   gap: 15px;
+  box-shadow: 0 5px 18px rgba(0, 87, 63, 0.05);
 }
 
 .mis-reportes-page .resumen-icon {
@@ -185,55 +210,70 @@
   font-weight: 700;
 }
 
+/* PENDIENTES */
+
 .mis-reportes-page .pendiente-icon {
   background: #fff2dc;
   color: #e49a24;
 }
 
+/* EN PROCESO */
+
 .mis-reportes-page .proceso-icon {
-  background: #e8f0ff;
-  color: #4779db;
+  background: #e9fff5;
+  color: #198754;
 }
+
+/* RESUELTOS */
 
 .mis-reportes-page .resuelto-icon {
   background: #e4f8ed;
-  color: #35a96d;
+  color: #16955a;
 }
 
 .mis-reportes-page .resumen-item span {
   display: block;
   font-size: 12px;
-  color: #8c91a3;
+  color: #648176;
   margin-bottom: 4px;
 }
 
 .mis-reportes-page .resumen-item strong {
   font-size: 22px;
-  color: #292c40;
+  color: #00573f;
 }
 
-/* BUSCADOR Y FILTROS */
+/* =====================================================
+   BUSCADOR Y FILTROS
+===================================================== */
+
 .mis-reportes-page .herramientas-reportes {
   background: #ffffff;
-  border: 1px solid #e8eaf1;
+  border: 1px solid #d3ecde;
   border-radius: 18px;
   padding: 19px;
   margin-bottom: 30px;
+  box-shadow: 0 5px 18px rgba(0, 87, 63, 0.05);
 }
 
 .mis-reportes-page .buscador {
   min-height: 48px;
-  border: 1px solid #e0e3eb;
+  border: 1px solid #c9e5d5;
   border-radius: 12px;
   display: flex;
   align-items: center;
   padding: 0 16px;
-  background: #fafbfc;
+  background: #f8fffa;
+}
+
+.mis-reportes-page .buscador:focus-within {
+  border-color: #198754;
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
 }
 
 .mis-reportes-page .buscador span {
   font-size: 24px;
-  color: #8b91a4;
+  color: #198754;
   margin-right: 11px;
 }
 
@@ -244,12 +284,14 @@
   outline: none;
   background: transparent;
   font-size: 13px;
-  color: #35384c;
+  color: #305e49;
 }
 
 .mis-reportes-page .buscador input::placeholder {
-  color: #a1a5b2;
+  color: #91aa9c;
 }
+
+/* FILTROS */
 
 .mis-reportes-page .filtros {
   display: flex;
@@ -259,9 +301,9 @@
 }
 
 .mis-reportes-page .filtro-btn {
-  border: 1px solid #e0e3eb;
+  border: 1px solid #c9e5d5;
   background: #ffffff;
-  color: #777d91;
+  color: #416c56;
   border-radius: 20px;
   padding: 8px 17px;
   font-size: 12px;
@@ -270,17 +312,21 @@
 }
 
 .mis-reportes-page .filtro-btn:hover {
-  border-color: #7659dc;
-  color: #7659dc;
+  border-color: #198754;
+  color: #198754;
+  background: #e9fff5;
 }
 
 .mis-reportes-page .filtro-btn.activo {
-  background: #6950d6;
-  border-color: #6950d6;
+  background: #198754;
+  border-color: #198754;
   color: #ffffff;
 }
 
-/* LISTA DE REPORTES */
+/* =====================================================
+   LISTA DE REPORTES
+===================================================== */
+
 .mis-reportes-page .lista-header {
   display: flex;
   align-items: flex-end;
@@ -292,12 +338,12 @@
 .mis-reportes-page .lista-header h3 {
   margin: 5px 0 0;
   font-size: 18px;
-  color: #292b3e;
+  color: #00573f;
 }
 
 .mis-reportes-page .cantidad-resultados {
   font-size: 11px;
-  color: #9297a8;
+  color: #648176;
 }
 
 .mis-reportes-page .reportes-lista {
@@ -306,10 +352,12 @@
   gap: 14px;
 }
 
+/* TARJETA DE REPORTE */
+
 .mis-reportes-page .reporte-card {
   min-width: 0;
   background: #ffffff;
-  border: 1px solid #e7e9f0;
+  border: 1px solid #d3ecde;
   border-radius: 16px;
   padding: 20px;
   display: grid;
@@ -320,12 +368,14 @@
 }
 
 .mis-reportes-page .reporte-card:hover {
-  border-color: #cfc6f5;
-  box-shadow: 0 5px 18px rgba(45, 39, 87, 0.06);
+  border-color: #8bcbaa;
+  box-shadow: 0 5px 18px rgba(0, 87, 63, 0.09);
 }
 
+/* IDENTIFICADOR */
+
 .mis-reportes-page .reporte-identificador {
-  border-right: 1px solid #eceef3;
+  border-right: 1px solid #d3ecde;
   padding-right: 18px;
 }
 
@@ -333,13 +383,13 @@
   display: block;
   font-size: 9px;
   letter-spacing: 1px;
-  color: #a0a5b5;
+  color: #648176;
   margin-bottom: 5px;
 }
 
 .mis-reportes-page .reporte-identificador strong {
   font-size: 14px;
-  color: #6250bb;
+  color: #198754;
 }
 
 .mis-reportes-page .reporte-info-principal {
@@ -357,8 +407,12 @@
 .mis-reportes-page .equipo-linea h4 {
   margin: 0;
   font-size: 15px;
-  color: #292c3f;
+  color: #00573f;
 }
+
+/* =====================================================
+   ESTADOS
+===================================================== */
 
 .mis-reportes-page .estado {
   display: inline-flex;
@@ -384,14 +438,18 @@
 }
 
 .mis-reportes-page .estado-proceso {
-  background: #e8f0ff;
-  color: #426fc7;
+  background: #e9fff5;
+  color: #198754;
 }
 
 .mis-reportes-page .estado-resuelto {
-  background: #e4f7ed;
-  color: #29915c;
+  background: #dcf7e8;
+  color: #087a41;
 }
+
+/* =====================================================
+   DATOS DEL REPORTE
+===================================================== */
 
 .mis-reportes-page .datos-reporte {
   display: flex;
@@ -402,23 +460,26 @@
 
 .mis-reportes-page .datos-reporte span {
   font-size: 11px;
-  color: #9297a8;
+  color: #648176;
 }
 
 .mis-reportes-page .descripcion-original {
   margin: 0 0 16px;
   font-size: 12px;
   line-height: 1.5;
-  color: #777d90;
+  color: #416c56;
   overflow-wrap: anywhere;
 }
 
-/* CUADRO DE OBSERVACIONES */
+/* =====================================================
+   OBSERVACIONES DEL TÉCNICO
+===================================================== */
+
 .mis-reportes-page .label-observaciones,
 .mis-reportes-page .label-estado {
   display: block;
   margin-bottom: 7px;
-  color: #34374a;
+  color: #00573f;
   font-size: 12px;
   font-weight: 700;
 }
@@ -429,11 +490,11 @@
   min-height: 85px;
   resize: vertical;
   padding: 12px 13px;
-  border: 1px solid #dfe3ec;
+  border: 1px solid #c9e5d5;
   border-radius: 10px;
-  background: #fafbfe;
-  color: #35384c;
-  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fffa;
+  color: #305e49;
+  font-family: inherit;
   font-size: 13px;
   line-height: 1.5;
   outline: none;
@@ -441,12 +502,12 @@
 }
 
 .mis-reportes-page .campo-observaciones::placeholder {
-  color: #a1a5b2;
+  color: #91aa9c;
 }
 
 .mis-reportes-page .campo-observaciones:focus {
-  border-color: #7659dc;
-  box-shadow: 0 0 0 3px rgba(118, 89, 220, 0.1);
+  border-color: #198754;
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
 }
 
 .mis-reportes-page .campo-observaciones:disabled {
@@ -454,7 +515,10 @@
   cursor: not-allowed;
 }
 
-/* CAMBIO DE ESTADO */
+/* =====================================================
+   CAMBIO DE ESTADO
+===================================================== */
+
 .mis-reportes-page .acciones-reporte {
   display: flex;
   align-items: center;
@@ -470,9 +534,11 @@
 .mis-reportes-page .estado-select {
   max-width: 100%;
   padding: 9px 12px;
-  border: 1px solid #e0e3eb;
+  border: 1px solid #c9e5d5;
   border-radius: 9px;
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #00573f;
+  font-family: inherit;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
@@ -480,23 +546,28 @@
 }
 
 .mis-reportes-page .estado-select:focus {
-  border-color: #7659dc;
+  border-color: #198754;
 }
 
 .mis-reportes-page .mensaje-actualizando {
   font-size: 12px;
-  color: #7659dc;
+  color: #198754;
 }
+
+/* =====================================================
+   BOTÓN VER DETALLE
+===================================================== */
 
 .mis-reportes-page .btn-detalle {
   border: none;
-  background: #f2efff;
-  color: #644bd0;
+  background: #e9fff5;
+  color: #198754;
   padding: 10px 14px;
   border-radius: 10px;
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -510,14 +581,17 @@
 }
 
 .mis-reportes-page .btn-detalle:hover {
-  background: #6950d6;
+  background: #198754;
   color: #ffffff;
 }
 
-/* SIN RESULTADOS */
+/* =====================================================
+   SIN RESULTADOS
+===================================================== */
+
 .mis-reportes-page .sin-resultados {
   background: #ffffff;
-  border: 1px solid #e7e9f0;
+  border: 1px solid #d3ecde;
   border-radius: 17px;
   text-align: center;
   padding: 55px 20px;
@@ -528,7 +602,8 @@
   height: 55px;
   margin: 0 auto 15px;
   border-radius: 50%;
-  background: #f0edff;
+  background: #e9fff5;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -538,13 +613,13 @@
 .mis-reportes-page .sin-resultados h3 {
   margin: 0 0 7px;
   font-size: 16px;
-  color: #34374a;
+  color: #00573f;
 }
 
 .mis-reportes-page .sin-resultados p {
   margin: 0;
   font-size: 12px;
-  color: #9297a8;
+  color: #648176;
 }
 
 .mis-reportes-page .btn-reintentar {
@@ -552,23 +627,34 @@
   padding: 10px 16px;
   border: none;
   border-radius: 8px;
-  background: #6950d6;
+  background: #198754;
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
 }
 
-/* PIE DE PÁGINA */
+.mis-reportes-page .btn-reintentar:hover {
+  background: #00573f;
+}
+
+/* =====================================================
+   PIE DE PÁGINA
+===================================================== */
+
 .mis-reportes-page .footer {
   margin-top: auto;
-  background: #172554;
+  background: #00573f;
+  border-top: 3px solid #78c914;
   color: #ffffff;
   text-align: center;
   padding: 18px;
   font-size: 13px;
 }
 
-/* TABLET */
+/* =====================================================
+   TABLET
+===================================================== */
+
 @media (max-width: 800px) {
   .mis-reportes-page .reportes-header {
     padding: 15px 20px;
@@ -604,7 +690,10 @@
   }
 }
 
-/* MÓVIL */
+/* =====================================================
+   MÓVIL
+===================================================== */
+
 @media (max-width: 500px) {
   .mis-reportes-page .reportes-header {
     min-height: 70px;
@@ -651,7 +740,7 @@
 
   .mis-reportes-page .reporte-identificador {
     border-right: none;
-    border-bottom: 1px solid #eceef3;
+    border-bottom: 1px solid #d3ecde;
     padding: 0 0 9px;
   }
 

@@ -10,6 +10,7 @@ import LoginCoordinador from "../pages/AdminCoordinador/LoginCoordinador";
 import RegistrarAmbiente from "../pages/AdminCoordinador/RegistrarAmbiente";
 import RecuperarContrasena from "../pages/AdminCoordinador/RecuperarContrasena";
 import RestablecerContrasena from "../pages/AdminCoordinador/RestablecerContrasena";
+import GestionReportes from "../pages/AdminCoordinador/GestionReportes";
 
 // APRENDIZ
 import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
@@ -19,6 +20,7 @@ import CrearReporte from "../pages/Aprendiz/CrearReporte";
 import LoginTecnico from "../pages/Tecnico/LoginTecnico";
 import DashboardTecnico from "../pages/Tecnico/DashboardTecnico";
 import MisReportesTecnico from "../pages/Tecnico/MisReportesTecnico";
+import DetalleReporte from "../pages/Tecnico/DetalleReporte";
 
 // INSTRUCTOR
 import LoginInstructor from "../pages/Instructor/LoginInstructor";
@@ -49,11 +51,15 @@ export default function AppRoutes() {
       />
       <Route
         path="/recuperar-contrasena"
-       element={<RecuperarContrasena />}
+        element={<RecuperarContrasena />}
       />
       <Route
-       path="/restablecer-contrasena"
-       element={<RestablecerContrasena />}
+        path="/restablecer-contrasena"
+        element={<RestablecerContrasena />}
+      />
+      <Route
+        path="/gestion-reportes"
+        element={<GestionReportes />}
       />
       <Route
         path="/dashboard-admin"
@@ -81,6 +87,10 @@ export default function AppRoutes() {
         path="/mis-reportes-tecnico"
         element={<MisReportesTecnico />}
       />
+      <Route
+        path="/detalle-reporte/:id"
+        element={<DetalleReporte />}
+      />
 
       {/* INSTRUCTOR */}
       <Route
@@ -105,4 +115,3 @@ export default function AppRoutes() {
     </Routes>
   );
 }
-

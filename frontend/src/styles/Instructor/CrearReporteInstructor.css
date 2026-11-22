@@ -1,11 +1,20 @@
-/* ==============================
-   CONTENEDOR GENERAL
-============================== */
+
+/* =========================================
+   DATAVENTOR - CREAR REPORTE INSTRUCTOR
+   DISEÑO VERDE INSTITUCIONAL
+========================================= */
+
+/* CONTENEDOR GENERAL */
 
 .crear-reporte-instructor {
   min-height: 100vh;
-  background: #f3f5fc;
-  color: #182033;
+  background: linear-gradient(
+    120deg,
+    #f0fff7 0%,
+    #e9fff5 50%,
+    #d9f7e8 100%
+  );
+  color: #00573f;
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
@@ -13,7 +22,10 @@
   box-sizing: border-box;
 }
 
-/* ENCABEZADO */
+/* =========================================
+   ENCABEZADO
+========================================= */
+
 .cri-header {
   min-height: 92px;
   box-sizing: border-box;
@@ -22,11 +34,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  background: #1d477f;
+
+  background: #00573f;
   color: #ffffff;
-  border: none;
-  box-shadow: none;
+  border-bottom: 3px solid #78c914;
+  box-shadow: 0 3px 12px rgba(0, 87, 63, 0.12);
 }
+
+/* LOGO DATAVENTOR */
 
 .cri-header h1 {
   margin: 0;
@@ -35,21 +50,30 @@
   font-weight: 800;
 }
 
+.cri-header h1 span {
+  color: #78c914;
+}
+
 .cri-header p {
   margin: 3px 0 0;
-  color: #ffffff;
+  color: #e5f7ed;
   font-size: 11px;
 }
+
+/* BOTÓN VOLVER */
 
 .cri-back {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
+
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 8px;
+
   background: transparent;
   color: #ffffff;
+
   font-size: 14px;
   cursor: pointer;
   transition: 0.2s;
@@ -57,13 +81,13 @@
 
 .cri-back:hover {
   color: #ffffff;
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  border-color: #78c914;
+  background: rgba(120, 201, 20, 0.12);
 }
 
-/* ==============================
+/* =========================================
    CONTENIDO Y TARJETA
-============================== */
+========================================= */
 
 .cri-main {
   width: 100%;
@@ -75,15 +99,18 @@
 .cri-card {
   width: 100%;
   padding: 26px;
-  border: 1px solid #dfe4ec;
+
+  border: 1px solid #d3ecde;
   border-radius: 17px;
-  background: #fff;
-  box-shadow: 0 12px 35px rgba(31, 43, 67, 0.07);
+
+  background: #ffffff;
+
+  box-shadow: 0 12px 35px rgba(0, 87, 63, 0.08);
 }
 
-/* ==============================
+/* =========================================
    TÍTULO DEL FORMULARIO
-============================== */
+========================================= */
 
 .cri-title {
   display: flex;
@@ -96,30 +123,33 @@
   width: 55px;
   height: 55px;
   flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   border-radius: 13px;
-  background: #e8eeff;
-  color: #4361ee;
+  background: #e0f7ea;
+  color: #198754;
+
   font-size: 22px;
 }
 
 .cri-title h2 {
   margin: 0 0 6px;
-  color: #17233d;
+  color: #00573f;
   font-size: 25px;
 }
 
 .cri-title p {
   margin: 0;
-  color: #7d8797;
+  color: #648176;
   font-size: 13px;
 }
 
-/* ==============================
+/* =========================================
    CAMPOS DEL FORMULARIO
-============================== */
+========================================= */
 
 .cri-grid {
   display: grid;
@@ -135,7 +165,7 @@
 }
 
 .cri-group label {
-  color: #202c40;
+  color: #00573f;
   font-size: 13px;
   font-weight: 700;
 }
@@ -143,12 +173,18 @@
 .cri-group select,
 .cri-group textarea {
   width: 100%;
-  border: 1px solid #d9dfeb;
+  border: 1px solid #c9e5d5;
   border-radius: 8px;
-  background: #fff;
-  color: #273247;
+
+  background: #ffffff;
+  color: #305e49;
+
   font-family: inherit;
   font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .cri-group select {
@@ -159,13 +195,19 @@
 .cri-group select:focus,
 .cri-group textarea:focus {
   outline: none;
-  border-color: #4361ee;
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.10);
+  border-color: #198754;
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
 }
 
-/* ==============================
-   DESCRIPCIÓN
-============================== */
+.cri-group select:disabled,
+.cri-group textarea:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   DESCRIPCIÓN DEL PROBLEMA
+========================================= */
 
 .cri-description {
   margin-top: 18px;
@@ -179,32 +221,35 @@
 }
 
 .cri-group textarea::placeholder {
-  color: #a1a9b6;
+  color: #91aa9c;
 }
 
 .cri-description small {
   align-self: flex-end;
-  color: #8993a3;
+  color: #648176;
   font-size: 11px;
 }
 
-/* ==============================
+/* =========================================
    MENSAJE DE VALIDACIÓN
-============================== */
+========================================= */
 
 .cri-message {
   margin-top: 16px;
   padding: 12px;
   border-radius: 8px;
-  background: #edf2ff;
-  color: #3550a4;
+
+  border: 1px solid #b9e7cd;
+  background: #e9fff5;
+  color: #00573f;
+
   font-size: 13px;
   line-height: 1.5;
 }
 
-/* ==============================
+/* =========================================
    BOTONES
-============================== */
+========================================= */
 
 .cri-buttons {
   display: flex;
@@ -217,38 +262,71 @@
 .cri-buttons button {
   min-height: 44px;
   padding: 0 20px;
+
   border-radius: 8px;
   font-family: inherit;
   font-size: 13px;
   font-weight: 700;
+
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+/* BOTÓN CANCELAR */
+
 .cri-cancel {
-  border: 1px solid #d9dfeb;
-  background: #fff;
-  color: #536075;
+  border: 1px solid #198754;
+  background: #ffffff;
+  color: #00573f;
 }
 
 .cri-cancel:hover {
-  border-color: #4361ee;
-  color: #4361ee;
+  border-color: #00573f;
+  background: #e9fff5;
+  transform: translateY(-1px);
 }
+
+/* BOTÓN ENVIAR REPORTE */
 
 .cri-submit {
   border: none;
-  background: #4361ee;
-  color: #fff;
+
+  background: linear-gradient(
+    90deg,
+    #78c914,
+    #198754
+  );
+
+  color: #ffffff;
+
+  box-shadow: 0 5px 12px rgba(25, 135, 84, 0.15);
 }
 
 .cri-submit:hover {
-  background: #3550d2;
+  background: linear-gradient(
+    90deg,
+    #68b90f,
+    #137447
+  );
+
+  transform: translateY(-1px);
+  box-shadow: 0 7px 16px rgba(25, 135, 84, 0.24);
 }
 
-/* ==============================
+.cri-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================
    PANTALLAS MEDIANAS Y PEQUEÑAS
-============================== */
+========================================= */
 
 @media (max-width: 700px) {
   .cri-header {
@@ -301,9 +379,9 @@
   }
 }
 
-/* ==============================
+/* =========================================
    CELULARES MUY ESTRECHOS
-============================== */
+========================================= */
 
 @media (max-width: 400px) {
   .cri-header {
@@ -324,5 +402,4 @@
     height: 45px;
     font-size: 19px;
   }
-
 }

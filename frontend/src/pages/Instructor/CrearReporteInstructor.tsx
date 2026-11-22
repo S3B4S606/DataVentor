@@ -212,7 +212,9 @@ export default function CrearReporteInstructor() {
     <div className="crear-reporte-instructor">
       <header className="cri-header">
         <div>
-          <h1>DataVentor</h1>
+          <h1>
+          Data<span>Ventor</span>
+          </h1>
           <p>Gestión de equipos en ambientes SENA</p>
         </div>
 

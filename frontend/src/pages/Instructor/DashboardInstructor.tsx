@@ -27,7 +27,9 @@ export default function DashboardInstructor() {
       {/* ENCABEZADO */}
       <header className="instructor-header">
         <div className="instructor-brand">
-          <h1>DataVentor</h1>
+          <h1>
+         Data<span>Ventor</span>
+          </h1>
           <p>Gestión de equipos en ambientes SENA</p>
         </div>
 

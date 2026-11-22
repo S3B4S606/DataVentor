@@ -306,10 +306,13 @@ if (codigoEquipo) {
   return (
     <div className="reporte-page">
       <header className="topbar">
-        <div className="topbar-brand">
-          <h1>DataVentor</h1>
-          <p>Gestión de equipos en ambientes SENA</p>
-        </div>
+        
+    <div className="topbar-brand">
+      <h1>
+     Data<span>Ventor</span>
+     </h1>
+     <p>Gestión de equipos en ambientes SENA</p>
+    </div>
 
         <nav
           className="topbar-actions"

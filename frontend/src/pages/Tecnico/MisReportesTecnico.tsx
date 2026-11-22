@@ -164,7 +164,9 @@ function MisReportesTecnico() {
     <div className="mis-reportes-page">
       <header className="reportes-header">
         <div className="marca-data-ventor">
-          <h1>DataVentor</h1>
+          <h1>
+         Data<span>Ventor</span>
+        </h1>
           <p>Gestión de equipos en ambientes SENA</p>
         </div>
 

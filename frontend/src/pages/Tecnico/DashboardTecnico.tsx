@@ -90,7 +90,7 @@ function DashboardTecnico() {
       <header className="topbar">
         <div className="header-brand">
           <h1>
-            DataVentor
+          Data<span style={{ color: "#78C914" }}>Ventor</span>
           </h1>
           <p>Gestión de equipos en ambientes SENA</p>
         </div>

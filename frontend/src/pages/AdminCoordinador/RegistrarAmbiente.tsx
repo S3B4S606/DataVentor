@@ -123,7 +123,9 @@ function RegistrarAmbiente() {
     <div className="registrar-ambiente">
       <header className="registrar-header">
         <div className="registrar-logo">
-          <strong>DataVentor</strong>
+          <strong>
+          Data<span>Ventor</span>
+          </strong>
           <small>
             Gestión de equipos en ambientes SENA
           </small>

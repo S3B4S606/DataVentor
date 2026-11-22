@@ -975,3 +975,329 @@
     text-align: left;
   }
 }
+
+
+/* ==========================================
+   DATAVENTOR - NUEVO DISEÑO AMBIENTES
+   ========================================== */
+
+.dashboard-ambientes {
+  --blue: #128a58;
+  --blue-light: #e9fff5;
+  --purple: #78c914;
+  --purple-light: #eef9e4;
+  --green: #148a58;
+  --background: #eafff3;
+  --text: #00573f;
+  --border: #d0e9dc;
+  --shadow: 0 8px 24px rgba(0, 87, 63, 0.08);
+
+  background: linear-gradient(120deg, #f0fff7, #dcf8ea);
+  color: #00573f;
+}
+
+/* ENCABEZADO */
+.dashboard-ambientes .ambientes-header {
+  min-height: 88px;
+  height: auto;
+  background: #00573f;
+  border-bottom: 3px solid #78c914;
+}
+
+.dashboard-ambientes .ambientes-logo {
+  width: 300px;
+}
+
+/* LOGO: DATA BLANCO - VENTOR VERDE */
+.dashboard-ambientes .logo-text strong {
+  color: #ffffff;
+  font-size: 25px;
+  line-height: 28px;
+}
+
+.dashboard-ambientes .logo-text strong span {
+  color: #78c914;
+}
+
+.dashboard-ambientes .logo-text small {
+  color: #e1f4e9;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+/* NAVEGACIÓN */
+.dashboard-ambientes .nav-link {
+  color: #e4f5eb;
+  font-size: 14px;
+}
+
+.dashboard-ambientes .nav-link.active {
+  color: #ffffff;
+  border-bottom-color: #78c914;
+}
+
+.dashboard-ambientes .nav-link:hover {
+  background: rgba(120, 201, 20, 0.12);
+}
+
+/* COORDINADOR */
+.dashboard-ambientes .coordinator-icon {
+  background: #148a58;
+}
+
+.dashboard-ambientes .coordinator strong {
+  font-size: 13px;
+}
+
+.dashboard-ambientes .coordinator small {
+  color: #d2f1df;
+  font-size: 10px;
+}
+
+.dashboard-ambientes .logout {
+  color: #ffffff;
+  font-size: 12px;
+}
+
+/* CONTENIDO PRINCIPAL */
+.dashboard-ambientes .ambientes-content {
+  width: min(1500px, calc(100% - 70px));
+  padding: 28px 0 45px;
+}
+
+/* TARJETAS SUPERIORES */
+.dashboard-ambientes .ambientes-filters {
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.dashboard-ambientes .filter-card {
+  min-height: 95px;
+  padding: 20px;
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+.dashboard-ambientes .filter-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  font-size: 20px;
+}
+
+.dashboard-ambientes .filter-icon.blue {
+  background: #e9fff5;
+  color: #128a58;
+}
+
+.dashboard-ambientes .filter-icon.purple {
+  background: #eff9e7;
+  color: #5b9b19;
+}
+
+.dashboard-ambientes .filter-info span {
+  color: #648176;
+  font-size: 12px;
+}
+
+.dashboard-ambientes .filter-info strong {
+  color: #00573f;
+  font-size: 16px;
+}
+
+/* CONTENEDOR DE AMBIENTES */
+.dashboard-ambientes .ambientes-list-card {
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.dashboard-ambientes .list-header {
+  min-height: 110px;
+  padding: 22px 28px;
+}
+
+.dashboard-ambientes .list-icon {
+  width: 52px;
+  height: 52px;
+  background: #e9fff5;
+  color: #128a58;
+  font-size: 20px;
+}
+
+.dashboard-ambientes .list-title h1 {
+  color: #00573f;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+.dashboard-ambientes .list-title p {
+  color: #648176;
+  font-size: 13px;
+}
+
+/* BUSCADOR */
+.dashboard-ambientes .search-box {
+  width: 260px;
+  height: 45px;
+  border-color: #d0e9dc;
+  border-radius: 10px;
+}
+
+.dashboard-ambientes .search-box input {
+  color: #00573f;
+  font-size: 13px;
+}
+
+.dashboard-ambientes .search-box svg {
+  font-size: 14px;
+}
+
+/* AGREGAR AMBIENTE */
+.dashboard-ambientes .add-button {
+  height: 45px;
+  padding: 0 20px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #78c914, #148a58);
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.dashboard-ambientes .add-button:hover {
+  background: #00573f;
+}
+
+/* TABLA */
+.dashboard-ambientes .ambientes-table {
+  table-layout: auto;
+}
+
+.dashboard-ambientes .ambientes-table thead {
+  background: #eaf8ef;
+}
+
+.dashboard-ambientes .ambientes-table th {
+  height: 52px;
+  color: #00573f;
+  font-size: 12px;
+}
+
+.dashboard-ambientes .ambientes-table td {
+  height: 65px;
+  color: #39594c;
+  font-size: 12px;
+}
+
+.dashboard-ambientes .ambientes-table tbody tr:hover {
+  background: #f2fff7;
+}
+
+.dashboard-ambientes .ambiente-name {
+  color: #00573f;
+  font-size: 13px;
+}
+
+.dashboard-ambientes .ambiente-description,
+.dashboard-ambientes .number-value,
+.dashboard-ambientes .number-cell {
+  font-size: 12px;
+}
+
+/* ESTADOS */
+.dashboard-ambientes .general-status {
+  font-size: 11px;
+  padding: 9px 13px;
+}
+
+.dashboard-ambientes .general-status.operativo {
+  background: #e9fff5;
+  color: #128a58;
+}
+
+.dashboard-ambientes .general-status.novedades {
+  background: #ffe8e9;
+  color: #d62b37;
+}
+
+/* VER DETALLES */
+.dashboard-ambientes .details-button {
+  background: #e9fff5;
+  color: #128a58;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+.dashboard-ambientes .details-button:hover {
+  background: #c8f3dc;
+}
+
+/* PAGINACIÓN */
+.dashboard-ambientes .table-footer {
+  padding: 15px 25px;
+  font-size: 12px;
+}
+
+.dashboard-ambientes .pagination button {
+  width: 36px;
+  height: 36px;
+  font-size: 12px;
+}
+
+.dashboard-ambientes .pagination button.active-page {
+  background: #128a58;
+  border-color: #128a58;
+}
+
+/* FOOTER */
+.dashboard-ambientes .ambientes-footer {
+  min-height: 60px;
+  background: #00573f;
+  border-top: 3px solid #78c914;
+}
+
+.dashboard-ambientes .footer-left strong span {
+  color: #78c914;
+}
+
+.dashboard-ambientes .footer-left span,
+.dashboard-ambientes .footer-right span {
+  color: #d7f4e3;
+  font-size: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .dashboard-ambientes .ambientes-content {
+    width: calc(100% - 35px);
+  }
+
+  .dashboard-ambientes .ambientes-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-ambientes .ambientes-table {
+    min-width: 950px;
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-ambientes .ambientes-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-ambientes .ambientes-logo {
+    width: 100%;
+  }
+
+  .dashboard-ambientes .list-header {
+    padding: 20px;
+  }
+
+  .dashboard-ambientes .list-actions {
+    width: 100%;
+  }
+
+  .dashboard-ambientes .search-box {
+    width: 100%;
+  }
+}
