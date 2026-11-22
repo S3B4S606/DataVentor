@@ -117,7 +117,9 @@ const codigoEquipo =
     <div className="dashboard-aprendiz">
       <header className="header-aprendiz">
         <div className="logo-container">
-          <h1>DataVentor</h1>
+          <h1>
+          Data<span className="logo-verde">Ventor</span>
+          </h1>
           <span>Gestión de equipos en ambientes SENA</span>
         </div>
 
@@ -151,11 +153,12 @@ const codigoEquipo =
 
       <main className="contenido-aprendiz">
         <section className="presentacion">
-          <h2>
-            ¡Hola,
-            <br />
-            aprendiz <span>👋</span>!
-          </h2>
+        <h2>
+        ¡Hola,
+        <br />
+        <span className="texto-aprendiz">aprendiz</span>{" "}
+        <span className="emoji-saludo">👋</span>!
+       </h2>
 
           <p>
             Gestiona y reporta el estado de los equipos en tu ambiente de

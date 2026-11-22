@@ -1115,3 +1115,279 @@
     text-align: left;
   }
 }
+
+
+/* ==========================================
+   DATAVENTOR - ADMIN / COORDINADOR
+   PALETA VERDE ESMERALDA Y VERDE LIMA
+   ========================================== */
+
+/* COLORES PRINCIPALES */
+.dashboard-admin {
+  --purple: #548C28;
+  --purple-light: #EFF9E6;
+
+  --blue: #168B56;
+  --blue-light: #E9FFF5;
+
+  --green: #21A666;
+  --green-light: #E3F9EF;
+
+  --background: #E9FFF5;
+  --white: #FFFFFF;
+
+  --text: #164C3B;
+  --muted: #61796F;
+
+  --border: #D4EADD;
+  --shadow: 0 3px 12px rgba(0, 87, 63, 0.08);
+
+  background:
+    radial-gradient(
+      circle at 8% 30%,
+      rgba(120, 201, 20, 0.08) 0 130px,
+      transparent 131px
+    ),
+    radial-gradient(
+      circle at 94% 76%,
+      rgba(120, 201, 20, 0.08) 0 160px,
+      transparent 161px
+    ),
+    linear-gradient(135deg, #F3FFF9, #E2F8EC);
+}
+
+/* ENCABEZADO */
+.dashboard-admin .admin-header {
+  background: #00573F;
+  color: #FFFFFF;
+  border-bottom: 3px solid #78C914;
+}
+
+/* LOGOTIPO */
+.dashboard-admin .logo-text strong {
+  color: #FFFFFF;
+}
+
+.dashboard-admin .logo-text strong span {
+  color: #78C914;
+}
+
+.dashboard-admin .logo-text small {
+  color: #D0F4DF;
+}
+
+/* NAVEGACIÓN */
+.dashboard-admin .nav-link {
+  color: #D0F4DF;
+}
+
+.dashboard-admin .nav-link:hover {
+  color: #FFFFFF;
+  background: rgba(120, 201, 20, 0.12);
+}
+
+.dashboard-admin .nav-link.active {
+  color: #FFFFFF;
+  border-bottom-color: #78C914;
+}
+
+/* COORDINADOR */
+.dashboard-admin .coordinator-icon {
+  background: #78C914;
+  color: #FFFFFF;
+}
+
+.dashboard-admin .coordinator small {
+  color: #D0F4DF;
+}
+
+.dashboard-admin .logout {
+  color: #E9FFF5;
+}
+
+/* TARJETAS DE FILTROS */
+.dashboard-admin .filter-card {
+  background: #FFFFFF;
+  border-color: #D4EADD;
+  box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+}
+
+/* ICONOS DE FILTROS */
+.dashboard-admin .filter-icon.blue {
+  background: #E9FFF5;
+  color: #00573F;
+}
+
+.dashboard-admin .filter-icon.purple {
+  background: #EFF9E6;
+  color: #548C28;
+}
+
+/* INFORMACIÓN DE FILTROS */
+.dashboard-admin .filter-info > span {
+  color: #61796F;
+}
+
+.dashboard-admin .filter-info > strong,
+.dashboard-admin .select-info select {
+  color: #164C3B;
+}
+
+.dashboard-admin .select-arrow {
+  color: #168B56;
+}
+
+/* TARJETA DE AMBIENTES */
+.dashboard-admin .environment-card {
+  background: #FFFFFF;
+  border-color: #D4EADD;
+  box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+}
+
+.dashboard-admin .environment-icon {
+  background: #E9FFF5;
+  color: #168B56;
+}
+
+.dashboard-admin .environment-title h2 {
+  color: #00573F;
+}
+
+.dashboard-admin .environment-title p {
+  color: #61796F;
+}
+
+.dashboard-admin .environment-number strong {
+  color: #168B56;
+}
+
+/* TARJETA DE ESTADOS */
+.dashboard-admin .equipment-status-card {
+  background: #FFFFFF;
+  border-color: #D4EADD;
+  box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+}
+
+/* TOTAL DE EQUIPOS */
+.dashboard-admin .status-row.total {
+  background: #E9FFF5;
+  color: #00573F;
+}
+
+/* EQUIPOS EN BUEN ESTADO */
+.dashboard-admin .status-row.good {
+  background: #E1F8EE;
+  color: #08794C;
+}
+
+/* CONSERVAR ALERTAS ROJAS Y AMARILLAS */
+.dashboard-admin .status-row.damaged {
+  background: #FFE6E7;
+  color: #E42D35;
+}
+
+.dashboard-admin .status-row.off {
+  background: #FFF2C9;
+  color: #B87800;
+}
+
+/* TARJETA DE REPORTES */
+.dashboard-admin .reports-card {
+  background: #FFFFFF;
+  border-color: #D4EADD;
+  box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+}
+
+.dashboard-admin .reports-header {
+  border-bottom-color: #D4EADD;
+}
+
+.dashboard-admin .reports-icon {
+  background: #E9FFF5;
+  color: #168B56;
+}
+
+.dashboard-admin .reports-title h2 {
+  color: #00573F;
+}
+
+.dashboard-admin .reports-title p {
+  color: #61796F;
+}
+
+/* BOTÓN VER TODOS */
+.dashboard-admin .view-all {
+  border-color: #B7DFC7;
+  background: #FFFFFF;
+  color: #168B56;
+}
+
+.dashboard-admin .view-all:hover {
+  background: #E9FFF5;
+}
+
+/* TABLA DE REPORTES */
+.dashboard-admin .reports-table thead {
+  background: #F0FAF4;
+}
+
+.dashboard-admin .reports-table th {
+  color: #00573F;
+}
+
+.dashboard-admin .reports-table td {
+  border-bottom-color: #D4EADD;
+  color: #354B42;
+}
+
+.dashboard-admin .reports-table tbody tr:hover {
+  background: #F3FFF9;
+}
+
+.dashboard-admin .equipment-code {
+  color: #00573F;
+}
+
+/* ESTADOS DE REPORTES */
+.dashboard-admin .report-status.pendiente {
+  background: #FFF2C9;
+  color: #A56D00;
+}
+
+.dashboard-admin .report-status.revision {
+  background: #E9FFF5;
+  color: #168B56;
+}
+
+.dashboard-admin .report-status.bueno {
+  background: #DFF8EB;
+  color: #08794C;
+}
+
+/* FRASE SENA */
+.dashboard-admin .sena-phrase {
+  color: #168B56;
+}
+
+/* PIE DE PÁGINA */
+.dashboard-admin .admin-footer {
+  background: #00573F;
+  color: #FFFFFF;
+  border-top: 2px solid #78C914;
+}
+
+.dashboard-admin .admin-footer .footer-left strong span {
+  color: #78C914;
+}
+
+.dashboard-admin .admin-footer .footer-left span,
+.dashboard-admin .admin-footer .footer-right span {
+  color: #D0F4DF;
+}
+
+/* ACCESIBILIDAD */
+.dashboard-admin button:focus-visible,
+.dashboard-admin select:focus-visible {
+  outline: 3px solid #78C914;
+  outline-offset: 2px;
+}

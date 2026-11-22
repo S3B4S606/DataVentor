@@ -320,3 +320,37 @@
     height: 43px;
   }
 }
+
+
+/* ==========================================
+   OLVIDÉ MI CONTRASEÑA - INSTRUCTOR
+   ========================================== */
+
+.login-instructor .forgot-password-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: -4px 0 14px;
+}
+
+.login-instructor .forgot-password {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #168B56;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.login-instructor .forgot-password:hover {
+  color: #00573F;
+  text-decoration: underline;
+}
+
+.login-instructor .forgot-password:focus-visible {
+  outline: 2px solid #78C914;
+  outline-offset: 4px;
+}

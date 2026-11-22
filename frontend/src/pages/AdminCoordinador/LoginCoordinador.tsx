@@ -113,7 +113,7 @@ function LoginCoordinador() {
     <div className="login-coordinador">
       <header className="login-header">
         <div className="login-logo">
-          <strong>DataVentor</strong>
+          <strong>Data<span>Ventor</span></strong>
           <small>Gestión de equipos en ambientes SENA</small>
         </div>
 
@@ -165,7 +165,7 @@ function LoginCoordinador() {
                   </option>
 
                   <option value="TI">
-                     Tarjeta de identidad
+                    Tarjeta de identidad
                   </option>
 
                   <option value="CE">
@@ -247,6 +247,17 @@ function LoginCoordinador() {
                   {mostrarContrasena ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
+            </div>
+
+            {/* OLVIDÉ MI CONTRASEÑA */}
+            <div className="forgot-password-container">
+              <button
+                type="button"
+                className="forgot-password"
+                onClick={() => navigate("/recuperar-contrasena")}
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
             </div>
 
             {error && (

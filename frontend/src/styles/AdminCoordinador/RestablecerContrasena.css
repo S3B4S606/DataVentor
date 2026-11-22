@@ -1,0 +1,190 @@
+
+.restablecer-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #effff5, #d9f8e7);
+  color: #00573f;
+}
+
+.restablecer-header {
+  background: #00573f;
+  color: white;
+  padding: 20px 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid #78c914;
+}
+
+.restablecer-logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.restablecer-logo strong {
+  font-size: 26px;
+}
+
+.restablecer-logo span {
+  color: #78c914;
+}
+
+.restablecer-logo small {
+  font-size: 11px;
+}
+
+.restablecer-volver {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.restablecer-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 45px 20px;
+}
+
+.restablecer-card {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  padding: 40px;
+  border-radius: 22px;
+  box-shadow: 0 15px 40px rgba(0, 87, 63, 0.10);
+  text-align: center;
+}
+
+.restablecer-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 22px;
+  border-radius: 20px;
+  background: #e9fff5;
+  color: #128a58;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+.restablecer-card h1 {
+  font-size: 28px;
+  color: #00573f;
+  margin-bottom: 14px;
+}
+
+.restablecer-subtitle {
+  color: #647a72;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.restablecer-grupo {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.restablecer-grupo label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.restablecer-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #cfe7da;
+  border-radius: 10px;
+  padding: 0 14px;
+  color: #148d58;
+}
+
+.restablecer-input:focus-within {
+  border-color: #78c914;
+}
+
+.restablecer-input input {
+  width: 100%;
+  padding: 15px 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+}
+
+.restablecer-error {
+  background: #ffe8e8;
+  color: #c62828;
+  padding: 13px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.restablecer-boton {
+  width: 100%;
+  background: linear-gradient(90deg, #78c914, #14a10d);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 16px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.restablecer-boton:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.restablecer-regresar {
+  border: none;
+  background: transparent;
+  color: #008f5d;
+  cursor: pointer;
+  margin-top: 24px;
+}
+
+.restablecer-footer {
+  background: #00573f;
+  border-top: 3px solid #78c914;
+  color: white;
+  padding: 20px 4%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 11px;
+}
+
+.restablecer-footer div {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .restablecer-card {
+    padding: 28px 22px;
+  }
+
+  .restablecer-card h1 {
+    font-size: 24px;
+  }
+
+  .restablecer-footer {
+    flex-direction: column;
+  }
+}

@@ -468,3 +468,227 @@
     white-space: nowrap;
   }
 }
+
+
+/* ==========================================
+   DATAVENTOR - DASHBOARD TÉCNICO
+   PALETA VERDE ESMERALDA Y VERDE LIMA
+   ========================================== */
+
+/* FONDO PRINCIPAL */
+.dashboard-tecnico {
+  color: #164C3B;
+  background:
+    radial-gradient(
+      circle at 8% 30%,
+      rgba(120, 201, 20, 0.10) 0 135px,
+      transparent 136px
+    ),
+    radial-gradient(
+      circle at 94% 76%,
+      rgba(120, 201, 20, 0.08) 0 170px,
+      transparent 171px
+    ),
+    linear-gradient(
+      135deg,
+      #F3FFF9 0%,
+      #E2F8EC 100%
+    );
+}
+
+/* ENCABEZADO */
+.dashboard-tecnico .topbar {
+  background: #00573F;
+  border-bottom: 3px solid #78C914;
+}
+
+/* LOGOTIPO */
+.dashboard-tecnico .header-brand h1 {
+  color: #FFFFFF;
+}
+
+.dashboard-tecnico .header-brand p {
+  color: #D0F4DF;
+}
+
+/* BOTÓN INICIO */
+.dashboard-tecnico .topbar-nav .nav-inicio {
+  background: #78C914;
+  color: #FFFFFF;
+}
+
+.dashboard-tecnico .topbar-nav .nav-inicio:hover {
+  background: #63B80D;
+}
+
+/* BOTÓN APRENDIZ */
+.dashboard-tecnico .topbar-nav .nav-aprendiz {
+  background: #E9FFF5;
+  color: #00573F;
+}
+
+.dashboard-tecnico .topbar-nav .nav-aprendiz:hover {
+  background: #D5F5E2;
+}
+
+/* ICONO DE USUARIO */
+.dashboard-tecnico .nav-user-symbol {
+  background: #168B56;
+  color: #FFFFFF;
+}
+
+/* CERRAR SESIÓN */
+.dashboard-tecnico .topbar-nav .nav-logout {
+  color: #FFFFFF;
+}
+
+.dashboard-tecnico .topbar-nav .nav-logout:hover {
+  color: #D0F4DF;
+}
+
+/* BIENVENIDA */
+.dashboard-tecnico .welcome h1 {
+  color: #00573F;
+}
+
+.dashboard-tecnico .welcome p {
+  color: #46695A;
+}
+
+/* TARJETAS DE ESTADÍSTICAS */
+.dashboard-tecnico .stat-card {
+  background: #FFFFFF;
+  border-color: #D4EADD;
+  box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+}
+
+.dashboard-tecnico .stat-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 87, 63, 0.13);
+}
+
+/* ICONO DE REPORTES PENDIENTES */
+.dashboard-tecnico .stat-icon.purple {
+  background: #EFF9E6;
+  color: #548C28;
+}
+
+/* ICONO DE REPORTES EN PROCESO */
+.dashboard-tecnico .stat-icon.blue {
+  background: #E9FFF5;
+  color: #168B56;
+}
+
+/* ICONO DE REPORTES RESUELTOS */
+.dashboard-tecnico .stat-icon.green {
+  background: #E1F8EE;
+  color: #08794C;
+}
+
+/* TEXTOS DE ESTADÍSTICAS */
+.dashboard-tecnico .stat-card p {
+  color: #61796F;
+}
+
+.dashboard-tecnico .stat-card h2 {
+  color: #00573F;
+}
+
+/* TARJETA DE REPORTES */
+.dashboard-tecnico .reports-card {
+  background: #FFFFFF;
+  border-color: #D4EADD;
+  box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+}
+
+/* TÍTULOS DE REPORTES */
+.dashboard-tecnico .reports-header h2 {
+  color: #00573F;
+}
+
+.dashboard-tecnico .reports-header p {
+  color: #61796F;
+}
+
+/* BOTÓN VER TODOS LOS REPORTES */
+.dashboard-tecnico .all-reports-btn {
+  background: linear-gradient(
+    90deg,
+    #78C914,
+    #168B56
+  );
+  color: #FFFFFF;
+}
+
+.dashboard-tecnico .all-reports-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 87, 63, 0.20);
+}
+
+/* CONTENEDOR DE TABLA */
+.dashboard-tecnico .table-container {
+  border-color: #D4EADD;
+}
+
+/* ENCABEZADO DE TABLA */
+.dashboard-tecnico thead {
+  background: #F0FAF4;
+}
+
+.dashboard-tecnico th {
+  color: #00573F;
+  border-bottom-color: #D4EADD;
+}
+
+/* CELDAS */
+.dashboard-tecnico td {
+  color: #354B42;
+  border-bottom-color: #E3F0E8;
+}
+
+/* EFECTO AL PASAR SOBRE UNA FILA */
+.dashboard-tecnico tbody tr:hover {
+  background: #F3FFF9;
+}
+
+/* TEXTO DE TABLA VACÍA */
+.dashboard-tecnico .table-message {
+  color: #61796F;
+}
+
+/* ESTADO PENDIENTE - CONSERVAR AMARILLO */
+.dashboard-tecnico .status.pending {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+/* BOTÓN VER */
+.dashboard-tecnico .view-btn {
+  background: #E9FFF5;
+  color: #00573F;
+}
+
+.dashboard-tecnico .view-btn:hover {
+  background: #D5F5E2;
+}
+
+/* BOTÓN ATENDER */
+.dashboard-tecnico .action-btn {
+  background: #168B56;
+  color: #FFFFFF;
+}
+
+.dashboard-tecnico .action-btn:hover {
+  background: #00573F;
+}
+
+/* PIE DE PÁGINA */
+.dashboard-tecnico .footer {
+  background: #00573F;
+  color: #FFFFFF;
+  border-top: 3px solid #78C914;
+}
+
+/* ACCESIBILIDAD */
+.dashboard-tecnico button:focus-visible {
+  outline: 3px solid #78C914;
+  outline-offset: 3px;
+}

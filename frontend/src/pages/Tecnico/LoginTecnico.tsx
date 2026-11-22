@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-import "../../styles/Instructor/LoginInstructor.css";
+import "../../styles/Tecnico/LoginTecnico.css";
 
 function LoginTecnico() {
   const navigate = useNavigate();
@@ -107,7 +107,9 @@ function LoginTecnico() {
     <div className="login-instructor">
       <header className="login-instructor-header">
         <div className="login-instructor-logo">
-          <strong>DataVentor</strong>
+          <strong>
+            Data<span>Ventor</span>
+          </strong>
           <small>Gestión de equipos en ambientes SENA</small>
         </div>
 
@@ -241,6 +243,17 @@ function LoginTecnico() {
                   {mostrarContrasena ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
+            </div>
+
+            {/* OLVIDÉ MI CONTRASEÑA */}
+            <div className="forgot-password-container">
+              <button
+                type="button"
+                className="forgot-password"
+                onClick={() => navigate("/recuperar-contrasena")}
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
             </div>
 
             {error && (

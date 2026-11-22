@@ -217,6 +217,17 @@ function LoginInstructor() {
               </div>
             </div>
 
+            {/* OLVIDÉ MI CONTRASEÑA */}
+            <div className="forgot-password-container">
+              <button
+                type="button"
+                className="forgot-password"
+                onClick={() => navigate("/recuperar-contrasena")}
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+
             {error && (
               <div className="login-instructor-error" role="alert">
                 {error}

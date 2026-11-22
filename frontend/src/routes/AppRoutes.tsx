@@ -8,6 +8,8 @@ import DashboardAdmin from "../pages/AdminCoordinador/DashboardAdmin";
 import DashboardAmbientes from "../pages/AdminCoordinador/DashboardAmbientes";
 import LoginCoordinador from "../pages/AdminCoordinador/LoginCoordinador";
 import RegistrarAmbiente from "../pages/AdminCoordinador/RegistrarAmbiente";
+import RecuperarContrasena from "../pages/AdminCoordinador/RecuperarContrasena";
+import RestablecerContrasena from "../pages/AdminCoordinador/RestablecerContrasena";
 
 // APRENDIZ
 import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
@@ -44,6 +46,14 @@ export default function AppRoutes() {
       <Route
         path="/login-coordinador"
         element={<LoginCoordinador />}
+      />
+      <Route
+        path="/recuperar-contrasena"
+       element={<RecuperarContrasena />}
+      />
+      <Route
+       path="/restablecer-contrasena"
+       element={<RestablecerContrasena />}
       />
       <Route
         path="/dashboard-admin"
@@ -95,3 +105,4 @@ export default function AppRoutes() {
     </Routes>
   );
 }
+
