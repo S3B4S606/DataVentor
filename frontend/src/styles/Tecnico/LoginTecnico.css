@@ -592,3 +592,466 @@
   outline: 2px solid #78C914;
   outline-offset: 4px;
 }
+
+/* ==========================================
+   DATAVENTOR - LOGIN TÉCNICO
+   AJUSTES RESPONSIVE ADICIONALES
+   CONSERVA EL DISEÑO ORIGINAL
+========================================== */
+
+/* CONFIGURACIÓN GENERAL */
+
+.login-instructor {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.login-instructor,
+.login-instructor *,
+.login-instructor *::before,
+.login-instructor *::after {
+  box-sizing: border-box;
+}
+
+/* EVITAR DESBORDAMIENTOS */
+
+.login-instructor .login-instructor-header,
+.login-instructor .login-instructor-content,
+.login-instructor .login-instructor-card,
+.login-instructor .login-instructor-footer {
+  min-width: 0;
+}
+
+.login-instructor .login-instructor-content {
+  width: 100%;
+}
+
+/* TARJETA DEL FORMULARIO */
+
+.login-instructor .login-instructor-card {
+  width: 450px;
+  max-width: 100%;
+}
+
+/* CAMPOS */
+
+.login-instructor .login-instructor-input {
+  max-width: 100%;
+}
+
+.login-instructor .login-instructor-input input,
+.login-instructor .login-instructor-input select {
+  min-width: 0;
+}
+
+/* BOTONES */
+
+.login-instructor .login-instructor-back,
+.login-instructor .login-instructor-button {
+  min-height: 44px;
+}
+
+/* ==========================================
+   TABLETAS
+========================================== */
+
+@media (max-width: 1024px) {
+
+  .login-instructor .login-instructor-header {
+    padding: 15px 4%;
+  }
+
+  .login-instructor .login-instructor-content {
+    padding: 32px 22px;
+  }
+
+  .login-instructor .login-instructor-card {
+    width: 450px;
+    max-width: 100%;
+    padding: 30px 38px 26px;
+  }
+
+  .login-instructor .login-instructor-footer {
+    padding: 15px 35px;
+  }
+
+  .login-instructor .login-instructor-footer > div {
+    min-width: 0;
+  }
+
+  .login-instructor .login-instructor-footer small {
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ==========================================
+   TABLETAS PEQUEÑAS
+========================================== */
+
+@media (max-width: 768px) {
+
+  .login-instructor .login-instructor-header {
+    min-height: 80px;
+    height: auto;
+    padding: 15px 22px;
+    gap: 15px;
+  }
+
+  .login-instructor .login-instructor-logo strong {
+    font-size: 22px;
+  }
+
+  .login-instructor .login-instructor-content {
+    padding: 28px 20px;
+  }
+
+  .login-instructor .login-instructor-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 29px 32px 25px;
+  }
+
+  .login-instructor .login-instructor-footer {
+    padding: 16px 25px;
+    gap: 12px;
+  }
+
+  .login-instructor .login-instructor-footer > div {
+    flex-wrap: wrap;
+  }
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  /* ENCABEZADO */
+
+  .login-instructor .login-instructor-header {
+    min-height: auto;
+    height: auto;
+
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    text-align: center;
+  }
+
+  .login-instructor .login-instructor-logo {
+    width: 100%;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .login-instructor .login-instructor-logo strong {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .login-instructor .login-instructor-logo small {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  /* BOTÓN VOLVER */
+
+  .login-instructor .login-instructor-back {
+    width: 100%;
+    max-width: 250px;
+    min-height: 44px;
+
+    padding: 11px 15px;
+    justify-content: center;
+
+    font-size: 13px;
+  }
+
+  /* CONTENIDO PRINCIPAL */
+
+  .login-instructor .login-instructor-content {
+    width: 100%;
+    flex: 1;
+
+    padding: 25px 15px 35px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    overflow: visible;
+  }
+
+  /* TARJETA */
+
+  .login-instructor .login-instructor-card {
+    width: 100%;
+    max-width: 450px;
+
+    padding: 26px 22px 25px;
+    border-radius: 16px;
+  }
+
+  /* ICONO DEL TÉCNICO */
+
+  .login-instructor .login-instructor-icon {
+    width: 55px;
+    height: 55px;
+
+    margin-bottom: 15px;
+    border-radius: 14px;
+
+    font-size: 23px;
+  }
+
+  /* TÍTULO */
+
+  .login-instructor .login-instructor-card h1 {
+    font-size: 25px;
+    line-height: 1.3;
+  }
+
+  /* DESCRIPCIÓN */
+
+  .login-instructor .login-instructor-subtitle {
+    max-width: 100%;
+    margin: 9px auto 22px;
+
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* FORMULARIO */
+
+  .login-instructor .login-instructor-card form {
+    width: 100%;
+  }
+
+  .login-instructor .login-instructor-group {
+    margin-bottom: 17px;
+  }
+
+  .login-instructor .login-instructor-group label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  /* CAMPOS */
+
+  .login-instructor .login-instructor-input {
+    width: 100%;
+    min-height: 49px;
+    height: 49px;
+
+    padding: 0 12px;
+    gap: 10px;
+
+    border-radius: 9px;
+  }
+
+  .login-instructor .login-instructor-input input,
+  .login-instructor .login-instructor-input select {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+
+    font-size: 16px;
+  }
+
+  .login-instructor .login-instructor-input input::placeholder {
+    font-size: 12px;
+  }
+
+  .login-instructor .login-instructor-input svg {
+    flex-shrink: 0;
+    font-size: 15px;
+  }
+
+  /* MOSTRAR U OCULTAR CONTRASEÑA */
+
+  .login-instructor .login-instructor-input button {
+    min-width: 35px;
+    min-height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* OLVIDÉ MI CONTRASEÑA */
+
+  .login-instructor .forgot-password-container {
+    width: 100%;
+    margin: 0 0 17px;
+    justify-content: flex-end;
+  }
+
+  .login-instructor .forgot-password {
+    min-height: 35px;
+    font-size: 12px;
+  }
+
+  /* MENSAJES DE ERROR */
+
+  .login-instructor .login-instructor-error {
+    padding: 12px;
+    margin-bottom: 15px;
+
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  /* BOTÓN INGRESAR */
+
+  .login-instructor .login-instructor-button {
+    width: 100%;
+    min-height: 49px;
+    height: auto;
+
+    padding: 13px 16px;
+
+    font-size: 14px;
+    border-radius: 9px;
+  }
+
+  /* CAMBIAR ROL */
+
+  .login-instructor .login-instructor-change-role {
+    min-height: 40px;
+    margin-top: 14px;
+
+    font-size: 12px;
+  }
+
+  /* PIE DE PÁGINA */
+
+  .login-instructor .login-instructor-footer {
+    width: 100%;
+
+    padding: 18px 16px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+
+    text-align: center;
+  }
+
+  .login-instructor .login-instructor-footer > div {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .login-instructor .login-instructor-footer strong {
+    font-size: 12px;
+  }
+
+  .login-instructor .login-instructor-footer small {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .login-instructor .login-instructor-footer-sena {
+    text-align: center;
+  }
+
+  /* ELEMENTOS DECORATIVOS */
+
+  .login-instructor::before {
+    width: 85%;
+    height: 150px;
+    left: -15%;
+  }
+
+  .login-instructor::after {
+    width: 65%;
+    height: 110px;
+    right: -10%;
+  }
+}
+
+/* ==========================================
+   CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .login-instructor .login-instructor-header {
+    padding: 14px 10px;
+  }
+
+  .login-instructor .login-instructor-logo strong {
+    font-size: 22px;
+  }
+
+  .login-instructor .login-instructor-content {
+    padding: 20px 10px 30px;
+  }
+
+  .login-instructor .login-instructor-card {
+    padding: 23px 15px 22px;
+    border-radius: 14px;
+  }
+
+  .login-instructor .login-instructor-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 21px;
+  }
+
+  .login-instructor .login-instructor-card h1 {
+    font-size: 23px;
+  }
+
+  .login-instructor .login-instructor-subtitle {
+    font-size: 12px;
+  }
+
+  .login-instructor .login-instructor-group label {
+    font-size: 12px;
+  }
+
+  .login-instructor .forgot-password {
+    font-size: 11px;
+  }
+
+  .login-instructor .login-instructor-footer {
+    padding: 16px 10px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.login-instructor button:focus-visible,
+.login-instructor input:focus-visible,
+.login-instructor select:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .login-instructor *,
+  .login-instructor *::before,
+  .login-instructor *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

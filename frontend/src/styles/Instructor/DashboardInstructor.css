@@ -1,121 +1,195 @@
 
-/* =========================================
+/* ==========================================
    DATAVENTOR - DASHBOARD INSTRUCTOR
-   DISEÑO VERDE INSTITUCIONAL
-========================================= */
+   DISEÑO VERDE INSTITUCIONAL RESPONSIVE
+========================================== */
+
+.dashboard-instructor,
+.dashboard-instructor * {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   FONDO PRINCIPAL
+========================================== */
 
 .dashboard-instructor {
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+
   display: flex;
   flex-direction: column;
+
+  overflow-x: hidden;
+
   background: linear-gradient(
     120deg,
     #f0fff7 0%,
     #e9fff5 50%,
     #d9f7e8 100%
   );
+
   color: #00573f;
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.dashboard-instructor * {
-  box-sizing: border-box;
-}
-
-/* =========================================
+/* ==========================================
    ENCABEZADO
-========================================= */
+========================================== */
 
-.instructor-header {
+.dashboard-instructor .instructor-header {
+  width: 100%;
   min-height: 92px;
-  padding: 15px 3.2%;
+  padding: 15px 4%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
 
-  background: #00573f;
+  background: linear-gradient(
+    110deg,
+    #00573f,
+    #004c37
+  );
+
   color: #ffffff;
   border-bottom: 3px solid #78c914;
-  box-shadow: 0 3px 12px rgba(0, 87, 63, 0.12);
+
+  box-shadow:
+    0 3px 12px rgba(0, 87, 63, 0.12);
 }
 
-/* LOGO DATAVENTOR */
+/* ==========================================
+   LOGO DATAVENTOR
+========================================== */
 
-.instructor-brand h1 {
+.dashboard-instructor .instructor-brand {
+  min-width: 0;
+}
+
+.dashboard-instructor .instructor-brand h1 {
   margin: 0;
+
   color: #ffffff;
-  font-size: 25px;
+
+  font-size: 26px;
   font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
-.instructor-brand h1 span {
+.dashboard-instructor .instructor-brand h1 span {
   color: #78c914;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
-.instructor-brand p {
-  margin: 3px 0 0;
+.dashboard-instructor .instructor-brand p {
+  margin: 5px 0 0;
+
   color: #e5f7ed;
+
   font-size: 11px;
+  line-height: 1.5;
 }
 
-/* CERRAR SESIÓN */
+/* ==========================================
+   CERRAR SESIÓN
+========================================== */
 
-.instructor-logout {
-  display: flex;
+.dashboard-instructor .instructor-logout {
+  min-height: 42px;
+  padding: 10px 16px;
+
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-  padding: 10px 15px;
 
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 8px;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(
+    255, 255, 255, 0.55
+  );
+
+  border-radius: 9px;
+
   background: transparent;
   color: #ffffff;
 
+  font-family: inherit;
   font-size: 13px;
   font-weight: 600;
+
   cursor: pointer;
-  transition: 0.2s;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
 }
 
-.instructor-logout:hover {
+.dashboard-instructor .instructor-logout:hover {
   border-color: #78c914;
-  background: rgba(120, 201, 20, 0.12);
-  color: #ffffff;
+
+  background: rgba(
+    120, 201, 20, 0.12
+  );
+
+  transform: translateY(-1px);
 }
 
-/* =========================================
-   CONTENIDO
-========================================= */
+.dashboard-instructor .instructor-logout svg {
+  flex-shrink: 0;
+  font-size: 16px;
+}
 
-.instructor-main {
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.dashboard-instructor .instructor-main {
   width: 100%;
   max-width: 1150px;
+
+  flex: 1;
+
   margin: 0 auto;
   padding: 45px 30px;
-  flex: 1;
 }
 
-/* =========================================
-   BIENVENIDA
-========================================= */
+/* ==========================================
+   TARJETA DE BIENVENIDA
+========================================== */
 
-.instructor-welcome {
+.dashboard-instructor .instructor-welcome {
+  width: 100%;
+  min-width: 0;
+
   display: flex;
   align-items: center;
   gap: 22px;
+
   padding: 30px;
   margin-bottom: 42px;
 
   border: 1px solid #d3ecde;
   border-radius: 18px;
+
   background: #ffffff;
-  box-shadow: 0 8px 25px rgba(0, 87, 63, 0.07);
+
+  box-shadow:
+    0 8px 25px rgba(0, 87, 63, 0.07);
 }
 
-.welcome-icon {
+/* ICONO DE BIENVENIDA */
+
+.dashboard-instructor .welcome-icon {
   width: 68px;
   height: 68px;
+
   flex-shrink: 0;
 
   display: flex;
@@ -123,80 +197,140 @@
   justify-content: center;
 
   border-radius: 16px;
+
   background: #e0f7ea;
   color: #198754;
+
   font-size: 27px;
 }
 
-.welcome-label {
+/* TEXTOS */
+
+.dashboard-instructor .welcome-content {
+  min-width: 0;
+}
+
+.dashboard-instructor .welcome-label {
   color: #198754;
+
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 1px;
 }
 
-.instructor-welcome h2 {
+.dashboard-instructor .instructor-welcome h2 {
   margin: 7px 0;
+
   color: #00573f;
+
   font-size: 27px;
+  line-height: 1.3;
+  font-weight: 800;
+
+  overflow-wrap: anywhere;
 }
 
-.instructor-welcome p {
+.dashboard-instructor .instructor-welcome p {
   margin: 0;
+
   color: #648176;
+
   font-size: 14px;
   line-height: 1.7;
 }
 
-/* =========================================
+/* ==========================================
    SECCIÓN DE OPCIONES
-========================================= */
+========================================== */
 
-.instructor-section-heading {
+.dashboard-instructor .instructor-section {
+  width: 100%;
+}
+
+.dashboard-instructor .instructor-section-heading {
   margin-bottom: 22px;
 }
 
-.instructor-section-heading h2 {
+.dashboard-instructor .instructor-section-heading h2 {
   margin: 0 0 7px;
-  font-size: 22px;
+
   color: #00573f;
+
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-.instructor-section-heading p {
+.dashboard-instructor .instructor-section-heading p {
   margin: 0;
+
   color: #648176;
+
   font-size: 14px;
+  line-height: 1.6;
 }
 
-.instructor-options {
+/* ==========================================
+   DISTRIBUCIÓN DE LAS TARJETAS
+========================================== */
+
+.dashboard-instructor .instructor-options {
+  width: 100%;
+
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  align-items: stretch;
+
   gap: 24px;
 }
 
-/* =========================================
+/* ==========================================
    TARJETAS DE OPCIONES
-========================================= */
+========================================== */
 
-.instructor-option {
+.dashboard-instructor .instructor-option {
+  min-width: 0;
+  height: 100%;
+
   padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
   border: 1px solid #d3ecde;
   border-radius: 16px;
+
   background: #ffffff;
-  box-shadow: 0 8px 24px rgba(0, 87, 63, 0.06);
-  transition: transform 0.2s, box-shadow 0.2s;
+
+  box-shadow:
+    0 8px 24px rgba(0, 87, 63, 0.06);
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
-.instructor-option:hover {
+.dashboard-instructor .instructor-option:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0, 87, 63, 0.12);
+
+  box-shadow:
+    0 12px 28px rgba(0, 87, 63, 0.12);
 }
 
-/* ÍCONOS */
+/* ==========================================
+   ICONOS DE OPCIONES
+========================================== */
 
-.option-icon {
+.dashboard-instructor .option-icon {
   width: 53px;
   height: 53px;
+
+  flex-shrink: 0;
 
   display: flex;
   align-items: center;
@@ -206,37 +340,52 @@
   font-size: 21px;
 }
 
-.option-icon-blue {
+.dashboard-instructor .option-icon-blue {
   color: #198754;
   background: #e0f7ea;
 }
 
-.option-icon-purple {
+.dashboard-instructor .option-icon-purple {
   color: #4a991d;
   background: #edf9df;
 }
 
-/* TEXTOS DE LAS TARJETAS */
+/* ==========================================
+   TEXTO DE LAS TARJETAS
+========================================== */
 
-.instructor-option h3 {
+.dashboard-instructor .instructor-option h3 {
   margin: 20px 0 10px;
+
   color: #00573f;
+
   font-size: 19px;
+  font-weight: 800;
+  line-height: 1.4;
 }
 
-.instructor-option p {
-  min-height: 48px;
+.dashboard-instructor .instructor-option p {
+  width: 100%;
   margin: 0 0 23px;
+
   color: #648176;
+
   font-size: 14px;
   line-height: 1.7;
+
+  overflow-wrap: anywhere;
 }
 
-/* BOTONES PRINCIPALES */
+/* ==========================================
+   BOTONES PRINCIPALES
+========================================== */
 
-.instructor-option button {
-  min-height: 44px;
+.dashboard-instructor .instructor-option button {
   width: 100%;
+  min-height: 47px;
+
+  margin-top: auto;
+  padding: 12px 18px;
 
   display: flex;
   align-items: center;
@@ -244,30 +393,57 @@
   gap: 12px;
 
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
 
-  background: linear-gradient(90deg, #78c914, #198754);
+  background: linear-gradient(
+    90deg,
+    #78c914,
+    #198754
+  );
+
   color: #ffffff;
 
+  font-family: inherit;
   font-size: 13px;
   font-weight: 700;
+
   cursor: pointer;
 
-  box-shadow: 0 5px 12px rgba(25, 135, 84, 0.14);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow:
+    0 5px 12px rgba(25, 135, 84, 0.14);
+
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
-.instructor-option button:hover {
-  background: linear-gradient(90deg, #68b90f, #137447);
+.dashboard-instructor .instructor-option button:hover {
+  background: linear-gradient(
+    90deg,
+    #68b90f,
+    #137447
+  );
+
   transform: translateY(-1px);
-  box-shadow: 0 7px 16px rgba(25, 135, 84, 0.22);
+
+  box-shadow:
+    0 7px 16px rgba(25, 135, 84, 0.22);
 }
 
-/* =========================================
-   PANEL INFORMATIVO
-========================================= */
+.dashboard-instructor .instructor-option button svg {
+  flex-shrink: 0;
+  font-size: 14px;
+}
 
-.instructor-help {
+/* ==========================================
+   PANEL INFORMATIVO
+========================================== */
+
+.dashboard-instructor .instructor-help {
+  width: 100%;
+  min-width: 0;
+
   display: flex;
   align-items: flex-start;
   gap: 15px;
@@ -282,31 +458,45 @@
   color: #198754;
 }
 
-.instructor-help > svg {
+.dashboard-instructor .help-icon {
   margin-top: 3px;
+
   flex-shrink: 0;
-  font-size: 20px;
+
+  font-size: 22px;
 }
 
-.instructor-help h3 {
+.dashboard-instructor .help-content {
+  min-width: 0;
+}
+
+.dashboard-instructor .instructor-help h3 {
   margin: 0 0 7px;
+
   color: #00573f;
+
   font-size: 15px;
+  font-weight: 800;
 }
 
-.instructor-help p {
+.dashboard-instructor .instructor-help p {
   margin: 0;
+
   color: #416c56;
+
   font-size: 13px;
   line-height: 1.7;
 }
 
-/* =========================================
-   FOOTER
-========================================= */
+/* ==========================================
+   PIE DE PÁGINA
+========================================== */
 
-.instructor-footer {
+.dashboard-instructor .instructor-footer {
+  width: 100%;
   min-height: 58px;
+
+  margin-top: auto;
   padding: 15px 6%;
 
   display: flex;
@@ -314,85 +504,362 @@
   justify-content: space-between;
   gap: 15px;
 
-  background: #00573f;
+  background: linear-gradient(
+    110deg,
+    #00573f,
+    #004c37
+  );
+
   border-top: 3px solid #78c914;
+
   color: #ffffff;
 }
 
-.instructor-footer strong {
+.dashboard-instructor .instructor-footer strong {
   color: #ffffff;
   font-size: 12px;
+  font-weight: 800;
 }
 
-.instructor-footer strong span {
-  color: #78c914;
-}
-
-.instructor-footer span {
+.dashboard-instructor .instructor-footer span {
   color: #e5f7ed;
   font-size: 11px;
+  line-height: 1.5;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+/* ==========================================
+   TABLETAS Y PORTÁTILES
+========================================== */
 
-@media (max-width: 700px) {
-  .instructor-header {
-    padding: 13px 20px;
+@media (max-width: 1024px) {
+
+  .dashboard-instructor .instructor-header {
+    padding: 15px 4%;
   }
 
-  .instructor-brand h1 {
-    font-size: 21px;
+  .dashboard-instructor .instructor-main {
+    max-width: 900px;
+    padding: 35px 25px;
   }
 
-  .instructor-brand p {
-    max-width: 180px;
-    line-height: 1.5;
+  .dashboard-instructor .instructor-welcome {
+    padding: 25px;
+    margin-bottom: 35px;
   }
 
-  .instructor-logout {
-    padding: 9px;
-    font-size: 11px;
+  .dashboard-instructor .instructor-options {
+    gap: 18px;
   }
 
-  .instructor-main {
-    padding: 25px 17px;
-  }
-
-  .instructor-welcome {
-    align-items: flex-start;
-    padding: 22px;
-    gap: 15px;
-    margin-bottom: 30px;
-  }
-
-  .welcome-icon {
-    width: 48px;
-    height: 48px;
-    font-size: 20px;
-  }
-
-  .instructor-welcome h2 {
-    font-size: 21px;
-  }
-
-  .instructor-welcome p {
-    font-size: 13px;
-  }
-
-  .instructor-options {
-    grid-template-columns: 1fr;
-    gap: 17px;
-  }
-
-  .instructor-option {
+  .dashboard-instructor .instructor-option {
     padding: 24px;
   }
 
-  .instructor-footer {
+  .dashboard-instructor .instructor-option h3 {
+    font-size: 18px;
+  }
+
+  .dashboard-instructor .instructor-option p {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   TABLETAS PEQUEÑAS
+========================================== */
+
+@media (max-width: 768px) {
+
+  .dashboard-instructor .instructor-main {
+    max-width: 650px;
+    padding: 30px 22px;
+  }
+
+  .dashboard-instructor .instructor-welcome {
+    gap: 18px;
+    padding: 23px;
+  }
+
+  .dashboard-instructor .instructor-welcome h2 {
+    font-size: 24px;
+  }
+
+  .dashboard-instructor .instructor-options {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .dashboard-instructor .instructor-option {
+    padding: 25px;
+  }
+
+  .dashboard-instructor .instructor-option p {
+    min-height: 0;
+    margin-bottom: 22px;
+  }
+
+  .dashboard-instructor .instructor-option button {
+    min-height: 48px;
+  }
+
+  .dashboard-instructor .instructor-help {
+    margin-top: 25px;
+  }
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  .dashboard-instructor {
+    min-height: 100dvh;
+  }
+
+  /* ENCABEZADO */
+
+  .dashboard-instructor .instructor-header {
+    min-height: auto;
+
+    padding: 16px;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    text-align: center;
+  }
+
+  .dashboard-instructor .instructor-brand {
+    width: 100%;
+  }
+
+  .dashboard-instructor .instructor-brand h1 {
+    font-size: 25px;
+  }
+
+  .dashboard-instructor .instructor-brand p {
+    max-width: 100%;
+    font-size: 11px;
+  }
+
+  .dashboard-instructor .instructor-logout {
+    width: 100%;
+    max-width: 260px;
+
+    min-height: 43px;
+
+    padding: 11px;
+
+    font-size: 13px;
+  }
+
+  /* CONTENIDO */
+
+  .dashboard-instructor .instructor-main {
+    width: 100%;
+    padding: 25px 16px;
+  }
+
+  /* BIENVENIDA */
+
+  .dashboard-instructor .instructor-welcome {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+
+    gap: 14px;
+    padding: 20px;
+
+    margin-bottom: 30px;
+
+    border-radius: 15px;
+  }
+
+  .dashboard-instructor .welcome-icon {
+    width: 52px;
+    height: 52px;
+
+    border-radius: 13px;
+    font-size: 22px;
+  }
+
+  .dashboard-instructor .welcome-label {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+  }
+
+  .dashboard-instructor .instructor-welcome h2 {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .dashboard-instructor .instructor-welcome p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* TÍTULO DE LA SECCIÓN */
+
+  .dashboard-instructor .instructor-section-heading {
+    margin-bottom: 20px;
+  }
+
+  .dashboard-instructor .instructor-section-heading h2 {
+    font-size: 20px;
+  }
+
+  .dashboard-instructor .instructor-section-heading p {
+    font-size: 13px;
+  }
+
+  /* OPCIONES EN UNA COLUMNA */
+
+  .dashboard-instructor .instructor-options {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  /* TARJETAS */
+
+  .dashboard-instructor .instructor-option {
+    width: 100%;
+    padding: 22px 19px;
+    border-radius: 15px;
+  }
+
+  .dashboard-instructor .option-icon {
+    width: 49px;
+    height: 49px;
+    font-size: 20px;
+  }
+
+  .dashboard-instructor .instructor-option h3 {
+    margin-top: 16px;
+    font-size: 18px;
+  }
+
+  .dashboard-instructor .instructor-option p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* BOTONES */
+
+  .dashboard-instructor .instructor-option button {
+    width: 100%;
+    min-height: 50px;
+
+    padding: 13px 12px;
+
+    font-size: 13px;
+    gap: 10px;
+  }
+
+  /* INFORMACIÓN */
+
+  .dashboard-instructor .instructor-help {
+    gap: 12px;
+
+    padding: 18px;
+    margin-top: 22px;
+
+    border-radius: 12px;
+  }
+
+  .dashboard-instructor .help-icon {
+    font-size: 19px;
+  }
+
+  .dashboard-instructor .instructor-help h3 {
+    font-size: 14px;
+  }
+
+  .dashboard-instructor .instructor-help p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+
+  .dashboard-instructor .instructor-footer {
+    padding: 17px 16px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+    text-align: center;
+  }
+
+  .dashboard-instructor .instructor-footer strong {
+    font-size: 13px;
+  }
+
+  .dashboard-instructor .instructor-footer span {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   CELULARES MUY PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .dashboard-instructor .instructor-header {
+    padding: 14px 10px;
+  }
+
+  .dashboard-instructor .instructor-brand h1 {
+    font-size: 23px;
+  }
+
+  .dashboard-instructor .instructor-main {
+    padding: 20px 10px;
+  }
+
+  .dashboard-instructor .instructor-welcome {
+    padding: 17px 14px;
+  }
+
+  .dashboard-instructor .instructor-welcome h2 {
+    font-size: 20px;
+  }
+
+  .dashboard-instructor .instructor-option {
+    padding: 18px 14px;
+  }
+
+  .dashboard-instructor .instructor-option h3 {
+    font-size: 17px;
+  }
+
+  .dashboard-instructor .instructor-option button {
+    font-size: 12px;
+  }
+
+  .dashboard-instructor .instructor-help {
+    padding: 15px 12px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.dashboard-instructor button:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dashboard-instructor *,
+  .dashboard-instructor *::before,
+  .dashboard-instructor *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

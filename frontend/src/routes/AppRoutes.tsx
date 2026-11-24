@@ -14,6 +14,7 @@ import GestionReportes from "../pages/AdminCoordinador/GestionReportes";
 
 // APRENDIZ
 import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
+import LoginAprendiz from "../pages/Aprendiz/LoginAprendiz";
 import CrearReporte from "../pages/Aprendiz/CrearReporte";
 
 // TÉCNICO
@@ -42,6 +43,10 @@ export default function AppRoutes() {
       <Route
         path="/crear-reporte"
         element={<CrearReporte />}
+      />
+      <Route
+        path="/login-aprendiz"
+        element={<LoginAprendiz />}
       />
 
       {/* ADMINISTRADOR / COORDINADOR */}

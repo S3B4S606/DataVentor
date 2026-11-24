@@ -1,483 +1,26 @@
 
-.dashboard-tecnico {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #f5f6fa;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #1f2937;
-}
-
-/* ENCABEZADO */
-.dashboard-tecnico .topbar {
-  min-height: 92px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 15px 3.2%;
-  background: #1d477f;
-  color: #ffffff;
-  border: none;
-  box-shadow: none;
-}
-
-.dashboard-tecnico .header-brand {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.dashboard-tecnico .header-brand h1 {
-  margin: 0;
-  color: #ffffff;
-  font-size: 25px;
-  line-height: 1.2;
-  font-weight: 800;
-}
-
-.dashboard-tecnico .header-brand p {
-  margin: 0;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.dashboard-tecnico .topbar-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.dashboard-tecnico .topbar-nav .nav-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 38px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 24px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.dashboard-tecnico .topbar-nav .nav-inicio {
-  background: #2d70e3;
-  color: #ffffff;
-}
-
-.dashboard-tecnico .topbar-nav .nav-inicio:hover {
-  background: #2461c7;
-}
-
-.dashboard-tecnico .topbar-nav .nav-aprendiz {
-  background: #edf3fc;
-  color: #174477;
-}
-
-.dashboard-tecnico .topbar-nav .nav-aprendiz:hover {
-  background: #dce8f8;
-}
-
-.dashboard-tecnico .topbar-nav .nav-logout {
-  background: transparent;
-  color: #ffffff;
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-.dashboard-tecnico .topbar-nav .nav-logout:hover {
-  color: #dbeafe;
-  background: transparent;
-}
-
-.dashboard-tecnico .nav-symbol {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  line-height: 1;
-  font-weight: 700;
-}
-
-.dashboard-tecnico .nav-user-symbol {
-  width: 27px;
-  height: 27px;
-  border-radius: 50%;
-  background: #2496e8;
-  color: #ffffff;
-  font-size: 15px;
-}
-
-/* CONTENIDO */
-.dashboard-tecnico .dashboard-content {
-  flex: 1;
-  width: 100%;
-  max-width: 1600px;
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 35px 45px;
-}
-
-.dashboard-tecnico .welcome {
-  margin-bottom: 25px;
-}
-
-.dashboard-tecnico .welcome h1 {
-  margin: 0 0 8px;
-  font-size: 30px;
-  color: #1f2937;
-}
-
-.dashboard-tecnico .welcome p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-/* ESTADÍSTICAS */
-.dashboard-tecnico .stats-container {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 25px;
-}
-
-.dashboard-tecnico .stat-card {
-  flex: 1;
-  min-width: 0;
-  box-sizing: border-box;
-  background: #ffffff;
-  border: 1px solid #eef0f4;
-  border-radius: 12px;
-  padding: 22px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-tecnico .stat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-}
-
-.dashboard-tecnico .stat-icon {
-  width: 52px;
-  height: 52px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 21px;
-}
-
-.dashboard-tecnico .stat-icon.purple {
-  background: #ede9fe;
-  color: #7b2cbf;
-}
-
-.dashboard-tecnico .stat-icon.blue {
-  background: #dbeafe;
-  color: #2563eb;
-}
-
-.dashboard-tecnico .stat-icon.green {
-  background: #dcfce7;
-  color: #16a34a;
-}
-
-.dashboard-tecnico .stat-card p {
-  margin: 0 0 6px;
-  color: #6b7280;
-  font-size: 14px;
-}
-
-.dashboard-tecnico .stat-card h2 {
-  margin: 0;
-  font-size: 27px;
-  color: #1f2937;
-  font-weight: 700;
-}
-
-/* TARJETA DE REPORTES */
-.dashboard-tecnico .reports-card {
-  background: #ffffff;
-  border: 1px solid #eef0f4;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
-}
-
-.dashboard-tecnico .reports-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 22px;
-}
-
-.dashboard-tecnico .reports-header h2 {
-  margin: 0 0 6px;
-  font-size: 21px;
-  color: #1f2937;
-}
-
-.dashboard-tecnico .reports-header p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.dashboard-tecnico .all-reports-btn {
-  background: linear-gradient(90deg, #2cbf31, #08a95b);
-  color: #ffffff;
-  border: none;
-  border-radius: 7px;
-  padding: 11px 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-tecnico .all-reports-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(8, 169, 91, 0.2);
-}
-
-/* TABLA */
-.dashboard-tecnico .table-container {
-  width: 100%;
-  overflow-x: auto;
-  border: 1px solid #eef0f4;
-  border-radius: 8px;
-}
-
-.dashboard-tecnico table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #ffffff;
-}
-
-.dashboard-tecnico thead {
-  background: #f9fafb;
-}
-
-.dashboard-tecnico th {
-  padding: 14px 15px;
-  text-align: left;
-  font-size: 13px;
-  color: #6b7280;
-  font-weight: 600;
-  border-bottom: 1px solid #e5e7eb;
-  white-space: nowrap;
-}
-
-.dashboard-tecnico td {
-  padding: 15px;
-  font-size: 14px;
-  color: #374151;
-  border-bottom: 1px solid #f0f0f0;
-  vertical-align: middle;
-}
-
-.dashboard-tecnico tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.dashboard-tecnico tbody tr:hover {
-  background: #fafafa;
-}
-
-.dashboard-tecnico .table-message {
-  text-align: center;
-  padding: 24px;
-  color: #6b7280;
-}
-
-/* ESTADOS */
-.dashboard-tecnico .status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.dashboard-tecnico .status.pending {
-  background: #fef3c7;
-  color: #b45309;
-}
-
-/* ACCIONES */
-.dashboard-tecnico .table-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-}
-
-.dashboard-tecnico .view-btn,
-.dashboard-tecnico .action-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 11px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.dashboard-tecnico .view-btn {
-  background: #f3f4f6;
-  color: #374151;
-}
-
-.dashboard-tecnico .view-btn:hover {
-  background: #e5e7eb;
-}
-
-.dashboard-tecnico .action-btn {
-  background: #2563eb;
-  color: #ffffff;
-}
-
-.dashboard-tecnico .action-btn:hover {
-  background: #1d4ed8;
-}
-
-/* PIE DE PÁGINA */
-.dashboard-tecnico .footer {
-  margin-top: auto;
-  background: #172554;
-  color: #ffffff;
-  text-align: center;
-  padding: 18px;
-  font-size: 13px;
-}
-
-/* TABLET */
-@media (max-width: 900px) {
-  .dashboard-tecnico .topbar {
-    padding: 15px 25px;
-  }
-
-  .dashboard-tecnico .dashboard-content {
-    padding: 28px 25px;
-  }
-
-  .dashboard-tecnico .stats-container {
-    flex-wrap: wrap;
-  }
-
-  .dashboard-tecnico .stat-card {
-    flex: 1 1 200px;
-  }
-
-  .dashboard-tecnico .reports-card {
-    padding: 20px;
-  }
-}
-
-/* MÓVIL */
-@media (max-width: 600px) {
-  .dashboard-tecnico .topbar {
-    padding: 16px 18px;
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .dashboard-tecnico .header-brand h1 {
-    font-size: 24px;
-  }
-
-  .dashboard-tecnico .topbar-nav {
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .dashboard-tecnico .topbar-nav .nav-btn {
-    font-size: 12px;
-  }
-
-  .dashboard-tecnico .dashboard-content {
-    padding: 22px 15px;
-  }
-
-  .dashboard-tecnico .welcome h1 {
-    font-size: 25px;
-  }
-
-  .dashboard-tecnico .welcome p {
-    font-size: 14px;
-  }
-
-  .dashboard-tecnico .stats-container {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .dashboard-tecnico .stat-card {
-    flex: 1 1 auto;
-    padding: 18px;
-  }
-
-  .dashboard-tecnico .reports-card {
-    padding: 16px;
-  }
-
-  .dashboard-tecnico .reports-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .dashboard-tecnico .all-reports-btn {
-    width: 100%;
-  }
-
-  .dashboard-tecnico th,
-  .dashboard-tecnico td {
-    white-space: nowrap;
-  }
-}
-
-
 /* ==========================================
    DATAVENTOR - DASHBOARD TÉCNICO
-   PALETA VERDE ESMERALDA Y VERDE LIMA
-   ========================================== */
+   DISEÑO ORIGINAL VERDE RESPONSIVE
+========================================== */
 
-/* FONDO PRINCIPAL */
+/* CONFIGURACIÓN GENERAL */
+
+.dashboard-tecnico,
+.dashboard-tecnico * {
+  box-sizing: border-box;
+}
+
 .dashboard-tecnico {
-  color: #164C3B;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+
   background:
     radial-gradient(
       circle at 8% 30%,
@@ -491,204 +34,966 @@
     ),
     linear-gradient(
       135deg,
-      #F3FFF9 0%,
-      #E2F8EC 100%
+      #f3fff9 0%,
+      #e2f8ec 100%
     );
+
+  color: #164c3b;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ENCABEZADO */
+.dashboard-tecnico button {
+  font-family: inherit;
+}
+
+/* ==========================================
+   ENCABEZADO
+========================================== */
+
 .dashboard-tecnico .topbar {
-  background: #00573F;
-  border-bottom: 3px solid #78C914;
+  width: 100%;
+  min-height: 92px;
+
+  padding: 15px 3.2%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  background: #00573f;
+  color: #ffffff;
+
+  border-bottom: 3px solid #78c914;
+
+  box-shadow: 0 3px 12px rgba(0, 87, 63, 0.12);
 }
 
-/* LOGOTIPO */
+/* ==========================================
+   LOGOTIPO
+========================================== */
+
+.dashboard-tecnico .header-brand {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .dashboard-tecnico .header-brand h1 {
-  color: #FFFFFF;
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.dashboard-tecnico .header-brand h1 span {
+  color: #78c914;
 }
 
 .dashboard-tecnico .header-brand p {
-  color: #D0F4DF;
+  margin: 0;
+
+  color: #d0f4df;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   NAVEGACIÓN
+========================================== */
+
+.dashboard-tecnico .topbar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+.dashboard-tecnico .topbar-nav .nav-btn {
+  min-height: 40px;
+
+  padding: 9px 15px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border: none;
+  border-radius: 24px;
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* BOTÓN INICIO */
+
 .dashboard-tecnico .topbar-nav .nav-inicio {
-  background: #78C914;
-  color: #FFFFFF;
+  background: #78c914;
+  color: #ffffff;
 }
 
 .dashboard-tecnico .topbar-nav .nav-inicio:hover {
-  background: #63B80D;
+  background: #63b80d;
+  transform: translateY(-1px);
 }
 
-/* BOTÓN APRENDIZ */
+/* BOTÓN APRENDIZ
+   CONSERVADO DEL CSS ORIGINAL */
+
 .dashboard-tecnico .topbar-nav .nav-aprendiz {
-  background: #E9FFF5;
-  color: #00573F;
+  background: #e9fff5;
+  color: #00573f;
 }
 
 .dashboard-tecnico .topbar-nav .nav-aprendiz:hover {
-  background: #D5F5E2;
-}
-
-/* ICONO DE USUARIO */
-.dashboard-tecnico .nav-user-symbol {
-  background: #168B56;
-  color: #FFFFFF;
+  background: #d5f5e2;
 }
 
 /* CERRAR SESIÓN */
+
 .dashboard-tecnico .topbar-nav .nav-logout {
-  color: #FFFFFF;
+  background: transparent;
+  color: #ffffff;
+
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
 .dashboard-tecnico .topbar-nav .nav-logout:hover {
-  color: #D0F4DF;
+  color: #d0f4df;
+  background: rgba(255, 255, 255, 0.10);
 }
 
-/* BIENVENIDA */
+/* ICONOS DE NAVEGACIÓN */
+
+.dashboard-tecnico .nav-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.dashboard-tecnico .nav-user-symbol {
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  background: #168b56;
+  color: #ffffff;
+
+  font-size: 15px;
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.dashboard-tecnico .dashboard-content {
+  width: 100%;
+  max-width: 1600px;
+  min-width: 0;
+
+  flex: 1;
+
+  margin: 0 auto;
+  padding: 35px 45px;
+}
+
+/* ==========================================
+   BIENVENIDA
+========================================== */
+
+.dashboard-tecnico .welcome {
+  margin-bottom: 25px;
+}
+
 .dashboard-tecnico .welcome h1 {
-  color: #00573F;
+  margin: 0 0 8px;
+
+  color: #00573f;
+
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
 .dashboard-tecnico .welcome p {
-  color: #46695A;
+  margin: 0;
+
+  color: #46695a;
+
+  font-size: 16px;
+  line-height: 1.6;
 }
 
-/* TARJETAS DE ESTADÍSTICAS */
+/* ==========================================
+   TARJETAS DE ESTADÍSTICAS
+========================================== */
+
+.dashboard-tecnico .stats-container {
+  width: 100%;
+
+  display: flex;
+  align-items: stretch;
+
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
 .dashboard-tecnico .stat-card {
-  background: #FFFFFF;
-  border-color: #D4EADD;
+  flex: 1;
+  min-width: 0;
+
+  padding: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #d4eadd;
+  border-radius: 12px;
+
   box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .dashboard-tecnico .stat-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 87, 63, 0.13);
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(0, 87, 63, 0.13);
 }
 
-/* ICONO DE REPORTES PENDIENTES */
+/* ==========================================
+   ICONOS DE ESTADÍSTICAS
+========================================== */
+
+.dashboard-tecnico .stat-icon {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  font-size: 21px;
+}
+
+/* PENDIENTES */
+
 .dashboard-tecnico .stat-icon.purple {
-  background: #EFF9E6;
-  color: #548C28;
+  background: #eff9e6;
+  color: #548c28;
 }
 
-/* ICONO DE REPORTES EN PROCESO */
+/* EN PROCESO */
+
 .dashboard-tecnico .stat-icon.blue {
-  background: #E9FFF5;
-  color: #168B56;
+  background: #e9fff5;
+  color: #168b56;
 }
 
-/* ICONO DE REPORTES RESUELTOS */
+/* RESUELTOS */
+
 .dashboard-tecnico .stat-icon.green {
-  background: #E1F8EE;
-  color: #08794C;
+  background: #e1f8ee;
+  color: #08794c;
 }
 
-/* TEXTOS DE ESTADÍSTICAS */
+/* ==========================================
+   TEXTOS DE ESTADÍSTICAS
+========================================== */
+
 .dashboard-tecnico .stat-card p {
-  color: #61796F;
+  margin: 0 0 6px;
+
+  color: #61796f;
+
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .dashboard-tecnico .stat-card h2 {
-  color: #00573F;
+  margin: 0;
+
+  color: #00573f;
+
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-/* TARJETA DE REPORTES */
+/* ==========================================
+   TARJETA DE REPORTES PENDIENTES
+========================================== */
+
 .dashboard-tecnico .reports-card {
-  background: #FFFFFF;
-  border-color: #D4EADD;
+  width: 100%;
+  min-width: 0;
+
+  padding: 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #d4eadd;
+  border-radius: 12px;
+
   box-shadow: 0 4px 15px rgba(0, 87, 63, 0.08);
 }
 
-/* TÍTULOS DE REPORTES */
+/* ==========================================
+   ENCABEZADO DE REPORTES
+========================================== */
+
+.dashboard-tecnico .reports-header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  margin-bottom: 22px;
+}
+
+.dashboard-tecnico .reports-header > div {
+  min-width: 0;
+}
+
 .dashboard-tecnico .reports-header h2 {
-  color: #00573F;
+  margin: 0 0 6px;
+
+  color: #00573f;
+
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
 .dashboard-tecnico .reports-header p {
-  color: #61796F;
+  margin: 0;
+
+  color: #61796f;
+
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-/* BOTÓN VER TODOS LOS REPORTES */
+/* ==========================================
+   BOTÓN VER TODOS
+========================================== */
+
 .dashboard-tecnico .all-reports-btn {
+  min-height: 44px;
+
+  padding: 11px 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+
   background: linear-gradient(
     90deg,
-    #78C914,
-    #168B56
+    #78c914,
+    #168b56
   );
-  color: #FFFFFF;
+
+  color: #ffffff;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .dashboard-tecnico .all-reports-btn:hover {
-  box-shadow: 0 4px 12px rgba(0, 87, 63, 0.20);
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 12px rgba(0, 87, 63, 0.20);
 }
 
-/* CONTENEDOR DE TABLA */
+.dashboard-tecnico .all-reports-btn svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   CONTENEDOR DE TABLA
+========================================== */
+
 .dashboard-tecnico .table-container {
-  border-color: #D4EADD;
+  width: 100%;
+  max-width: 100%;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  border: 1px solid #d4eadd;
+  border-radius: 8px;
+
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ENCABEZADO DE TABLA */
-.dashboard-tecnico thead {
-  background: #F0FAF4;
+/* ==========================================
+   TABLA DE REPORTES
+========================================== */
+
+.dashboard-tecnico table {
+  width: 100%;
+  min-width: 740px;
+
+  border-collapse: collapse;
+
+  background: #ffffff;
+  text-align: left;
 }
+
+.dashboard-tecnico thead {
+  background: #f0faf4;
+}
+
+/* ENCABEZADOS */
 
 .dashboard-tecnico th {
-  color: #00573F;
-  border-bottom-color: #D4EADD;
+  padding: 14px 15px;
+
+  color: #00573f;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  text-align: left;
+  white-space: nowrap;
+
+  border-bottom: 1px solid #d4eadd;
 }
 
 /* CELDAS */
+
 .dashboard-tecnico td {
-  color: #354B42;
-  border-bottom-color: #E3F0E8;
+  padding: 15px;
+
+  color: #354b42;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  vertical-align: middle;
+
+  border-bottom: 1px solid #e3f0e8;
 }
 
-/* EFECTO AL PASAR SOBRE UNA FILA */
+/* ÚLTIMA FILA */
+
+.dashboard-tecnico tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* EFECTO FILAS */
+
 .dashboard-tecnico tbody tr:hover {
-  background: #F3FFF9;
+  background: #f3fff9;
 }
 
-/* TEXTO DE TABLA VACÍA */
+/* TABLA SIN RESULTADOS */
+
 .dashboard-tecnico .table-message {
-  color: #61796F;
+  padding: 24px;
+
+  color: #61796f;
+
+  font-size: 14px;
+  text-align: center;
 }
 
-/* ESTADO PENDIENTE - CONSERVAR AMARILLO */
+/* ==========================================
+   ESTADOS DE REPORTES
+========================================== */
+
+.dashboard-tecnico .status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ESTADO PENDIENTE */
+
 .dashboard-tecnico .status.pending {
-  background: #FEF3C7;
-  color: #B45309;
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* ==========================================
+   ACCIONES DE LA TABLA
+========================================== */
+
+.dashboard-tecnico .table-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  white-space: nowrap;
+}
+
+/* CONFIGURACIÓN DE BOTONES */
+
+.dashboard-tecnico .view-btn,
+.dashboard-tecnico .action-btn {
+  min-height: 37px;
+  padding: 8px 11px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  border: none;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* BOTÓN VER */
+
 .dashboard-tecnico .view-btn {
-  background: #E9FFF5;
-  color: #00573F;
+  background: #e9fff5;
+  color: #00573f;
 }
 
 .dashboard-tecnico .view-btn:hover {
-  background: #D5F5E2;
+  background: #d5f5e2;
+  transform: translateY(-1px);
 }
 
 /* BOTÓN ATENDER */
+
 .dashboard-tecnico .action-btn {
-  background: #168B56;
-  color: #FFFFFF;
+  background: #168b56;
+  color: #ffffff;
 }
 
 .dashboard-tecnico .action-btn:hover {
-  background: #00573F;
+  background: #00573f;
+  transform: translateY(-1px);
 }
 
-/* PIE DE PÁGINA */
+/* ICONOS DE BOTONES */
+
+.dashboard-tecnico .view-btn svg,
+.dashboard-tecnico .action-btn svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   PIE DE PÁGINA
+========================================== */
+
 .dashboard-tecnico .footer {
-  background: #00573F;
-  color: #FFFFFF;
-  border-top: 3px solid #78C914;
+  width: 100%;
+
+  margin-top: auto;
+  padding: 18px 20px;
+
+  background: #00573f;
+
+  color: #ffffff;
+
+  border-top: 3px solid #78c914;
+
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
 }
 
-/* ACCESIBILIDAD */
+/* ==========================================
+   RESPONSIVE - TABLETAS Y PORTÁTILES
+========================================== */
+
+@media (max-width: 1024px) {
+
+  .dashboard-tecnico .topbar {
+    padding: 15px 25px;
+  }
+
+  .dashboard-tecnico .dashboard-content {
+    padding: 30px 25px;
+  }
+
+  .dashboard-tecnico .stats-container {
+    gap: 15px;
+  }
+
+  .dashboard-tecnico .stat-card {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .dashboard-tecnico .stat-icon {
+    width: 47px;
+    height: 47px;
+    font-size: 19px;
+  }
+
+  .dashboard-tecnico .reports-card {
+    padding: 22px;
+  }
+
+  .dashboard-tecnico table {
+    min-width: 720px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - TABLETAS PEQUEÑAS
+========================================== */
+
+@media (max-width: 900px) {
+
+  .dashboard-tecnico .stats-container {
+    flex-wrap: wrap;
+  }
+
+  .dashboard-tecnico .stat-card {
+    flex: 1 1 200px;
+  }
+
+  .dashboard-tecnico .reports-header {
+    gap: 12px;
+  }
+
+  .dashboard-tecnico .reports-header h2 {
+    font-size: 20px;
+  }
+
+  .dashboard-tecnico .reports-header p {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  /* ENCABEZADO */
+
+  .dashboard-tecnico .topbar {
+    min-height: auto;
+
+    padding: 16px;
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  /* LOGOTIPO */
+
+  .dashboard-tecnico .header-brand {
+    width: 100%;
+  }
+
+  .dashboard-tecnico .header-brand h1 {
+    font-size: 24px;
+  }
+
+  .dashboard-tecnico .header-brand p {
+    font-size: 11px;
+  }
+
+  /* NAVEGACIÓN */
+
+  .dashboard-tecnico .topbar-nav {
+    width: 100%;
+
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .dashboard-tecnico .topbar-nav .nav-btn {
+    min-height: 44px;
+    padding: 10px 14px;
+
+    font-size: 12px;
+  }
+
+  /* CONTENIDO */
+
+  .dashboard-tecnico .dashboard-content {
+    width: 100%;
+    padding: 24px 15px;
+  }
+
+  /* BIENVENIDA */
+
+  .dashboard-tecnico .welcome {
+    margin-bottom: 23px;
+  }
+
+  .dashboard-tecnico .welcome h1 {
+    font-size: 25px;
+    line-height: 1.3;
+  }
+
+  .dashboard-tecnico .welcome p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ESTADÍSTICAS */
+
+  .dashboard-tecnico .stats-container {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 12px;
+
+    margin-bottom: 23px;
+  }
+
+  .dashboard-tecnico .stat-card {
+    width: 100%;
+    flex: none;
+
+    min-height: 90px;
+    padding: 17px;
+
+    gap: 15px;
+    border-radius: 12px;
+  }
+
+  .dashboard-tecnico .stat-icon {
+    width: 50px;
+    height: 50px;
+
+    font-size: 21px;
+  }
+
+  .dashboard-tecnico .stat-card p {
+    font-size: 13px;
+  }
+
+  .dashboard-tecnico .stat-card h2 {
+    font-size: 26px;
+  }
+
+  /* TARJETA DE REPORTES */
+
+  .dashboard-tecnico .reports-card {
+    width: 100%;
+    padding: 17px 14px;
+    border-radius: 13px;
+  }
+
+  /* TÍTULO DE REPORTES */
+
+  .dashboard-tecnico .reports-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+
+    margin-bottom: 20px;
+  }
+
+  .dashboard-tecnico .reports-header h2 {
+    font-size: 20px;
+  }
+
+  .dashboard-tecnico .reports-header p {
+    font-size: 13px;
+  }
+
+  /* BOTÓN VER TODOS */
+
+  .dashboard-tecnico .all-reports-btn {
+    width: 100%;
+    min-height: 47px;
+
+    padding: 12px 15px;
+    font-size: 13px;
+  }
+
+  /* TABLA CON DESPLAZAMIENTO */
+
+  .dashboard-tecnico .table-container {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-radius: 9px;
+  }
+
+  .dashboard-tecnico table {
+    width: 100%;
+    min-width: 720px;
+  }
+
+  .dashboard-tecnico th {
+    padding: 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .dashboard-tecnico td {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  /* BOTONES VER Y ATENDER */
+
+  .dashboard-tecnico .table-actions {
+    gap: 7px;
+  }
+
+  .dashboard-tecnico .view-btn,
+  .dashboard-tecnico .action-btn {
+    min-height: 40px;
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  /* PIE DE PÁGINA */
+
+  .dashboard-tecnico .footer {
+    padding: 17px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .dashboard-tecnico .topbar {
+    padding: 14px 10px;
+  }
+
+  .dashboard-tecnico .header-brand h1 {
+    font-size: 22px;
+  }
+
+  .dashboard-tecnico .header-brand p {
+    font-size: 10px;
+  }
+
+  .dashboard-tecnico .topbar-nav {
+    gap: 8px;
+  }
+
+  .dashboard-tecnico .topbar-nav .nav-btn {
+    padding: 9px 11px;
+    font-size: 11px;
+  }
+
+  .dashboard-tecnico .dashboard-content {
+    padding: 20px 10px;
+  }
+
+  .dashboard-tecnico .welcome h1 {
+    font-size: 23px;
+  }
+
+  .dashboard-tecnico .welcome p {
+    font-size: 13px;
+  }
+
+  .dashboard-tecnico .stat-card {
+    padding: 15px;
+  }
+
+  .dashboard-tecnico .reports-card {
+    padding: 14px 11px;
+  }
+
+  .dashboard-tecnico .reports-header h2 {
+    font-size: 19px;
+  }
+
+  .dashboard-tecnico .reports-header p {
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
 .dashboard-tecnico button:focus-visible {
-  outline: 3px solid #78C914;
+  outline: 3px solid #78c914;
   outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dashboard-tecnico *,
+  .dashboard-tecnico *::before,
+  .dashboard-tecnico *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

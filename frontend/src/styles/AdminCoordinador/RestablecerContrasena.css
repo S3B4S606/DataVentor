@@ -1,190 +1,852 @@
 
+/* ==========================================
+   DATAVENTOR - RESTABLECER CONTRASEÑA
+   DISEÑO ORIGINAL + RESPONSIVE
+========================================== */
+
+/* ==========================================
+   CONFIGURACIÓN GENERAL
+========================================== */
+
 .restablecer-page {
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+
   display: flex;
   flex-direction: column;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(120deg, #effff5, #d9f8e7);
+
+  overflow-x: hidden;
+
+  font-family: "Segoe UI", Arial, sans-serif;
+
+  background: linear-gradient(
+    120deg,
+    #effff5,
+    #d9f8e7
+  );
+
   color: #00573f;
 }
 
-.restablecer-header {
-  background: #00573f;
-  color: white;
+.restablecer-page *,
+.restablecer-page *::before,
+.restablecer-page *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   ENCABEZADO
+========================================== */
+
+.restablecer-page .restablecer-header {
+  width: 100%;
+  min-height: 80px;
+
   padding: 20px 4%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
+
+  background: #00573f;
+  color: #ffffff;
+
   border-bottom: 3px solid #78c914;
 }
 
-.restablecer-logo {
+/* ==========================================
+   LOGOTIPO DATAVENTOR
+========================================== */
+
+.restablecer-page .restablecer-logo {
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
 }
 
-.restablecer-logo strong {
+.restablecer-page .restablecer-logo strong {
+  color: #ffffff;
+
   font-size: 26px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-.restablecer-logo span {
+.restablecer-page .restablecer-logo strong span {
   color: #78c914;
 }
 
-.restablecer-logo small {
+.restablecer-page .restablecer-logo small {
+  color: #e5f7ed;
+
   font-size: 11px;
+  line-height: 1.5;
 }
 
-.restablecer-volver {
+/* ==========================================
+   BOTÓN VOLVER
+========================================== */
+
+.restablecer-page .restablecer-volver {
+  min-height: 44px;
+
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
+
+  padding: 10px 14px;
+
   background: transparent;
-  color: white;
+
+  color: #ffffff;
+
   border: none;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
-.restablecer-content {
+.restablecer-page .restablecer-volver:hover {
+  background: rgba(120, 201, 20, 0.15);
+  color: #e9ffd8;
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.restablecer-page .restablecer-content {
   flex: 1;
+
+  width: 100%;
+  min-width: 0;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   padding: 45px 20px;
 }
 
-.restablecer-card {
+/* ==========================================
+   TARJETA PRINCIPAL
+========================================== */
+
+.restablecer-page .restablecer-card {
   width: 100%;
   max-width: 480px;
-  background: white;
+  min-width: 0;
+
+  background: #ffffff;
+
   padding: 40px;
+
+  border: 1px solid #d0e9dc;
   border-radius: 22px;
-  box-shadow: 0 15px 40px rgba(0, 87, 63, 0.10);
+
+  box-shadow: 0 15px 40px rgba(
+    0,
+    87,
+    63,
+    0.10
+  );
+
   text-align: center;
 }
 
-.restablecer-icon {
+/* ==========================================
+   ICONO DE CONTRASEÑA
+========================================== */
+
+.restablecer-page .restablecer-icon {
   width: 70px;
   height: 70px;
+
   margin: 0 auto 22px;
+
   border-radius: 20px;
+
   background: #e9fff5;
   color: #128a58;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-size: 26px;
 }
 
-.restablecer-card h1 {
+/* ==========================================
+   TÍTULO PRINCIPAL
+========================================== */
+
+.restablecer-page .restablecer-card h1 {
+  margin: 0 0 14px;
+
   font-size: 28px;
+  line-height: 1.3;
+  font-weight: 800;
+
   color: #00573f;
-  margin-bottom: 14px;
 }
 
-.restablecer-subtitle {
+/* ==========================================
+   DESCRIPCIÓN
+========================================== */
+
+.restablecer-page .restablecer-subtitle {
+  margin: 0 0 30px;
+
   color: #647a72;
+
   font-size: 14px;
   line-height: 1.7;
-  margin-bottom: 30px;
 }
 
-.restablecer-grupo {
+/* ==========================================
+   FORMULARIO
+========================================== */
+
+.restablecer-page .restablecer-card form {
+  width: 100%;
   text-align: left;
+}
+
+/* ==========================================
+   GRUPOS DE CAMPOS
+========================================== */
+
+.restablecer-page .restablecer-grupo {
+  width: 100%;
+
+  text-align: left;
+
   margin-bottom: 20px;
 }
 
-.restablecer-grupo label {
+.restablecer-page .restablecer-grupo label {
   display: block;
-  font-weight: 600;
-  font-size: 14px;
+
   margin-bottom: 8px;
+
+  color: #00573f;
+
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.restablecer-input {
+/* ==========================================
+   CONTENEDOR DE INPUT
+========================================== */
+
+.restablecer-page .restablecer-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+
   display: flex;
   align-items: center;
   gap: 12px;
+
   border: 1px solid #cfe7da;
   border-radius: 10px;
+
   padding: 0 14px;
+
+  background: #ffffff;
   color: #148d58;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.restablecer-input:focus-within {
-  border-color: #78c914;
+/* ==========================================
+   ICONOS DE CAMPOS
+========================================== */
+
+.restablecer-page .restablecer-input svg {
+  flex-shrink: 0;
+
+  color: #148d58;
+  font-size: 15px;
 }
 
-.restablecer-input input {
+/* ==========================================
+   INPUT CONTRASEÑA
+========================================== */
+
+.restablecer-page .restablecer-input input {
   width: 100%;
+  min-width: 0;
+
   padding: 15px 0;
+
   border: none;
   outline: none;
+
   background: transparent;
+
+  color: #164c3b;
+
   font-family: inherit;
+  font-size: 14px;
 }
 
-.restablecer-error {
+.restablecer-page .restablecer-input input::placeholder {
+  color: #91aa9c;
+}
+
+/* ==========================================
+   EFECTO AL SELECCIONAR UN CAMPO
+========================================== */
+
+.restablecer-page .restablecer-input:focus-within {
+  border-color: #78c914;
+
+  box-shadow: 0 0 0 3px rgba(
+    120,
+    201,
+    20,
+    0.12
+  );
+}
+
+/* ==========================================
+   MENSAJES DE ERROR
+========================================== */
+
+.restablecer-page .restablecer-error {
+  width: 100%;
+
   background: #ffe8e8;
   color: #c62828;
+
   padding: 13px;
+
   border-radius: 10px;
+
   margin-bottom: 20px;
+
   font-size: 13px;
+  line-height: 1.6;
   text-align: left;
+
+  overflow-wrap: anywhere;
 }
 
-.restablecer-boton {
+/* ==========================================
+   BOTÓN CAMBIAR CONTRASEÑA
+========================================== */
+
+.restablecer-page .restablecer-boton {
   width: 100%;
-  background: linear-gradient(90deg, #78c914, #14a10d);
-  color: white;
-  font-weight: bold;
+  min-height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    90deg,
+    #78c914,
+    #14a10d
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+
   border: none;
   border-radius: 10px;
+
   padding: 16px;
+
   cursor: pointer;
+
   margin-top: 8px;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.restablecer-boton:disabled {
+/* EFECTO HOVER */
+
+.restablecer-page .restablecer-boton:hover:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    #6dbc11,
+    #0c8b0c
+  );
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 15px rgba(
+    15,
+    155,
+    15,
+    0.20
+  );
+}
+
+/* BOTÓN DESHABILITADO */
+
+.restablecer-page .restablecer-boton:disabled {
   opacity: 0.65;
   cursor: not-allowed;
+  transform: none;
 }
 
-.restablecer-regresar {
+/* ==========================================
+   VOLVER AL INICIO DE SESIÓN
+========================================== */
+
+.restablecer-page .restablecer-regresar {
+  min-height: 40px;
+
   border: none;
   background: transparent;
+
   color: #008f5d;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
   cursor: pointer;
+
   margin-top: 24px;
+  padding: 8px;
 }
 
-.restablecer-footer {
+.restablecer-page .restablecer-regresar:hover {
+  color: #00573f;
+  text-decoration: underline;
+}
+
+/* ==========================================
+   PIE DE PÁGINA
+========================================== */
+
+.restablecer-page .restablecer-footer {
+  width: 100%;
+  min-height: 60px;
+
   background: #00573f;
   border-top: 3px solid #78c914;
-  color: white;
+
+  color: #ffffff;
+
   padding: 20px 4%;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
+
   font-size: 11px;
 }
 
-.restablecer-footer div {
+.restablecer-page .restablecer-footer div {
+  min-width: 0;
+
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
+.restablecer-page .restablecer-footer strong {
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.restablecer-page .restablecer-footer small {
+  color: #d0f4df;
+
+  font-size: 10px;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   RESPONSIVE - PORTÁTILES
+========================================== */
+
+@media (max-width: 1024px) {
+
+  .restablecer-page .restablecer-header {
+    padding: 18px 35px;
+  }
+
+  .restablecer-page .restablecer-content {
+    padding: 40px 22px;
+  }
+
+  .restablecer-page .restablecer-card {
+    max-width: 480px;
+    padding: 38px;
+  }
+
+  .restablecer-page .restablecer-footer {
+    padding: 18px 35px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - TABLETAS
+========================================== */
+
+@media (max-width: 768px) {
+
+  .restablecer-page .restablecer-header {
+    min-height: 75px;
+
+    padding: 17px 22px;
+    gap: 15px;
+  }
+
+  .restablecer-page .restablecer-content {
+    padding: 35px 20px;
+  }
+
+  .restablecer-page .restablecer-card {
+    width: 100%;
+    max-width: 480px;
+
+    padding: 34px;
+  }
+
+  .restablecer-page .restablecer-footer {
+    padding: 18px 22px;
+  }
+
+  .restablecer-page .restablecer-footer div {
+    flex-wrap: wrap;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE - CELULARES
+========================================== */
+
 @media (max-width: 600px) {
-  .restablecer-card {
-    padding: 28px 22px;
-  }
 
-  .restablecer-card h1 {
-    font-size: 24px;
-  }
+  /* ENCABEZADO */
 
-  .restablecer-footer {
+  .restablecer-page .restablecer-header {
+    min-height: auto;
+
+    padding: 17px 15px;
+
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    text-align: center;
+  }
+
+  /* LOGOTIPO */
+
+  .restablecer-page .restablecer-logo {
+    width: 100%;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .restablecer-page .restablecer-logo strong {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .restablecer-page .restablecer-logo small {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* BOTÓN VOLVER */
+
+  .restablecer-page .restablecer-volver {
+    min-height: 44px;
+
+    padding: 10px 15px;
+
+    font-size: 12px;
+    justify-content: center;
+  }
+
+  /* CONTENIDO PRINCIPAL */
+
+  .restablecer-page .restablecer-content {
+    width: 100%;
+    flex: 1;
+
+    padding: 25px 15px 35px;
+
+    align-items: flex-start;
+  }
+
+  /* TARJETA */
+
+  .restablecer-page .restablecer-card {
+    width: 100%;
+    max-width: 480px;
+
+    padding: 28px 20px;
+
+    border-radius: 17px;
+  }
+
+  /* ICONO */
+
+  .restablecer-page .restablecer-icon {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 17px;
+
+    border-radius: 16px;
+
+    font-size: 23px;
+  }
+
+  /* TÍTULO */
+
+  .restablecer-page .restablecer-card h1 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  /* DESCRIPCIÓN */
+
+  .restablecer-page .restablecer-subtitle {
+    font-size: 13px;
+    line-height: 1.6;
+
+    margin-bottom: 22px;
+  }
+
+  /* FORMULARIO */
+
+  .restablecer-page .restablecer-card form {
+    width: 100%;
+  }
+
+  /* GRUPOS */
+
+  .restablecer-page .restablecer-grupo {
+    margin-bottom: 17px;
+  }
+
+  .restablecer-page .restablecer-grupo label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  /* INPUTS */
+
+  .restablecer-page .restablecer-input {
+    width: 100%;
+    min-height: 49px;
+
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  .restablecer-page .restablecer-input input {
+    width: 100%;
+    min-width: 0;
+    min-height: 47px;
+
+    padding: 12px 0;
+
+    font-size: 16px;
+  }
+
+  .restablecer-page .restablecer-input input::placeholder {
+    font-size: 12px;
+  }
+
+  .restablecer-page .restablecer-input svg {
+    font-size: 15px;
+  }
+
+  /* MENSAJES DE ERROR */
+
+  .restablecer-page .restablecer-error {
+    padding: 12px;
+
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  /* BOTÓN CAMBIAR CONTRASEÑA */
+
+  .restablecer-page .restablecer-boton {
+    width: 100%;
+    min-height: 49px;
+
+    padding: 12px 15px;
+
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* VOLVER AL LOGIN */
+
+  .restablecer-page .restablecer-regresar {
+    min-height: 40px;
+    font-size: 12px;
+
+    margin-top: 18px;
+  }
+
+  /* PIE DE PÁGINA */
+
+  .restablecer-page .restablecer-footer {
+    width: 100%;
+
+    padding: 18px 15px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    text-align: center;
+  }
+
+  .restablecer-page .restablecer-footer div {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .restablecer-page .restablecer-footer strong {
+    font-size: 12px;
+  }
+
+  .restablecer-page .restablecer-footer small {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+}
+
+/* ==========================================
+   CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .restablecer-page .restablecer-header {
+    padding: 14px 10px;
+  }
+
+  .restablecer-page .restablecer-logo strong {
+    font-size: 22px;
+  }
+
+  .restablecer-page .restablecer-content {
+    padding: 20px 10px 30px;
+  }
+
+  .restablecer-page .restablecer-card {
+    padding: 23px 15px;
+
+    border-radius: 14px;
+  }
+
+  .restablecer-page .restablecer-icon {
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 14px;
+  }
+
+  .restablecer-page .restablecer-card h1 {
+    font-size: 22px;
+  }
+
+  .restablecer-page .restablecer-subtitle {
+    font-size: 12px;
+  }
+
+  .restablecer-page .restablecer-footer {
+    padding: 16px 10px;
+  }
+}
+
+/* ==========================================
+   PANTALLAS CON POCA ALTURA
+========================================== */
+
+@media (max-height: 750px) and (min-width: 701px) {
+
+  .restablecer-page .restablecer-content {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .restablecer-page .restablecer-card {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .restablecer-page .restablecer-icon {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 15px;
+  }
+
+  .restablecer-page .restablecer-subtitle {
+    margin-bottom: 20px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.restablecer-page button:focus-visible,
+.restablecer-page input:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+/* REDUCIR ANIMACIONES */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .restablecer-page *,
+  .restablecer-page *::before,
+  .restablecer-page *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

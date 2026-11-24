@@ -1,38 +1,21 @@
 
 /* ==========================================
    DATAVENTOR - CREAR REPORTE
-   DISEÑO VERDE INSTITUCIONAL
+   DISEÑO VERDE INSTITUCIONAL RESPONSIVE
 ========================================== */
 
-* {
+.reporte-page,
+.reporte-page * {
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
-  margin: 0;
-}
-
-body {
+.reporte-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
   font-family: "Segoe UI", Arial, sans-serif;
   color: #00573f;
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-/* ==========================================
-   FONDO PRINCIPAL
-========================================== */
-
-.reporte-page {
-  min-height: 100vh;
   background: linear-gradient(
     120deg,
     #f0fff7 0%,
@@ -41,82 +24,91 @@ textarea {
   );
 }
 
+.reporte-page button,
+.reporte-page input,
+.reporte-page select,
+.reporte-page textarea {
+  font: inherit;
+}
+
 /* ==========================================
    ENCABEZADO
 ========================================== */
 
-.topbar {
+.reporte-page .topbar {
   width: 100%;
   min-height: 76px;
   padding: 12px 3%;
-  background: #00573f;
-  color: white;
-
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
-
+  background: #00573f;
+  color: #ffffff;
   border-bottom: 3px solid #78c914;
   box-shadow: 0 3px 12px rgba(0, 87, 63, 0.12);
 }
 
-.topbar-brand h1 {
+.reporte-page .topbar-brand {
+  min-width: 0;
+}
+
+.reporte-page .topbar-brand h1 {
   margin: 0;
-  color: white;
+  color: #ffffff;
   font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.5px;
 }
 
-.topbar-brand h1 span {
+.reporte-page .topbar-brand h1 span {
   color: #78c914;
 }
 
-.topbar-brand p {
+.reporte-page .topbar-brand p {
   margin: 3px 0 0;
   color: #e5f7ed;
   font-size: 12px;
+  line-height: 1.5;
 }
 
-.topbar-actions {
+.reporte-page .topbar-actions {
   display: flex;
   align-items: center;
-  gap: 22px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 18px;
 }
 
-.btn-inicio,
-.btn-cerrar-sesion {
+.reporte-page .btn-inicio,
+.reporte-page .btn-cerrar-sesion {
+  min-height: 42px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 700;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
-/* BOTÓN INICIO */
-
-.btn-inicio {
-  padding: 11px 21px;
-  border: 0;
+.reporte-page .btn-inicio {
+  padding: 10px 21px;
+  border: none;
   border-radius: 25px;
-  color: white;
   background: #78c914;
+  color: #ffffff;
 }
 
-.btn-inicio:hover {
+.reporte-page .btn-inicio:hover {
   background: #64b30c;
 }
 
-/* BOTÓN VOLVER */
-
-.btn-cerrar-sesion {
-  padding: 10px 0;
-  border: 0;
+.reporte-page .btn-cerrar-sesion {
+  padding: 10px 8px;
+  border: none;
   background: transparent;
-  color: white;
+  color: #ffffff;
 }
 
-.btn-cerrar-sesion:hover {
+.reporte-page .btn-cerrar-sesion:hover {
   color: #a7ee60;
   text-decoration: underline;
 }
@@ -125,16 +117,15 @@ textarea {
    CONTENIDO PRINCIPAL
 ========================================== */
 
-.main-content {
+.reporte-page .main-content {
   width: 100%;
   min-height: calc(100vh - 76px);
 }
 
-.content-wrapper {
+.reporte-page .content-wrapper {
   width: min(1500px, 96%);
   margin: 0 auto;
   padding: 30px 0;
-
   display: grid;
   grid-template-columns: minmax(0, 1fr) 310px;
   align-items: start;
@@ -145,131 +136,126 @@ textarea {
    TARJETA DEL FORMULARIO
 ========================================== */
 
-.form-card {
+.reporte-page .form-card {
   min-width: 0;
   padding: 28px 32px;
   border: 1px solid #d3ecde;
   border-radius: 20px;
   background: #ffffff;
-
   box-shadow: 0 15px 40px rgba(0, 87, 63, 0.09);
 }
 
-.form-header {
+.reporte-page .form-header {
   display: flex;
   align-items: center;
   gap: 17px;
   margin-bottom: 28px;
+  min-width: 0;
 }
 
-/* ÍCONO CREAR REPORTE */
-
-.report-icon {
+.reporte-page .report-icon {
   width: 60px;
   height: 60px;
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 15px;
-  color: white;
-  background: linear-gradient(
-    135deg,
-    #00573f,
-    #198754
-  );
-
-  font-size: 31px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #00573f, #198754);
 }
 
-.report-icon svg {
+.reporte-page .report-icon svg {
   width: 30px;
   height: 30px;
 }
 
-/* TÍTULOS */
-
-.form-header h2 {
-  margin: 0;
-  color: #00573f;
-  font-size: clamp(24px, 2.2vw, 31px);
-  font-weight: 800;
+.reporte-page .form-header > div:last-child {
+  min-width: 0;
 }
 
-.form-header p {
+.reporte-page .form-header h2 {
+  margin: 0;
+  color: #00573f;
+  font-size: clamp(22px, 2.2vw, 31px);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.reporte-page .form-header p {
   margin: 6px 0 0;
   color: #648176;
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* ==========================================
    CAMPOS DEL FORMULARIO
 ========================================== */
 
-.form-grid {
+.reporte-page .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px 26px;
 }
 
-.form-group {
+.reporte-page .form-group {
   min-width: 0;
 }
 
-.form-group label,
-.description-group label,
-.evidence-group > label:first-child {
+.reporte-page .form-group label,
+.reporte-page .description-group label,
+.reporte-page .evidence-group > label:first-child {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-bottom: 9px;
-
   color: #00573f;
   font-size: 13px;
   font-weight: 700;
+  line-height: 1.5;
 }
 
-/* CAMPOS OBLIGATORIOS */
-
-.form-group label span,
-.description-group label > span:last-child {
+.reporte-page .form-group label span,
+.reporte-page .description-group label > span:last-child {
   color: #e53935;
 }
 
 /* SELECTORES */
 
-.form-group select {
+.reporte-page .form-group select {
   display: block;
   width: 100%;
   min-width: 0;
-  height: 47px;
-  padding: 0 13px;
-
+  max-width: 100%;
+  min-height: 47px;
+  padding: 10px 13px;
   border: 1px solid #c9e5d5;
   border-radius: 11px;
-  background: white;
+  background: #ffffff;
   color: #305e49;
   font-size: 13px;
-
   outline: none;
   cursor: pointer;
-
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
 }
 
-.form-group select:focus {
+.reporte-page .form-group select:focus {
   border-color: #198754;
   box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
 }
 
+.reporte-page .form-group select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  background-color: #f1f5f3;
+}
+
 /* ESTADO DEL EQUIPO */
 
-.estado-select {
+.reporte-page .estado-select {
   background: #fff0f0 !important;
   border-color: #ffc1c1 !important;
   color: #c51d27 !important;
@@ -278,7 +264,7 @@ textarea {
 
 /* PRIORIDAD */
 
-.prioridad-select {
+.reporte-page .prioridad-select {
   background: #fff8df !important;
   border-color: #ffd66d !important;
   color: #7c5900 !important;
@@ -286,65 +272,60 @@ textarea {
 }
 
 /* ==========================================
-   DESCRIPCIÓN DEL PROBLEMA
+   DESCRIPCIÓN
 ========================================== */
 
-.description-group {
+.reporte-page .description-group {
   margin-top: 27px;
+  min-width: 0;
 }
 
-.description-group label {
+.reporte-page .description-group label {
   margin-bottom: 10px;
 }
 
-.label-icon {
-  color: #198754;
+.reporte-page .label-icon {
+  color: #198754 !important;
   font-size: 21px;
 }
 
-.textarea-wrap {
+.reporte-page .textarea-wrap {
   position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
-.description-group textarea {
+.reporte-page .description-group textarea {
   display: block;
   width: 100%;
   min-height: 120px;
   padding: 15px 15px 34px;
   resize: vertical;
-
   border: 1px solid #c9e5d5;
   border-radius: 11px;
-  background: white;
+  background: #ffffff;
   color: #305e49;
-
-  font-family: inherit;
   font-size: 13px;
-  line-height: 1.5;
-
+  line-height: 1.6;
   outline: none;
-
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
 }
 
-.description-group textarea:focus {
+.reporte-page .description-group textarea:focus {
   border-color: #198754;
   box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
 }
 
-.description-group textarea::placeholder {
+.reporte-page .description-group textarea::placeholder {
   color: #91aa9c;
 }
 
-/* CONTADOR DE CARACTERES */
-
-.counter {
+.reporte-page .counter {
   position: absolute;
   right: 14px;
   bottom: 11px;
-
   color: #648176;
   font-size: 11px;
   pointer-events: none;
@@ -354,54 +335,53 @@ textarea {
    EVIDENCIA
 ========================================== */
 
-.evidence-group {
+.reporte-page .evidence-group {
   margin-top: 24px;
+  min-width: 0;
 }
 
-.evidence-group > label:first-child {
+.reporte-page .evidence-group > label:first-child {
   margin-bottom: 11px;
 }
 
-.evidence-group small {
+.reporte-page .evidence-group small {
   color: #648176;
   font-size: 12px;
   font-weight: 400;
 }
 
-.paperclip {
-  color: #198754;
+.reporte-page .paperclip {
+  color: #198754 !important;
   font-size: 19px;
 }
 
-/* CAJA DE SUBIR IMAGEN */
+/* CAJA PARA SUBIR IMAGEN */
 
-.upload-box {
+.reporte-page .upload-box {
+  position: relative;
+  width: 100%;
   min-height: 88px;
   padding: 15px;
-
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 16px;
-
   border: 1.5px dashed #a4d8bd;
   border-radius: 12px;
   background: #f4fff8;
-
-  cursor: pointer;
   text-align: center;
-
+  cursor: pointer;
   transition:
     background 0.2s,
     border-color 0.2s;
 }
 
-.upload-box:hover {
+.reporte-page .upload-box:hover {
   border-color: #198754;
   background: #e9fff5;
 }
 
-.upload-box input {
+.reporte-page .upload-box input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -409,60 +389,54 @@ textarea {
   clip-path: inset(50%);
 }
 
-.upload-box:focus-within {
+.reporte-page .upload-box:focus-within {
   outline: 2px solid #198754;
   outline-offset: 2px;
 }
 
-/* ÍCONO DE SUBIR IMAGEN */
-
-.upload-icon {
+.reporte-page .upload-icon {
   width: 45px;
   height: 45px;
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
   background: #dcf7e8;
   color: #198754;
-
   font-size: 27px;
   font-weight: 700;
 }
 
-.upload-text {
+.reporte-page .upload-text {
   min-width: 0;
 }
 
-.upload-text strong {
+.reporte-page .upload-text strong {
   display: block;
-  overflow-wrap: anywhere;
   color: #00573f;
   font-size: 12px;
+  overflow-wrap: anywhere;
 }
 
-.upload-text p {
+.reporte-page .upload-text p {
   margin: 6px 0 0;
   color: #648176;
   font-size: 11px;
+  line-height: 1.5;
 }
 
-.remove-file {
+.reporte-page .remove-file {
   margin-top: 9px;
   padding: 4px 0;
-
-  border: 0;
+  border: none;
   background: transparent;
   color: #c51d27;
-
   font-size: 12px;
   cursor: pointer;
 }
 
-.remove-file:hover {
+.reporte-page .remove-file:hover {
   text-decoration: underline;
 }
 
@@ -470,200 +444,184 @@ textarea {
    MENSAJES
 ========================================== */
 
-.form-message {
+.reporte-page .form-message {
   margin-top: 18px;
   padding: 12px 14px;
-
   border: 1px solid #b9e7cd;
   border-radius: 10px;
-
   background: #e9fff5;
   color: #00573f;
-
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 /* ==========================================
    BOTONES
 ========================================== */
 
-.buttons {
+.reporte-page .buttons {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 25px;
 }
 
-.buttons button {
+.reporte-page .buttons button {
   min-height: 46px;
-  padding: 0 23px;
-
+  padding: 10px 23px;
   border-radius: 11px;
   font-size: 13px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition:
     transform 0.2s,
     box-shadow 0.2s,
     background 0.2s;
 }
 
-.buttons button:hover {
+.reporte-page .buttons button:hover:not(:disabled) {
   transform: translateY(-1px);
 }
 
 /* CANCELAR */
 
-.cancel-button {
+.reporte-page .cancel-button {
   border: 1px solid #198754;
-  background: white;
+  background: #ffffff;
   color: #00573f;
 }
 
-.cancel-button:hover {
+.reporte-page .cancel-button:hover {
   background: #e9fff5;
 }
 
 /* ENVIAR REPORTE */
 
-.submit-button {
+.reporte-page .submit-button {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
-
-  border: 0;
-
+  border: none;
   background: linear-gradient(
     90deg,
     #78c914,
     #198754
   );
-
-  color: white;
-
+  color: #ffffff;
   box-shadow: 0 7px 18px rgba(25, 135, 84, 0.2);
 }
 
-.submit-button:hover {
+.reporte-page .submit-button:hover:not(:disabled) {
   background: linear-gradient(
     90deg,
     #68b90f,
     #137447
   );
-
   box-shadow: 0 10px 22px rgba(25, 135, 84, 0.28);
 }
 
+.reporte-page .submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* ==========================================
-   PANELES LATERALES
+   PANELES DE INFORMACIÓN
 ========================================== */
 
-.info-panel {
+.reporte-page .info-panel {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-.info-card {
+.reporte-page .info-card {
+  min-width: 0;
   padding: 22px 20px;
   border-radius: 17px;
 }
 
-.info-card h3 {
+.reporte-page .info-card h3 {
   display: flex;
   align-items: center;
   gap: 9px;
-
   margin: 0 0 17px;
-
   color: #00573f;
   font-size: 15px;
   font-weight: 800;
 }
 
-/* TEN EN CUENTA */
-
-.tips {
+.reporte-page .tips {
   background: linear-gradient(
     135deg,
     #f2fff7,
     #e4f9ed
   );
-
   border: 1px solid #d1ebdc;
   color: #00573f;
 }
 
-.tips ul {
+.reporte-page .tips ul {
   margin: 0;
   padding-left: 19px;
 }
 
-.tips li {
+.reporte-page .tips li {
   margin-bottom: 13px;
   color: #416c56;
   font-size: 12px;
   line-height: 1.6;
 }
 
-.tips li:last-child {
+.reporte-page .tips li:last-child {
   margin-bottom: 0;
 }
 
-/* ¿QUÉ PASA DESPUÉS? */
-
-.process {
+.reporte-page .process {
   background: linear-gradient(
     135deg,
     #ddfaee,
     #e9fff5
   );
-
   border: 1px solid #c7ead7;
   color: #00573f;
 }
 
-.step {
+.reporte-page .step {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 15px;
 }
 
-.step:last-child {
+.reporte-page .step:last-child {
   margin-bottom: 0;
 }
 
-/* NÚMEROS DE LOS PASOS */
-
-.step b {
+.reporte-page .step b {
   width: 35px;
   height: 35px;
   min-width: 35px;
-
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-
   background: linear-gradient(
     135deg,
     #00573f,
     #78c914
   );
-
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  color: #ffffff;
   font-size: 13px;
 }
 
-.step p {
+.reporte-page .step p {
   margin: 0;
   color: #416c56;
   font-size: 12px;
@@ -671,127 +629,297 @@ textarea {
 }
 
 /* ==========================================
-   DISEÑO RESPONSIVE
+   TABLETAS Y PORTÁTILES PEQUEÑOS
 ========================================== */
 
 @media (max-width: 1050px) {
-  .content-wrapper {
-    grid-template-columns: minmax(0, 1fr);
+  .reporte-page .content-wrapper {
     width: min(850px, 94%);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
   }
 
-  .info-panel {
+  .reporte-page .info-panel {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    align-items: stretch;
+  }
+
+  .reporte-page .info-card {
+    height: 100%;
   }
 }
 
+/* ==========================================
+   TABLETAS VERTICALES
+========================================== */
+
+@media (max-width: 768px) {
+  .reporte-page .topbar {
+    padding: 14px 4%;
+    gap: 12px;
+  }
+
+  .reporte-page .topbar-brand h1 {
+    font-size: 24px;
+  }
+
+  .reporte-page .topbar-actions {
+    gap: 12px;
+  }
+
+  .reporte-page .content-wrapper {
+    width: 94%;
+    padding: 24px 0;
+  }
+
+  .reporte-page .form-card {
+    padding: 25px;
+  }
+
+  .reporte-page .form-grid {
+    gap: 19px;
+  }
+
+  .reporte-page .form-header h2 {
+    font-size: 26px;
+  }
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
 @media (max-width: 600px) {
-  .topbar {
-    padding: 12px 4%;
-    gap: 10px;
+  .reporte-page .topbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    gap: 14px;
+    text-align: center;
   }
 
-  .topbar-brand h1 {
-    font-size: 21px;
+  .reporte-page .topbar-brand h1 {
+    font-size: 25px;
   }
 
-  .topbar-brand p {
-    max-width: 170px;
-    font-size: 10px;
-    line-height: 1.4;
-  }
-
-  .topbar-actions {
-    gap: 10px;
-  }
-
-  .btn-inicio {
-    padding: 9px 12px;
-    font-size: 12px;
-  }
-
-  .btn-cerrar-sesion {
+  .reporte-page .topbar-brand p {
+    max-width: 100%;
     font-size: 11px;
   }
 
-  .content-wrapper {
-    width: 94%;
-    padding: 18px 0;
-    gap: 16px;
+  .reporte-page .topbar-actions {
+    width: 100%;
+    justify-content: center;
+    gap: 14px;
   }
 
-  .form-card {
+  .reporte-page .btn-inicio,
+  .reporte-page .btn-cerrar-sesion {
+    min-height: 42px;
+    font-size: 12px;
+  }
+
+  /* CONTENIDO */
+
+  .reporte-page .main-content {
+    min-height: auto;
+  }
+
+  .reporte-page .content-wrapper {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 22px 15px;
+    gap: 20px;
+  }
+
+  /* TARJETA */
+
+  .reporte-page .form-card {
+    width: 100%;
+    min-width: 0;
     padding: 20px 16px;
-    border-radius: 15px;
+    border-radius: 16px;
   }
 
-  .form-header {
+  /* ENCABEZADO DEL FORMULARIO */
+
+  .reporte-page .form-header {
     align-items: flex-start;
     gap: 12px;
     margin-bottom: 24px;
   }
 
-  .report-icon {
+  .reporte-page .report-icon {
     width: 46px;
     height: 46px;
     border-radius: 12px;
   }
 
-  .report-icon svg {
+  .reporte-page .report-icon svg {
     width: 25px;
     height: 25px;
   }
 
-  .form-header h2 {
-    font-size: 23px;
+  .reporte-page .form-header h2 {
+    font-size: 22px;
+    line-height: 1.25;
   }
 
-  .form-header p {
+  .reporte-page .form-header p {
     font-size: 12px;
   }
 
-  .form-grid {
+  /* CAMPOS EN UNA COLUMNA */
+
+  .reporte-page .form-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 19px;
+    gap: 18px;
   }
 
-  .form-group select {
-    height: 46px;
-  }
-
-  .description-group {
-    margin-top: 23px;
-  }
-
-  .upload-box {
-    padding: 12px 9px;
-    gap: 10px;
-  }
-
-  .upload-icon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .upload-text strong {
-    font-size: 11px;
-  }
-
-  .buttons {
-    flex-direction: column-reverse;
-  }
-
-  .buttons button {
+  .reporte-page .form-group {
     width: 100%;
   }
 
-  .info-panel {
-    grid-template-columns: minmax(0, 1fr);
+  .reporte-page .form-group label {
+    font-size: 13px;
   }
 
-  .info-card {
+  .reporte-page .form-group select {
+    width: 100%;
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  /* DESCRIPCIÓN */
+
+  .reporte-page .description-group {
+    margin-top: 24px;
+  }
+
+  .reporte-page .description-group textarea {
+    min-height: 140px;
+    font-size: 16px;
+  }
+
+  /* EVIDENCIA */
+
+  .reporte-page .evidence-group {
+    margin-top: 22px;
+  }
+
+  .reporte-page .upload-box {
+    width: 100%;
+    min-height: 110px;
+    padding: 14px 10px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .reporte-page .upload-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .reporte-page .upload-text strong {
+    font-size: 12px;
+  }
+
+  .reporte-page .upload-text p {
+    font-size: 11px;
+  }
+
+  /* BOTONES VERTICALES */
+
+  .reporte-page .buttons {
+    width: 100%;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .reporte-page .buttons button {
+    width: 100%;
+    min-height: 50px;
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  /* PANELES INFORMATIVOS */
+
+  .reporte-page .info-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+
+  .reporte-page .info-card {
     padding: 19px;
+  }
+
+  .reporte-page .info-card h3 {
+    font-size: 14px;
+  }
+
+  .reporte-page .tips li,
+  .reporte-page .step p {
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   CELULARES MUY PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+  .reporte-page .content-wrapper {
+    padding: 15px 10px;
+  }
+
+  .reporte-page .form-card {
+    padding: 17px 12px;
+  }
+
+  .reporte-page .form-header {
+    gap: 9px;
+  }
+
+  .reporte-page .report-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .reporte-page .form-header h2 {
+    font-size: 19px;
+  }
+
+  .reporte-page .topbar-actions {
+    flex-wrap: wrap;
+  }
+
+  .reporte-page .upload-box {
+    padding: 12px 8px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.reporte-page button:focus-visible,
+.reporte-page select:focus-visible,
+.reporte-page textarea:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reporte-page *,
+  .reporte-page *::before,
+  .reporte-page *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

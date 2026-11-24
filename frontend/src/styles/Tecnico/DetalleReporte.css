@@ -377,3 +377,510 @@
     text-align: left;
   }
 }
+
+/* ==========================================
+   DATAVENTOR - DETALLE REPORTE
+   AJUSTES RESPONSIVE
+   CONSERVA EL DISEÑO ORIGINAL
+========================================== */
+
+/* CONFIGURACIÓN GENERAL */
+
+.detalle-reporte-page,
+.detalle-reporte-page *,
+.detalle-reporte-page *::before,
+.detalle-reporte-page *::after {
+  box-sizing: border-box;
+}
+
+.detalle-reporte-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.detalle-reporte-page button {
+  font-family: inherit;
+}
+
+/* EVITAR DESBORDAMIENTOS */
+
+.detalle-reporte-header,
+.detalle-reporte-contenido,
+.detalle-reporte-introduccion,
+.detalle-reporte-grid,
+.detalle-reporte-card,
+.detalle-reporte-datos,
+.detalle-reporte-historial {
+  min-width: 0;
+}
+
+.detalle-reporte-card,
+.detalle-reporte-movimiento,
+.detalle-reporte-datos strong {
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   TABLETAS Y PORTÁTILES
+========================================== */
+
+@media (max-width: 1024px) {
+
+  .detalle-reporte-contenido {
+    width: calc(100% - 44px);
+    max-width: 1100px;
+    padding: 35px 0 48px;
+  }
+
+  .detalle-reporte-grid {
+    gap: 18px;
+  }
+
+  .detalle-reporte-card {
+    padding: 23px;
+  }
+
+  .detalle-reporte-introduccion h2 {
+    font-size: 27px;
+  }
+
+  .detalle-reporte-datos {
+    gap: 16px;
+  }
+
+  .detalle-reporte-card-titulo {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .detalle-reporte-card-titulo h3 {
+    font-size: 18px;
+  }
+}
+
+/* ==========================================
+   TABLETAS PEQUEÑAS
+========================================== */
+
+@media (max-width: 800px) {
+
+  /* ENCABEZADO */
+
+  .detalle-reporte-header {
+    padding: 17px 4%;
+    gap: 15px;
+  }
+
+  .detalle-reporte-logo h1 {
+    font-size: 25px;
+  }
+
+  .detalle-reporte-logo p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* CONTENIDO */
+
+  .detalle-reporte-contenido {
+    width: calc(100% - 40px);
+    max-width: 650px;
+    padding: 30px 0 45px;
+  }
+
+  /* INTRODUCCIÓN */
+
+  .detalle-reporte-introduccion {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+
+  .detalle-reporte-introduccion h2 {
+    font-size: 25px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .detalle-reporte-introduccion p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* TARJETAS */
+
+  .detalle-reporte-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .detalle-reporte-card {
+    padding: 23px;
+  }
+
+  /* DATOS */
+
+  .detalle-reporte-datos > div {
+    gap: 12px;
+  }
+
+  .detalle-reporte-datos strong {
+    max-width: 65%;
+  }
+
+  /* HISTORIAL */
+
+  .detalle-reporte-historial {
+    gap: 18px;
+  }
+
+  .detalle-reporte-movimiento > div {
+    min-width: 0;
+  }
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  /* ENCABEZADO */
+
+  .detalle-reporte-header {
+    min-height: auto;
+    padding: 16px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    text-align: center;
+  }
+
+  .detalle-reporte-logo {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .detalle-reporte-logo h1 {
+    font-size: 25px;
+  }
+
+  .detalle-reporte-logo p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  /* BOTÓN VOLVER */
+
+  .detalle-reporte-volver {
+    width: 100%;
+    max-width: 250px;
+    min-height: 44px;
+
+    padding: 11px 15px;
+
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  /* CONTENIDO PRINCIPAL */
+
+  .detalle-reporte-contenido {
+    width: calc(100% - 30px);
+    max-width: 100%;
+    padding: 25px 0 35px;
+  }
+
+  /* INTRODUCCIÓN */
+
+  .detalle-reporte-introduccion {
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 23px;
+  }
+
+  .detalle-reporte-etiqueta {
+    font-size: 10px;
+    letter-spacing: 1.4px;
+  }
+
+  .detalle-reporte-introduccion h2 {
+    font-size: 23px;
+    line-height: 1.3;
+    margin: 8px 0;
+  }
+
+  .detalle-reporte-introduccion p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* ESTADO DEL REPORTE */
+
+  .detalle-reporte-estado {
+    max-width: 100%;
+    padding: 10px 15px;
+
+    border-radius: 20px;
+    font-size: 12px;
+  }
+
+  /* TARJETAS EN UNA COLUMNA */
+
+  .detalle-reporte-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .detalle-reporte-card {
+    width: 100%;
+    min-width: 0;
+
+    padding: 20px 17px;
+    border-radius: 15px;
+  }
+
+  /* TÍTULO DE TARJETAS */
+
+  .detalle-reporte-card-titulo {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    padding-bottom: 14px;
+    margin-bottom: 20px;
+
+    font-size: 19px;
+  }
+
+  .detalle-reporte-card-titulo svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .detalle-reporte-card-titulo h3 {
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  /* DATOS DEL REPORTE */
+
+  .detalle-reporte-datos {
+    gap: 17px;
+  }
+
+  .detalle-reporte-datos > div {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .detalle-reporte-datos span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .detalle-reporte-datos strong {
+    width: 100%;
+    max-width: 100%;
+
+    font-size: 13px;
+    line-height: 1.6;
+
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  /* DESCRIPCIÓN */
+
+  .detalle-reporte-descripcion {
+    margin-top: 22px;
+    padding: 15px;
+
+    border-radius: 11px;
+  }
+
+  .detalle-reporte-descripcion h4 {
+    font-size: 13px;
+  }
+
+  .detalle-reporte-descripcion p {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  /* HISTORIAL */
+
+  .detalle-reporte-historial {
+    gap: 20px;
+  }
+
+  .detalle-reporte-movimiento {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .detalle-reporte-punto {
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+  }
+
+  .detalle-reporte-movimiento > div {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .detalle-reporte-movimiento strong {
+    font-size: 13px;
+  }
+
+  .detalle-reporte-movimiento small {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .detalle-reporte-movimiento p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  /* BOTÓN INFERIOR */
+
+  .detalle-reporte-acciones {
+    width: 100%;
+    margin-top: 25px;
+    justify-content: stretch;
+  }
+
+  .detalle-reporte-acciones button {
+    width: 100%;
+    min-height: 49px;
+
+    padding: 13px 16px;
+    font-size: 13px;
+  }
+
+  /* MENSAJES DE CARGA Y ERROR */
+
+  .detalle-reporte-mensaje {
+    padding: 35px 18px;
+    gap: 12px;
+  }
+
+  .detalle-reporte-mensaje p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .detalle-reporte-mensaje button {
+    width: 100%;
+    max-width: 260px;
+    min-height: 45px;
+  }
+
+  /* PIE DE PÁGINA */
+
+  .detalle-reporte-footer {
+    padding: 18px 16px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    text-align: center;
+  }
+
+  .detalle-reporte-footer strong {
+    font-size: 14px;
+  }
+
+  .detalle-reporte-footer > span {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+
+/* ==========================================
+   CELULARES MUY PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .detalle-reporte-header {
+    padding: 14px 10px;
+  }
+
+  .detalle-reporte-logo h1 {
+    font-size: 23px;
+  }
+
+  .detalle-reporte-contenido {
+    width: calc(100% - 20px);
+    padding: 20px 0 30px;
+  }
+
+  .detalle-reporte-introduccion h2 {
+    font-size: 21px;
+  }
+
+  .detalle-reporte-introduccion p {
+    font-size: 12px;
+  }
+
+  .detalle-reporte-card {
+    padding: 17px 13px;
+  }
+
+  .detalle-reporte-card-titulo h3 {
+    font-size: 16px;
+  }
+
+  .detalle-reporte-datos span {
+    font-size: 11px;
+  }
+
+  .detalle-reporte-datos strong {
+    font-size: 12px;
+  }
+
+  .detalle-reporte-descripcion {
+    padding: 13px;
+  }
+
+  .detalle-reporte-descripcion p {
+    font-size: 12px;
+  }
+
+  .detalle-reporte-movimiento p {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.detalle-reporte-page button:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .detalle-reporte-page *,
+  .detalle-reporte-page *::before,
+  .detalle-reporte-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

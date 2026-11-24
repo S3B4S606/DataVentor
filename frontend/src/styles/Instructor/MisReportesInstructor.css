@@ -1,11 +1,19 @@
 
 /* ==========================================
    DATAVENTOR - MIS REPORTES INSTRUCTOR
-   DISEÑO VERDE INSTITUCIONAL
+   DISEÑO VERDE RESPONSIVE
 ========================================== */
 
+.mir-page,
+.mir-page * {
+  box-sizing: border-box;
+}
+
 .mir-page {
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
   background: linear-gradient(
     120deg,
     #f0fff7 0%,
@@ -16,69 +24,82 @@
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.mir-page * {
-  box-sizing: border-box;
+.mir-page button,
+.mir-page input,
+.mir-page select {
+  font-family: inherit;
 }
 
 /* ==========================================
    ENCABEZADO
 ========================================== */
 
-.mir-header {
-  min-height: 92px;
-  box-sizing: border-box;
-  padding: 15px 3.2%;
+.mir-page .mir-header {
+  width: 100%;
+  min-height: 82px;
+  padding: 15px 4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
-
-  background: #00573f;
+  gap: 20px;
+  background: linear-gradient(
+    110deg,
+    #00573f,
+    #004c37
+  );
   color: #ffffff;
-
   border-bottom: 3px solid #78c914;
   box-shadow: 0 3px 12px rgba(0, 87, 63, 0.12);
 }
 
-/* LOGO DATAVENTOR */
+.mir-page .mir-brand {
+  min-width: 0;
+}
 
-.mir-header h1 {
+.mir-page .mir-header h1 {
   margin: 0;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
+  line-height: 1.2;
 }
 
-.mir-header h1 span {
+.mir-page .mir-header h1 span {
   color: #78c914;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
-.mir-header p {
-  margin: 3px 0 0;
+.mir-page .mir-header p {
+  margin: 4px 0 0;
   color: #e5f7ed;
   font-size: 11px;
+  line-height: 1.5;
 }
 
 /* BOTÓN VOLVER */
 
-.mir-back {
-  display: flex;
+.mir-page .mir-back {
+  min-height: 43px;
+  padding: 10px 16px;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 8px;
-
+  justify-content: center;
+  gap: 9px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.55);
+  border-radius: 9px;
   background: transparent;
   color: #ffffff;
-
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.2s;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
 }
 
-.mir-back:hover {
-  color: #ffffff;
+.mir-page .mir-back:hover {
   border-color: #78c914;
   background: rgba(120, 201, 20, 0.12);
 }
@@ -87,57 +108,66 @@
    CONTENIDO PRINCIPAL
 ========================================== */
 
-.mir-main {
-  max-width: 1150px;
+.mir-page .mir-main {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 35px 25px;
+  padding: 38px 25px;
 }
 
-/* TÍTULO */
+/* ==========================================
+   TÍTULO
+========================================== */
 
-.mir-heading {
+.mir-page .mir-heading {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 25px;
 }
 
-.mir-heading-icon {
-  width: 55px;
-  height: 55px;
-
+.mir-page .mir-heading-icon {
+  width: 58px;
+  height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border-radius: 13px;
+  flex-shrink: 0;
+  border-radius: 14px;
   background: #e0f7ea;
   color: #198754;
-  font-size: 22px;
+  font-size: 23px;
 }
 
-.mir-heading h2 {
+.mir-page .mir-heading-text {
+  min-width: 0;
+}
+
+.mir-page .mir-heading h2 {
   margin: 0 0 6px;
   color: #00573f;
-  font-size: 25px;
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
-.mir-heading p {
+.mir-page .mir-heading p {
   margin: 0;
   color: #648176;
   font-size: 13px;
+  line-height: 1.6;
 }
 
 /* ==========================================
-   TARJETA PRINCIPAL
+   PANEL PRINCIPAL
 ========================================== */
 
-.mir-panel {
+.mir-page .mir-panel {
+  width: 100%;
+  min-width: 0;
   padding: 25px;
-
   border: 1px solid #d3ecde;
-  border-radius: 15px;
-
+  border-radius: 17px;
   background: #ffffff;
   box-shadow: 0 10px 30px rgba(0, 87, 63, 0.07);
 }
@@ -146,197 +176,206 @@
    BUSCADOR Y FILTROS
 ========================================== */
 
-.mir-toolbar {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 22px;
-}
-
-/* BUSCADOR */
-
-.mir-search {
+.mir-page .mir-toolbar {
   width: 100%;
-  max-width: 420px;
-  height: 44px;
-
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
 
-  padding: 0 12px;
-
+.mir-page .mir-search {
+  width: 100%;
+  max-width: 440px;
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 13px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
   border: 1px solid #c9e5d5;
-  border-radius: 8px;
-
+  border-radius: 10px;
   background: #fafffc;
   color: #198754;
 }
 
-.mir-search:focus-within {
+.mir-page .mir-search:focus-within {
   border-color: #198754;
-  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
 }
 
-.mir-search input {
-  width: 100%;
+.mir-page .mir-search > svg {
+  flex-shrink: 0;
+}
 
+.mir-page .mir-search input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 0;
   border: none;
   outline: none;
-
   background: transparent;
   color: #305e49;
-
-  font: inherit;
   font-size: 13px;
 }
 
-.mir-search input::placeholder {
+.mir-page .mir-search input::placeholder {
   color: #91aa9c;
 }
 
 /* FILTRO POR ESTADO */
 
-.mir-toolbar select {
-  min-height: 44px;
-  padding: 0 12px;
-
+.mir-page .mir-toolbar select {
+  min-width: 185px;
+  max-width: 100%;
+  min-height: 46px;
+  padding: 10px 13px;
   border: 1px solid #c9e5d5;
-  border-radius: 8px;
-
+  border-radius: 10px;
   background: #ffffff;
   color: #00573f;
   font-size: 13px;
-
   cursor: pointer;
 }
 
-.mir-toolbar select:focus {
+.mir-page .mir-toolbar select:focus {
   outline: none;
   border-color: #198754;
-  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+/* CONTADOR */
+
+.mir-page .mir-count {
+  margin: 0 0 15px;
+  color: #648176;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 /* ==========================================
    TABLA DE REPORTES
 ========================================== */
 
-.mir-table-wrap {
+.mir-page .mir-table-wrap {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  border: 1px solid #e1f0e8;
+  border-radius: 11px;
 }
 
-.mir-table {
+.mir-page .mir-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-.mir-table th {
-  padding: 14px 12px;
-
+.mir-page .mir-table th {
+  padding: 15px 13px;
   background: #e9f8ef;
   color: #00573f;
-
   font-size: 12px;
   font-weight: 700;
   white-space: nowrap;
 }
 
-.mir-table td {
-  padding: 15px 12px;
-
+.mir-page .mir-table td {
+  padding: 16px 13px;
   border-bottom: 1px solid #e1f0e8;
   color: #416c56;
-
   font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
-.mir-table tbody tr:hover {
+.mir-page .mir-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.mir-page .mir-table tbody tr:hover {
   background: #f3fff8;
 }
 
 /* ==========================================
-   PRIORIDADES Y ESTADOS
+   PRIORIDADES
 ========================================== */
 
-.mir-status,
-.mir-priority {
+.mir-page .mir-status,
+.mir-page .mir-priority {
   display: inline-block;
-  padding: 5px 9px;
+  max-width: 100%;
+  padding: 6px 11px;
   border-radius: 20px;
   font-size: 11px;
   font-weight: 700;
+  line-height: 1.4;
   white-space: nowrap;
 }
 
-/* PRIORIDAD BAJA */
-
-.mir-priority-baja {
+.mir-page .mir-priority-baja {
   background: #e4f8ed;
   color: #21864a;
 }
 
-/* PRIORIDAD MEDIA */
-
-.mir-priority-media {
+.mir-page .mir-priority-media {
   background: #fff4d9;
   color: #996b00;
 }
 
-/* PRIORIDAD ALTA Y CRÍTICA */
-
-.mir-priority-alta,
-.mir-priority-crítica {
+.mir-page .mir-priority-alta {
   background: #ffe8ea;
   color: #c33142;
 }
 
-/* ESTADO PENDIENTE */
+/* ==========================================
+   ESTADOS
+========================================== */
 
-.mir-status-pendiente {
+.mir-page .mir-status-pendiente {
   background: #fff4d9;
   color: #996b00;
 }
 
-/* ESTADO EN REVISIÓN */
-
-.mir-status-en-revisión,
-.mir-status-en_revision {
-  background: #e9fff5;
-  color: #198754;
+.mir-page .mir-status-en_revision {
+  background: #e9f4ff;
+  color: #245d94;
 }
 
-/* ESTADO RESUELTO */
-
-.mir-status-solucionado,
-.mir-status-resuelto,
-.mir-status-cerrado {
+.mir-page .mir-status-resuelto {
   background: #dcf7e8;
   color: #087a41;
 }
 
-/* ==========================================
-   BOTÓN VER
-========================================== */
-
-.mir-detail {
-  padding: 7px 12px;
-
-  border: 1px solid #b9e7cd;
-  border-radius: 7px;
-
-  background: #e9fff5;
-  color: #198754;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  cursor: pointer;
-  transition: 0.2s;
+.mir-page .mir-status-cerrado {
+  background: #e9edf1;
+  color: #526276;
 }
 
-.mir-detail:hover {
+/* ==========================================
+   BOTÓN VER DETALLE
+========================================== */
+
+.mir-page .mir-detail {
+  min-height: 37px;
+  padding: 8px 13px;
+  border: 1px solid #b9e7cd;
+  border-radius: 8px;
+  background: #e9fff5;
+  color: #198754;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.mir-page .mir-detail:hover {
   background: #198754;
   border-color: #198754;
   color: #ffffff;
@@ -346,117 +385,391 @@
    SIN RESULTADOS
 ========================================== */
 
-.mir-empty {
-  padding: 35px 15px;
+.mir-page .mir-empty {
+  padding: 40px 15px;
   text-align: center;
   color: #648176;
   font-size: 14px;
+  line-height: 1.6;
 }
 
-.mir-note {
+.mir-page .mir-load-error {
+  color: #bc2837;
+}
+
+.mir-page .mir-note {
   margin: 18px 0 0;
   color: #648176;
   font-size: 11px;
+  line-height: 1.6;
 }
 
 /* ==========================================
    MODAL - DETALLE DEL REPORTE
 ========================================== */
 
-.mir-modal-backdrop {
+.mir-page .mir-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 10;
-
+  z-index: 1000;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 20px;
-  background: rgba(0, 47, 33, 0.55);
+  background: rgba(0, 47, 33, 0.60);
 }
 
-.mir-modal {
+.mir-page .mir-modal {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
+  max-height: calc(100dvh - 40px);
   padding: 27px;
-
+  overflow-y: auto;
   border: 1px solid #d3ecde;
-  border-radius: 14px;
-
+  border-radius: 16px;
   background: #ffffff;
-
   box-shadow: 0 20px 60px rgba(0, 87, 63, 0.2);
 }
 
-.mir-modal h3 {
-  margin: 0 0 20px;
+.mir-page .mir-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.mir-page .mir-modal h3 {
+  margin: 0;
   color: #00573f;
-  font-size: 20px;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.4;
 }
 
-.mir-modal p {
-  margin: 10px 0;
-  color: #416c56;
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.mir-modal button {
-  margin-top: 18px;
-  padding: 10px 20px;
-
+.mir-page .mir-modal-close-icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border: none;
   border-radius: 8px;
-
-  background: #198754;
-  color: #ffffff;
-
-  font-weight: 700;
+  background: #edf8f2;
+  color: #00573f;
+  font-size: 15px;
   cursor: pointer;
-
-  transition: background 0.2s ease;
 }
 
-.mir-modal button:hover {
+.mir-page .mir-modal-close-icon:hover {
+  background: #d6f4e3;
+}
+
+.mir-page .mir-modal-body {
+  min-width: 0;
+}
+
+.mir-page .mir-modal-body p {
+  margin: 12px 0;
+  color: #416c56;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.mir-page .mir-modal-body strong {
+  color: #00573f;
+}
+
+.mir-page .mir-modal-close {
+  min-height: 44px;
+  margin-top: 22px;
+  padding: 11px 24px;
+  border: none;
+  border-radius: 9px;
+  background: #198754;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mir-page .mir-modal-close:hover {
   background: #00573f;
 }
 
 /* ==========================================
-   RESPONSIVE
+   TABLETAS
+========================================== */
+
+@media (max-width: 1024px) {
+  .mir-page .mir-main {
+    padding: 32px 22px;
+  }
+
+  .mir-page .mir-panel {
+    padding: 22px;
+  }
+
+  .mir-page .mir-table th,
+  .mir-page .mir-table td {
+    padding: 13px 10px;
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   CELULARES - TABLA EN TARJETAS
 ========================================== */
 
 @media (max-width: 700px) {
-  .mir-header {
-    padding: 13px 18px;
+  /* ENCABEZADO */
+
+  .mir-page .mir-header {
+    min-height: auto;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
   }
 
-  .mir-header h1 {
-    font-size: 20px;
+  .mir-page .mir-header h1 {
+    font-size: 25px;
   }
 
-  .mir-back {
-    padding: 9px;
+  .mir-page .mir-header p {
     font-size: 11px;
   }
 
-  .mir-main {
-    padding: 25px 14px;
-  }
-
-  .mir-panel {
-    padding: 17px;
-  }
-
-  .mir-toolbar {
-    flex-direction: column;
-  }
-
-  .mir-search {
-    max-width: none;
-  }
-
-  .mir-toolbar select {
+  .mir-page .mir-back {
     width: 100%;
+    max-width: 250px;
+    min-height: 43px;
+    font-size: 13px;
+  }
+
+  /* CONTENIDO */
+
+  .mir-page .mir-main {
+    padding: 25px 15px;
+  }
+
+  /* TÍTULO */
+
+  .mir-page .mir-heading {
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .mir-page .mir-heading-icon {
+    width: 49px;
+    height: 49px;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+
+  .mir-page .mir-heading h2 {
+    font-size: 23px;
+  }
+
+  .mir-page .mir-heading p {
+    font-size: 12px;
+  }
+
+  /* PANEL */
+
+  .mir-page .mir-panel {
+    padding: 17px 14px;
+    border-radius: 15px;
+  }
+
+  /* BUSCADOR Y FILTRO */
+
+  .mir-page .mir-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .mir-page .mir-search {
+    max-width: none;
+    min-height: 48px;
+  }
+
+  .mir-page .mir-search input {
+    min-height: 46px;
+    font-size: 16px;
+  }
+
+  .mir-page .mir-toolbar select {
+    width: 100%;
+    min-height: 48px;
+    font-size: 16px;
+  }
+
+  /* TABLA ADAPTABLE */
+
+  .mir-page .mir-table-wrap {
+    overflow: visible;
+    border: none;
+    border-radius: 0;
+  }
+
+  .mir-page .mir-table,
+  .mir-page .mir-table tbody,
+  .mir-page .mir-table tr,
+  .mir-page .mir-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .mir-page .mir-table thead {
+    /* Conserva encabezados accesibles */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .mir-page .mir-table tbody tr {
+    margin-bottom: 15px;
+    padding: 13px 15px;
+    border: 1px solid #d3ecde;
+    border-radius: 13px;
+    background: #fafffc;
+    box-shadow: 0 4px 12px rgba(0,87,63,0.05);
+  }
+
+  .mir-page .mir-table tbody tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .mir-page .mir-table td {
+    min-width: 0;
+    padding: 11px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 7px 12px;
+    border-bottom: 1px solid #e4f1e9;
+    text-align: right;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+  }
+
+  .mir-page .mir-table td:last-child {
+    border-bottom: none;
+  }
+
+  .mir-page .mir-table td::before {
+    content: attr(data-label);
+    flex: 0 0 36%;
+    color: #00573f;
+    font-weight: 700;
+    text-align: left;
+  }
+
+  .mir-page .mir-table td[data-label="Equipo"] {
+    font-weight: 600;
+  }
+
+  .mir-page .mir-detail {
+    min-height: 40px;
+    padding: 9px 14px;
+  }
+
+  /* MODAL */
+
+  .mir-page .mir-modal-backdrop {
+    padding: 14px;
+  }
+
+  .mir-page .mir-modal {
+    max-height: calc(100dvh - 28px);
+    padding: 21px 18px;
+  }
+
+  .mir-page .mir-modal h3 {
+    font-size: 19px;
+  }
+
+  .mir-page .mir-modal-body p {
+    font-size: 12px;
+  }
+
+  .mir-page .mir-modal-close {
+    width: 100%;
+    min-height: 48px;
+  }
+}
+
+/* ==========================================
+   CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+  .mir-page .mir-header {
+    padding: 14px 10px;
+  }
+
+  .mir-page .mir-header h1 {
+    font-size: 23px;
+  }
+
+  .mir-page .mir-main {
+    padding: 20px 10px;
+  }
+
+  .mir-page .mir-panel {
+    padding: 13px 10px;
+  }
+
+  .mir-page .mir-heading h2 {
+    font-size: 21px;
+  }
+
+  .mir-page .mir-table tbody tr {
+    padding: 10px 11px;
+  }
+
+  .mir-page .mir-table td {
+    font-size: 11px;
+  }
+
+  .mir-page .mir-table td::before {
+    flex-basis: 34%;
+  }
+
+  .mir-page .mir-modal {
+    padding: 17px 13px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.mir-page button:focus-visible,
+.mir-page input:focus-visible,
+.mir-page select:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mir-page *,
+  .mir-page *::before,
+  .mir-page *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

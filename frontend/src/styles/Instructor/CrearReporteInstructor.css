@@ -1,299 +1,469 @@
 
-/* =========================================
+/* ==========================================
    DATAVENTOR - CREAR REPORTE INSTRUCTOR
-   DISEÑO VERDE INSTITUCIONAL
-========================================= */
+   DISEÑO VERDE RESPONSIVE
+========================================== */
 
-/* CONTENEDOR GENERAL */
+.crear-reporte-instructor,
+.crear-reporte-instructor * {
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   FONDO GENERAL
+========================================== */
 
 .crear-reporte-instructor {
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+
   background: linear-gradient(
     120deg,
     #f0fff7 0%,
     #e9fff5 50%,
     #d9f7e8 100%
   );
+
   color: #00573f;
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.crear-reporte-instructor * {
-  box-sizing: border-box;
+.crear-reporte-instructor button,
+.crear-reporte-instructor select,
+.crear-reporte-instructor textarea {
+  font-family: inherit;
 }
 
-/* =========================================
+/* ==========================================
    ENCABEZADO
-========================================= */
+========================================== */
 
-.cri-header {
-  min-height: 92px;
-  box-sizing: border-box;
-  padding: 15px 3.2%;
+.crear-reporte-instructor .cri-header {
+  width: 100%;
+  min-height: 82px;
+  padding: 15px 4%;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  gap: 20px;
 
-  background: #00573f;
+  background: linear-gradient(
+    110deg,
+    #00573f,
+    #004c37
+  );
+
   color: #ffffff;
   border-bottom: 3px solid #78c914;
-  box-shadow: 0 3px 12px rgba(0, 87, 63, 0.12);
+
+  box-shadow:
+    0 3px 12px rgba(0, 87, 63, 0.12);
 }
 
-/* LOGO DATAVENTOR */
+/* LOGO */
 
-.cri-header h1 {
+.crear-reporte-instructor .cri-brand {
+  min-width: 0;
+}
+
+.crear-reporte-instructor .cri-header h1 {
   margin: 0;
+
   color: #ffffff;
-  font-size: 24px;
+
+  font-size: 26px;
   font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
 }
 
-.cri-header h1 span {
+.crear-reporte-instructor .cri-header h1 span {
   color: #78c914;
+  font-size: inherit;
+  font-weight: inherit;
 }
 
-.cri-header p {
-  margin: 3px 0 0;
+.crear-reporte-instructor .cri-header p {
+  margin: 4px 0 0;
+
   color: #e5f7ed;
+
   font-size: 11px;
+  line-height: 1.5;
 }
 
 /* BOTÓN VOLVER */
 
-.cri-back {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
+.crear-reporte-instructor .cri-back {
+  min-height: 43px;
+  padding: 10px 16px;
 
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(
+    255, 255, 255, 0.55
+  );
+
+  border-radius: 9px;
 
   background: transparent;
   color: #ffffff;
 
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 600;
+
   cursor: pointer;
-  transition: 0.2s;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s;
 }
 
-.cri-back:hover {
-  color: #ffffff;
+.crear-reporte-instructor .cri-back:hover {
   border-color: #78c914;
   background: rgba(120, 201, 20, 0.12);
+  transform: translateY(-1px);
 }
 
-/* =========================================
-   CONTENIDO Y TARJETA
-========================================= */
+.crear-reporte-instructor .cri-back svg {
+  flex-shrink: 0;
+}
 
-.cri-main {
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.crear-reporte-instructor .cri-main {
   width: 100%;
   max-width: 1000px;
+
+  flex: 1;
+
   margin: 0 auto;
-  padding: 24px 20px 40px;
+  padding: 32px 24px 45px;
 }
 
-.cri-card {
+/* ==========================================
+   TARJETA DEL FORMULARIO
+========================================== */
+
+.crear-reporte-instructor .cri-card {
   width: 100%;
-  padding: 26px;
+  min-width: 0;
+
+  padding: 30px;
 
   border: 1px solid #d3ecde;
-  border-radius: 17px;
+  border-radius: 19px;
 
   background: #ffffff;
 
-  box-shadow: 0 12px 35px rgba(0, 87, 63, 0.08);
+  box-shadow:
+    0 15px 38px rgba(0, 87, 63, 0.10);
 }
 
-/* =========================================
+/* ==========================================
    TÍTULO DEL FORMULARIO
-========================================= */
+========================================== */
 
-.cri-title {
+.crear-reporte-instructor .cri-title {
+  width: 100%;
+  min-width: 0;
+
+  margin-bottom: 26px;
+
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 22px;
 }
 
-.cri-icon {
-  width: 55px;
-  height: 55px;
+.crear-reporte-instructor .cri-icon {
+  width: 58px;
+  height: 58px;
+
   flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 13px;
+  border-radius: 14px;
+
   background: #e0f7ea;
   color: #198754;
 
-  font-size: 22px;
+  font-size: 23px;
 }
 
-.cri-title h2 {
-  margin: 0 0 6px;
-  color: #00573f;
-  font-size: 25px;
-}
-
-.cri-title p {
-  margin: 0;
-  color: #648176;
-  font-size: 13px;
-}
-
-/* =========================================
-   CAMPOS DEL FORMULARIO
-========================================= */
-
-.cri-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px 20px;
-}
-
-.cri-group {
+.crear-reporte-instructor .cri-title-text {
   min-width: 0;
+}
+
+.crear-reporte-instructor .cri-title h2 {
+  margin: 0 0 7px;
+
+  color: #00573f;
+
+  font-size: 27px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.crear-reporte-instructor .cri-title p {
+  margin: 0;
+
+  color: #648176;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   FORMULARIO
+========================================== */
+
+.crear-reporte-instructor .cri-card form {
+  width: 100%;
+  min-width: 0;
+}
+
+/* DISTRIBUCIÓN EN DOS COLUMNAS */
+
+.crear-reporte-instructor .cri-grid {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px 22px;
+}
+
+/* ==========================================
+   CAMPOS
+========================================== */
+
+.crear-reporte-instructor .cri-group {
+  min-width: 0;
+
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
 }
 
-.cri-group label {
+.crear-reporte-instructor .cri-group label {
   color: #00573f;
+
   font-size: 13px;
   font-weight: 700;
+  line-height: 1.5;
 }
 
-.cri-group select,
-.cri-group textarea {
+/* SELECTORES */
+
+.crear-reporte-instructor .cri-group select {
+  display: block;
+
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
+
+  min-height: 47px;
+  padding: 10px 13px;
+
   border: 1px solid #c9e5d5;
-  border-radius: 8px;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #305e49;
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  outline: none;
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.crear-reporte-instructor .cri-group select:focus {
+  border-color: #198754;
+
+  box-shadow:
+    0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+.crear-reporte-instructor .cri-group select:disabled {
+  background: #f3f7f5;
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   DESCRIPCIÓN DEL PROBLEMA
+========================================== */
+
+.crear-reporte-instructor .cri-description {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.crear-reporte-instructor .cri-group textarea {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 130px;
+
+  padding: 14px;
+
+  resize: vertical;
+
+  border: 1px solid #c9e5d5;
+  border-radius: 10px;
 
   background: #ffffff;
   color: #305e49;
 
   font-family: inherit;
   font-size: 14px;
+  line-height: 1.6;
+
+  outline: none;
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
-.cri-group select {
-  height: 43px;
-  padding: 0 12px;
-}
-
-.cri-group select:focus,
-.cri-group textarea:focus {
-  outline: none;
+.crear-reporte-instructor .cri-group textarea:focus {
   border-color: #198754;
-  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+
+  box-shadow:
+    0 0 0 3px rgba(25, 135, 84, 0.12);
 }
 
-.cri-group select:disabled,
-.cri-group textarea:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-}
-
-/* =========================================
-   DESCRIPCIÓN DEL PROBLEMA
-========================================= */
-
-.cri-description {
-  margin-top: 18px;
-}
-
-.cri-group textarea {
-  min-height: 105px;
-  padding: 12px;
-  line-height: 1.5;
-  resize: vertical;
-}
-
-.cri-group textarea::placeholder {
+.crear-reporte-instructor .cri-group textarea::placeholder {
   color: #91aa9c;
 }
 
-.cri-description small {
+.crear-reporte-instructor .cri-group textarea:disabled {
+  background: #f3f7f5;
+  cursor: not-allowed;
+}
+
+.crear-reporte-instructor .cri-description small {
   align-self: flex-end;
+
   color: #648176;
+
   font-size: 11px;
 }
 
-/* =========================================
-   MENSAJE DE VALIDACIÓN
-========================================= */
+/* ==========================================
+   MENSAJES
+========================================== */
 
-.cri-message {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 8px;
+.crear-reporte-instructor .cri-message {
+  width: 100%;
 
-  border: 1px solid #b9e7cd;
-  background: #e9fff5;
-  color: #00573f;
+  margin-top: 20px;
+  padding: 13px 15px;
+
+  border-radius: 10px;
 
   font-size: 13px;
-  line-height: 1.5;
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
 }
 
-/* =========================================
-   BOTONES
-========================================= */
+/* MENSAJE DE ÉXITO */
 
-.cri-buttons {
+.crear-reporte-instructor .cri-success {
+  border: 1px solid #b9e7cd;
+
+  background: #e9fff5;
+  color: #00573f;
+}
+
+/* MENSAJE DE ERROR */
+
+.crear-reporte-instructor .cri-error {
+  border: 1px solid #ffc9d0;
+
+  background: #ffe8ea;
+  color: #bc2837;
+}
+
+/* ==========================================
+   BOTONES
+========================================== */
+
+.crear-reporte-instructor .cri-buttons {
+  width: 100%;
+
+  margin-top: 26px;
+
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   flex-wrap: wrap;
+
   gap: 12px;
-  margin-top: 20px;
 }
 
-.cri-buttons button {
-  min-height: 44px;
-  padding: 0 20px;
+.crear-reporte-instructor .cri-buttons button {
+  min-height: 47px;
+  padding: 11px 24px;
 
-  border-radius: 8px;
-  font-family: inherit;
+  border-radius: 10px;
+
   font-size: 13px;
   font-weight: 700;
 
   cursor: pointer;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
-/* BOTÓN CANCELAR */
+/* CANCELAR */
 
-.cri-cancel {
+.crear-reporte-instructor .cri-cancel {
   border: 1px solid #198754;
+
   background: #ffffff;
   color: #00573f;
 }
 
-.cri-cancel:hover {
+.crear-reporte-instructor .cri-cancel:hover:not(:disabled) {
   border-color: #00573f;
   background: #e9fff5;
+
   transform: translateY(-1px);
 }
 
-/* BOTÓN ENVIAR REPORTE */
+/* ENVIAR REPORTE */
 
-.cri-submit {
+.crear-reporte-instructor .cri-submit {
   border: none;
 
   background: linear-gradient(
@@ -304,10 +474,11 @@
 
   color: #ffffff;
 
-  box-shadow: 0 5px 12px rgba(25, 135, 84, 0.15);
+  box-shadow:
+    0 5px 12px rgba(25, 135, 84, 0.15);
 }
 
-.cri-submit:hover {
+.crear-reporte-instructor .cri-submit:hover:not(:disabled) {
   background: linear-gradient(
     90deg,
     #68b90f,
@@ -315,91 +486,278 @@
   );
 
   transform: translateY(-1px);
-  box-shadow: 0 7px 16px rgba(25, 135, 84, 0.24);
+
+  box-shadow:
+    0 7px 16px rgba(25, 135, 84, 0.24);
 }
 
-.cri-submit:disabled {
+.crear-reporte-instructor .cri-buttons button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-/* =========================================
-   PANTALLAS MEDIANAS Y PEQUEÑAS
-========================================= */
+/* ==========================================
+   TABLETAS Y PORTÁTILES
+========================================== */
 
-@media (max-width: 700px) {
-  .cri-header {
-    padding: 13px 18px;
+@media (max-width: 1024px) {
+
+  .crear-reporte-instructor .cri-header {
+    padding: 15px 4%;
   }
 
-  .cri-header h1 {
-    font-size: 20px;
+  .crear-reporte-instructor .cri-main {
+    max-width: 850px;
+    padding: 28px 22px 38px;
   }
 
-  .cri-back {
-    padding: 9px;
-    font-size: 12px;
+  .crear-reporte-instructor .cri-card {
+    padding: 26px;
   }
 
-  .cri-main {
-    padding: 20px 14px 32px;
-  }
-
-  .cri-card {
-    padding: 20px;
-  }
-
-  .cri-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .cri-title {
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .cri-title h2 {
-    font-size: 21px;
-  }
-
-  .cri-title p {
-    line-height: 1.4;
-  }
-
-  .cri-buttons {
-    justify-content: stretch;
-  }
-
-  .cri-buttons button {
-    flex: 1;
-    padding: 0 12px;
+  .crear-reporte-instructor .cri-grid {
+    gap: 18px;
   }
 }
 
-/* =========================================
-   CELULARES MUY ESTRECHOS
-========================================= */
+/* ==========================================
+   TABLETAS PEQUEÑAS
+========================================== */
 
-@media (max-width: 400px) {
-  .cri-header {
-    align-items: flex-start;
-    flex-direction: column;
+@media (max-width: 768px) {
+
+  .crear-reporte-instructor .cri-main {
+    max-width: 680px;
+    padding: 26px 20px 36px;
   }
 
-  .cri-back {
-    align-self: flex-start;
+  .crear-reporte-instructor .cri-title h2 {
+    font-size: 25px;
   }
 
-  .cri-card {
+  .crear-reporte-instructor .cri-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
+  }
+
+  .crear-reporte-instructor .cri-group select {
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+
+  .crear-reporte-instructor {
+    min-height: 100dvh;
+  }
+
+  /* ENCABEZADO */
+
+  .crear-reporte-instructor .cri-header {
+    min-height: auto;
     padding: 16px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+    text-align: center;
   }
 
-  .cri-icon {
-    width: 45px;
-    height: 45px;
-    font-size: 19px;
+  .crear-reporte-instructor .cri-brand {
+    width: 100%;
+  }
+
+  .crear-reporte-instructor .cri-header h1 {
+    font-size: 25px;
+  }
+
+  .crear-reporte-instructor .cri-header p {
+    font-size: 11px;
+  }
+
+  .crear-reporte-instructor .cri-back {
+    width: 100%;
+    max-width: 250px;
+    min-height: 43px;
+
+    padding: 11px 13px;
+
+    font-size: 13px;
+  }
+
+  /* CONTENIDO */
+
+  .crear-reporte-instructor .cri-main {
+    width: 100%;
+    padding: 24px 15px 35px;
+  }
+
+  /* TARJETA */
+
+  .crear-reporte-instructor .cri-card {
+    width: 100%;
+    min-width: 0;
+
+    padding: 21px 17px;
+
+    border-radius: 16px;
+  }
+
+  /* TÍTULO */
+
+  .crear-reporte-instructor .cri-title {
+    align-items: flex-start;
+
+    gap: 12px;
+    margin-bottom: 23px;
+  }
+
+  .crear-reporte-instructor .cri-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+  }
+
+  .crear-reporte-instructor .cri-title h2 {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
+  .crear-reporte-instructor .cri-title p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* CAMPOS EN UNA COLUMNA */
+
+  .crear-reporte-instructor .cri-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .crear-reporte-instructor .cri-group {
+    width: 100%;
+  }
+
+  .crear-reporte-instructor .cri-group label {
+    font-size: 13px;
+  }
+
+  .crear-reporte-instructor .cri-group select {
+    width: 100%;
+    min-height: 50px;
+
+    /* Evitar zoom automático en iPhone */
+    font-size: 16px;
+  }
+
+  /* DESCRIPCIÓN */
+
+  .crear-reporte-instructor .cri-description {
+    margin-top: 23px;
+  }
+
+  .crear-reporte-instructor .cri-group textarea {
+    min-height: 150px;
+    font-size: 16px;
+  }
+
+  /* BOTONES EN VERTICAL */
+
+  .crear-reporte-instructor .cri-buttons {
+    flex-direction: column-reverse;
+    align-items: stretch;
+
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .crear-reporte-instructor .cri-buttons button {
+    width: 100%;
+    min-height: 50px;
+
+    padding: 13px 16px;
+    font-size: 14px;
+  }
+
+  /* MENSAJES */
+
+  .crear-reporte-instructor .cri-message {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* ==========================================
+   CELULARES MUY PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .crear-reporte-instructor .cri-header {
+    padding: 14px 10px;
+  }
+
+  .crear-reporte-instructor .cri-header h1 {
+    font-size: 23px;
+  }
+
+  .crear-reporte-instructor .cri-main {
+    padding: 18px 10px 30px;
+  }
+
+  .crear-reporte-instructor .cri-card {
+    padding: 17px 13px;
+  }
+
+  .crear-reporte-instructor .cri-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .crear-reporte-instructor .cri-title h2 {
+    font-size: 20px;
+  }
+
+  .crear-reporte-instructor .cri-title p {
+    font-size: 11px;
+  }
+
+  .crear-reporte-instructor .cri-group label {
+    font-size: 12px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.crear-reporte-instructor button:focus-visible,
+.crear-reporte-instructor select:focus-visible,
+.crear-reporte-instructor textarea:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .crear-reporte-instructor *,
+  .crear-reporte-instructor *::before,
+  .crear-reporte-instructor *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

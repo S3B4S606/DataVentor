@@ -1,5 +1,11 @@
 
-* {
+/* ==========================================
+   DATAVENTOR
+   DASHBOARD APRENDIZ - RESPONSIVE
+========================================== */
+
+.dashboard-aprendiz,
+.dashboard-aprendiz * {
   box-sizing: border-box;
 }
 
@@ -11,78 +17,132 @@ body,
   margin: 0;
 }
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #142c4e;
-}
-
-button {
-  font-family: inherit;
-}
-
 .dashboard-aprendiz {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  color: #142c4e;
+  overflow: hidden;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #005740;
   background:
-    radial-gradient(circle at 8% 30%, rgba(255,255,255,.75) 0 135px, transparent 136px),
-    radial-gradient(circle at 94% 76%, rgba(255,255,255,.3) 0 170px, transparent 171px),
-    linear-gradient(135deg, #edf6fd 0%, #dcecf9 100%);
+    radial-gradient(
+      circle at 8% 30%,
+      rgba(120, 201, 20, 0.10) 0 105px,
+      transparent 106px
+    ),
+    radial-gradient(
+      circle at 93% 76%,
+      rgba(120, 201, 20, 0.09) 0 115px,
+      transparent 116px
+    ),
+    linear-gradient(
+      135deg,
+      #f3fff9 0%,
+      #e6faf1 55%,
+      #dcfae9 100%
+    );
 }
 
-/* ENCABEZADO */
+/* ==========================================
+   DECORACIONES DEL FONDO
+========================================== */
+
+.dashboard-aprendiz::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: -8%;
+  bottom: 55px;
+  width: 55%;
+  height: 250px;
+  background: linear-gradient(
+    125deg,
+    #d5f8ba,
+    #b6ef85,
+    #e5ffd6
+  );
+  border-radius: 60% 100% 0 0;
+  clip-path: ellipse(85% 55% at 10% 100%);
+  pointer-events: none;
+}
+
+.dashboard-aprendiz::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 78px;
+  right: -5%;
+  width: 37%;
+  height: 190px;
+  background: linear-gradient(
+    130deg,
+    rgba(194, 246, 153, 0.08),
+    rgba(166, 235, 104, 0.65)
+  );
+  border-radius: 0 0 0 100%;
+  clip-path: ellipse(90% 90% at 100% 0%);
+  pointer-events: none;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
 
 .dashboard-aprendiz .header-aprendiz {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  min-height: 78px;
+  min-height: 70px;
   padding: 12px 4%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  flex-shrink: 0;
-  background: #19427e;
-  border-bottom: 3px solid #1598ee;
+  background: linear-gradient(
+    110deg,
+    #00573f,
+    #004c37
+  );
+  border-bottom: 3px solid #78c914;
 }
+
+/* LOGO */
 
 .dashboard-aprendiz .logo-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
+  align-items: flex-start;
   gap: 5px;
-  margin: 0;
-  padding: 0;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+  min-width: 0;
 }
 
 .dashboard-aprendiz .logo-container h1 {
   margin: 0;
   padding: 0;
-  background: transparent !important;
-  color: #fff !important;
+  color: #ffffff;
   font-size: 25px;
-  font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -.5px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
 
-.dashboard-aprendiz .logo-container span {
-  margin: 0;
-  padding: 0;
-  background: transparent !important;
-  color: #c8dcf5 !important;
-  font-size: 12px;
+.dashboard-aprendiz .logo-container h1 .logo-verde {
+  color: #78c914;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.dashboard-aprendiz .logo-container > span {
+  color: #d0f4df;
+  font-size: 11px;
   line-height: 1.4;
 }
 
-/* NAVEGACIÓN */
+/* NAVEGACION */
 
 .dashboard-aprendiz .header-nav {
   display: flex;
@@ -92,10 +152,12 @@ button {
   gap: 12px;
 }
 
-.dashboard-aprendiz .header-nav button {
-  font-family: Arial, Helvetica, sans-serif;
+.dashboard-aprendiz button {
+  font-family: inherit;
   cursor: pointer;
 }
+
+/* BOTON INICIO */
 
 .dashboard-aprendiz .btn-inicio {
   min-height: 38px;
@@ -106,21 +168,25 @@ button {
   gap: 7px;
   border: none;
   border-radius: 22px;
-  background: #2d6ee0;
-  color: #fff;
+  background: #78c914;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
-  transition: background .2s, transform .2s;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 
 .dashboard-aprendiz .btn-inicio:hover {
-  background: #4383ef;
+  background: #68b80d;
   transform: translateY(-2px);
 }
 
 .dashboard-aprendiz .home-icon {
-  font-size: 15px;
+  font-size: 16px;
 }
+
+/* USUARIO */
 
 .dashboard-aprendiz .usuario-header {
   min-height: 40px;
@@ -139,81 +205,125 @@ button {
 .dashboard-aprendiz .usuario-icon {
   width: 29px;
   height: 29px;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #1689db;
-  color: #fff;
+  color: #ffffff;
   font-size: 17px;
 }
 
+/* CERRAR SESION */
+
 .dashboard-aprendiz .btn-cerrar {
   min-height: 38px;
-  padding: 8px 4px;
+  padding: 8px 5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
   border: none;
   border-radius: 8px;
   background: transparent;
-  color: #fff;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 600;
-  transition: opacity .2s;
+  transition: opacity 0.2s;
 }
 
 .dashboard-aprendiz .btn-cerrar:hover {
-  opacity: .75;
+  opacity: 0.75;
 }
 
 .dashboard-aprendiz .logout-icon {
   font-size: 18px;
 }
 
-/* CONTENIDO */
+/* ==========================================
+   MENSAJE DE EXITO
+========================================== */
+
+.dashboard-aprendiz .mensaje-reporte-exito {
+  position: relative;
+  z-index: 3;
+  width: calc(100% - 40px);
+  max-width: 900px;
+  margin: 20px auto 0;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #9be5b4;
+  border-radius: 10px;
+  background: #e7fff0;
+  color: #006b3b;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-aprendiz .mensaje-reporte-exito > span {
+  font-size: 23px;
+  font-weight: bold;
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
 
 .dashboard-aprendiz .contenido-aprendiz {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 1400px;
   flex: 1;
   margin: 0 auto;
   padding: 50px 40px;
   display: grid;
-  grid-template-columns: minmax(240px, .8fr) minmax(0, 1.5fr);
+  grid-template-columns:
+    minmax(240px, 0.8fr)
+    minmax(0, 1.5fr);
   align-items: center;
   gap: clamp(35px, 5vw, 75px);
 }
 
-/* PRESENTACIÓN */
+/* ==========================================
+   PRESENTACION
+========================================== */
 
 .dashboard-aprendiz .presentacion {
   width: 100%;
   max-width: 360px;
   min-width: 0;
-  position: relative;
-  z-index: 1;
 }
 
 .dashboard-aprendiz .presentacion h2 {
   margin: 0 0 18px;
-  color: #10284a;
+  color: #00573f;
   font-size: clamp(32px, 3vw, 44px);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -.8px;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
 }
 
-.dashboard-aprendiz .presentacion h2 span {
-  display: inline-block;
-  font-size: .8em;
+.dashboard-aprendiz .presentacion h2 .texto-aprendiz {
+  display: inline;
+  color: #78c914;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.dashboard-aprendiz .presentacion h2 .emoji-saludo {
+  display: inline;
+  font-size: 0.8em;
 }
 
 .dashboard-aprendiz .presentacion > p {
   margin: 0;
-  color: #526984;
+  color: #354b42;
   font-size: 14px;
   line-height: 1.8;
 }
@@ -223,36 +333,42 @@ button {
   height: 4px;
   margin: 22px 0 18px;
   border-radius: 5px;
-  background: #0abbd7;
+  background: #78c914;
 }
 
 .dashboard-aprendiz .presentacion .frase {
   max-width: 290px;
-  color: #24527f;
+  color: #354b42;
   font-size: 12px;
   line-height: 1.7;
   font-style: italic;
 }
 
-/* TARJETA */
+/* ==========================================
+   TARJETA EQUIPO
+========================================== */
 
 .dashboard-aprendiz .tarjeta-equipo {
-  width: 100%;
-  min-width: 0;
   position: relative;
   z-index: 1;
+  width: 100%;
+  min-width: 0;
   padding: 32px;
-  border: 1px solid #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 22px;
-  background: #fff;
-  box-shadow: 0 20px 50px rgba(25,66,126,.12);
+  background: #ffffff;
+  box-shadow:
+    0 18px 38px rgba(0, 87, 63, 0.16),
+    0 4px 12px rgba(0, 87, 63, 0.04);
 }
 
-/* CARGA Y ERROR */
+/* ==========================================
+   ESTADOS DE CARGA Y ERROR
+========================================== */
 
 .dashboard-aprendiz .estado-carga,
 .dashboard-aprendiz .estado-error {
-  min-height: 290px;
+  min-height: 250px;
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -262,21 +378,33 @@ button {
   text-align: center;
 }
 
+.dashboard-aprendiz .estado-carga h3,
 .dashboard-aprendiz .estado-carga strong,
 .dashboard-aprendiz .estado-error strong {
   margin: 0;
-  color: #17345d;
+  color: #00573f;
   font-size: 17px;
   line-height: 1.5;
 }
 
-.dashboard-aprendiz .estado-carga span,
-.dashboard-aprendiz .estado-error span {
+.dashboard-aprendiz .estado-carga p {
+  margin: 0;
+  color: #354b42;
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.dashboard-aprendiz .estado-carga > span,
+.dashboard-aprendiz .estado-error > span {
   max-width: 380px;
-  color: #63758d;
+  color: #52615c;
   font-size: 13px;
   line-height: 1.7;
+  overflow-wrap: anywhere;
 }
+
+/* SPINNER */
 
 .dashboard-aprendiz .spinner {
   width: 42px;
@@ -285,7 +413,7 @@ button {
   border: 4px solid #dce9f5;
   border-top-color: #2474df;
   border-radius: 50%;
-  animation: dataventor-girar .8s linear infinite;
+  animation: dataventor-girar 0.8s linear infinite;
 }
 
 @keyframes dataventor-girar {
@@ -294,14 +422,16 @@ button {
   }
 }
 
+/* ICONOS */
+
 .dashboard-aprendiz .icono-error {
   width: 46px;
   height: 46px;
-  margin-bottom: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin-bottom: 4px;
   border-radius: 50%;
   background: #fde8ed;
   color: #e52b51;
@@ -309,7 +439,23 @@ button {
   font-weight: 700;
 }
 
-/* EQUIPO DETECTADO */
+.dashboard-aprendiz .check-detectado {
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #08b579;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* ==========================================
+   EQUIPO DETECTADO
+========================================== */
 
 .dashboard-aprendiz .equipo-detectado {
   width: 100%;
@@ -323,38 +469,28 @@ button {
   color: #087347;
 }
 
-.dashboard-aprendiz .check-detectado {
-  width: 31px;
-  height: 31px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #08b579;
-  color: #fff;
-  font-size: 17px;
-  font-weight: bold;
-}
-
 .dashboard-aprendiz .texto-detectado {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.dashboard-aprendiz .equipo-detectado strong {
+.dashboard-aprendiz .texto-detectado strong {
   font-size: 13px;
+  line-height: 1.4;
 }
 
-.dashboard-aprendiz .equipo-detectado p {
+.dashboard-aprendiz .texto-detectado p {
   margin: 0;
   color: #32765c;
   font-size: 12px;
   line-height: 1.5;
 }
 
-/* INFORMACIÓN DEL EQUIPO */
+/* ==========================================
+   INFORMACION DEL COMPUTADOR
+========================================== */
 
 .dashboard-aprendiz .informacion-equipo {
   width: 100%;
@@ -363,6 +499,8 @@ button {
   align-items: stretch;
   gap: 22px;
 }
+
+/* IMAGEN */
 
 .dashboard-aprendiz .imagen-equipo {
   width: 40%;
@@ -406,7 +544,9 @@ button {
   fill: #91a2b8;
 }
 
-/* DATOS */
+/* ==========================================
+   DATOS DEL COMPUTADOR
+========================================== */
 
 .dashboard-aprendiz .datos-equipo {
   flex: 1;
@@ -421,7 +561,9 @@ button {
   width: 100%;
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(90px, .85fr) minmax(0, 1fr);
+  grid-template-columns:
+    minmax(90px, 0.85fr)
+    minmax(0, 1fr);
   align-items: center;
   gap: 8px;
   font-size: 12px;
@@ -439,6 +581,8 @@ button {
   font-weight: 700;
   overflow-wrap: anywhere;
 }
+
+/* ESTADO */
 
 .dashboard-aprendiz .estado-equipo {
   width: fit-content;
@@ -461,17 +605,20 @@ button {
   background: #06b779;
 }
 
-/* BOTONES */
+/* ==========================================
+   BOTONES PRINCIPALES
+========================================== */
 
-.dashboard-aprendiz .acciones-equipo {
+.dashboard-aprendiz .acciones-principales {
   width: 100%;
   margin-top: 25px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 12px;
 }
 
-.dashboard-aprendiz .acciones-equipo button {
+.dashboard-aprendiz .acciones-principales button {
+  width: 100%;
   min-width: 0;
   min-height: 64px;
   padding: 12px 14px;
@@ -481,29 +628,39 @@ button {
   gap: 10px;
   border: none;
   border-radius: 12px;
-  color: #fff;
-  cursor: pointer;
-  transition: transform .2s, filter .2s, box-shadow .2s;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    filter 0.2s,
+    box-shadow 0.2s;
 }
 
-.dashboard-aprendiz .acciones-equipo button:hover {
+.dashboard-aprendiz .acciones-principales button:hover {
   transform: translateY(-2px);
   filter: brightness(1.05);
-  box-shadow: 0 6px 16px rgba(20,44,78,.13);
+  box-shadow: 0 6px 16px rgba(20, 44, 78, 0.13);
 }
 
-.dashboard-aprendiz .acciones-equipo button:disabled {
+.dashboard-aprendiz .acciones-principales button:disabled {
+  opacity: 0.7;
   cursor: wait;
-  opacity: .7;
 }
+
+/* CONFIRMAR ESTADO */
 
 .dashboard-aprendiz .btn-confirmar {
   background: #04ad73;
 }
 
+/* HACER REPORTE */
+
 .dashboard-aprendiz .btn-reporte {
   background: #e62b51;
 }
+
+/* ICONOS DE BOTONES */
 
 .dashboard-aprendiz .icono-check {
   width: 26px;
@@ -513,7 +670,7 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #fff;
+  background: #ffffff;
   color: #04ad73;
   font-size: 15px;
   font-weight: bold;
@@ -521,9 +678,12 @@ button {
 
 .dashboard-aprendiz .icono-alerta {
   flex-shrink: 0;
-  color: #fff;
+  color: #ffffff;
   font-size: 21px;
+  font-weight: bold;
 }
+
+/* TEXTOS DE BOTONES */
 
 .dashboard-aprendiz .texto-boton {
   min-width: 0;
@@ -544,21 +704,95 @@ button {
   line-height: 1.4;
 }
 
-/* PIE DE PÁGINA */
+/* ==========================================
+   TERCER BOTON
+   REPORTAR DESDE OTRO EQUIPO
+========================================== */
+
+.dashboard-aprendiz .acciones-otro-equipo {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.dashboard-aprendiz .acciones-otro-equipo
+button.btn-otro-equipo {
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 2px solid #00ae78;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #005740;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.dashboard-aprendiz .acciones-otro-equipo
+button.btn-otro-equipo:hover {
+  background: #e6fff3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 87, 63, 0.10);
+}
+
+.dashboard-aprendiz .acciones-otro-equipo
+button.btn-otro-equipo span {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* ==========================================
+   CONFIRMACION DE ESTADO
+========================================== */
+
+.dashboard-aprendiz .mensaje-confirmacion {
+  margin-top: 14px;
+  padding: 12px 15px;
+  border: 1px solid #a0e3bd;
+  border-radius: 10px;
+  background: #e7fff0;
+  color: #006b3b;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   PIE DE PAGINA
+========================================== */
 
 .dashboard-aprendiz .footer-aprendiz {
+  position: relative;
+  z-index: 2;
   width: 100%;
   min-height: 57px;
   margin-top: auto;
   padding: 13px 4%;
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  border-top: 2px solid #1598ee;
-  background: #19427e;
-  color: #fff;
+  border-top: 2px solid #78c914;
+  background: linear-gradient(
+    110deg,
+    #00573f,
+    #004c37
+  );
+  color: #ffffff;
 }
 
 .dashboard-aprendiz .footer-left,
@@ -589,172 +823,236 @@ button {
   text-align: right;
 }
 
-/* TABLET */
+/* ==========================================
+   TABLETAS
+========================================== */
 
-@media (max-width: 950px) {
+@media (max-width: 1024px) {
   .dashboard-aprendiz .contenido-aprendiz {
-    padding: 38px 25px;
-    gap: 28px;
-  }
-
-  .dashboard-aprendiz .tarjeta-equipo {
-    padding: 23px;
-  }
-
-  .dashboard-aprendiz .informacion-equipo {
-    gap: 15px;
-  }
-
-  .dashboard-aprendiz .dato {
-    grid-template-columns: minmax(85px, .8fr) minmax(0, 1fr);
-  }
-}
-
-/* MÓVIL */
-
-@media (max-width: 760px) {
-  .dashboard-aprendiz .header-aprendiz {
-    flex-wrap: wrap;
-    padding: 14px 20px;
-  }
-
-  .dashboard-aprendiz .header-nav {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .dashboard-aprendiz .contenido-aprendiz {
+    max-width: 760px;
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
-    padding: 32px 22px;
+    padding: 36px 24px;
   }
 
   .dashboard-aprendiz .presentacion {
-    max-width: 600px;
+    max-width: 100%;
+  }
+
+  .dashboard-aprendiz .presentacion h2 {
+    font-size: 36px;
   }
 
   .dashboard-aprendiz .tarjeta-equipo {
-    width: 100%;
-    max-width: 680px;
-    justify-self: center;
+    padding: 26px;
+  }
+
+  .dashboard-aprendiz .informacion-equipo {
+    gap: 20px;
+  }
+
+  .dashboard-aprendiz .imagen-equipo {
+    width: 40%;
+  }
+
+  .dashboard-aprendiz .header-aprendiz {
+    padding: 14px 24px;
   }
 
   .dashboard-aprendiz .footer-aprendiz {
-    flex-wrap: wrap;
+    padding: 16px 24px;
   }
 }
 
-@media (max-width: 520px) {
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+  .dashboard-aprendiz {
+    min-height: 100dvh;
+  }
+
+  /* HEADER */
+
   .dashboard-aprendiz .header-aprendiz {
-    padding: 14px 15px;
-    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .dashboard-aprendiz .logo-container {
+    align-items: center;
+    text-align: center;
   }
 
   .dashboard-aprendiz .logo-container h1 {
-    font-size: 21px;
+    font-size: 25px;
   }
 
-  .dashboard-aprendiz .logo-container span {
-    font-size: 10px;
+  .dashboard-aprendiz .logo-container > span {
+    font-size: 11px;
   }
 
   .dashboard-aprendiz .header-nav {
     width: 100%;
-    justify-content: space-between;
-    gap: 7px;
+    justify-content: center;
+    gap: 8px;
   }
 
-  .dashboard-aprendiz .btn-inicio {
-    padding: 8px 11px;
-    font-size: 11px;
+  .dashboard-aprendiz .btn-inicio,
+  .dashboard-aprendiz .btn-cerrar {
+    min-height: 40px;
+    font-size: 12px;
   }
 
   .dashboard-aprendiz .usuario-header {
-    min-height: 34px;
-    padding-right: 9px;
-    font-size: 11px;
+    min-height: 40px;
   }
 
-  .dashboard-aprendiz .usuario-icon {
-    width: 25px;
-    height: 25px;
-  }
-
-  .dashboard-aprendiz .btn-cerrar {
-    font-size: 10px;
-  }
+  /* CONTENIDO */
 
   .dashboard-aprendiz .contenido-aprendiz {
-    padding: 26px 15px;
-    gap: 23px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 28px 16px;
+  }
+
+  /* PRESENTACION */
+
+  .dashboard-aprendiz .presentacion {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
   }
 
   .dashboard-aprendiz .presentacion h2 {
-    font-size: 30px;
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.2;
+    margin-bottom: 14px;
   }
 
   .dashboard-aprendiz .presentacion > p {
     font-size: 13px;
+    line-height: 1.6;
   }
+
+  .dashboard-aprendiz .linea-decorativa {
+    margin: 18px auto;
+  }
+
+  .dashboard-aprendiz .presentacion .frase {
+    max-width: 100%;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* TARJETA */
 
   .dashboard-aprendiz .tarjeta-equipo {
-    padding: 17px;
-    border-radius: 17px;
+    width: 100%;
+    min-width: 0;
+    padding: 18px;
+    border-radius: 16px;
   }
 
-  .dashboard-aprendiz .estado-error,
-  .dashboard-aprendiz .estado-carga {
-    min-height: 230px;
-    padding: 18px 8px;
+  .dashboard-aprendiz .equipo-detectado {
+    padding: 12px;
+    gap: 10px;
   }
 
-  .dashboard-aprendiz .estado-error strong,
-  .dashboard-aprendiz .estado-carga strong {
-    font-size: 15px;
-  }
-
-  .dashboard-aprendiz .estado-error span,
-  .dashboard-aprendiz .estado-carga span {
+  .dashboard-aprendiz .texto-detectado strong {
     font-size: 12px;
   }
 
+  /* INFORMACION */
+
   .dashboard-aprendiz .informacion-equipo {
     flex-direction: column;
+    gap: 18px;
   }
 
   .dashboard-aprendiz .imagen-equipo {
     width: 100%;
-    min-height: 150px;
+    min-height: 145px;
+    padding: 15px;
   }
 
   .dashboard-aprendiz .icono-computador {
-    max-width: 175px;
+    max-width: 155px;
   }
 
   .dashboard-aprendiz .datos-equipo {
-    gap: 13px;
+    width: 100%;
+    gap: 14px;
   }
 
   .dashboard-aprendiz .dato {
-    grid-template-columns: minmax(100px, .85fr) minmax(0, 1fr);
+    grid-template-columns:
+      minmax(0, 42%)
+      minmax(0, 58%);
+    gap: 8px;
   }
 
-  .dashboard-aprendiz .acciones-equipo {
-    grid-template-columns: 1fr;
+  .dashboard-aprendiz .dato > strong {
+    font-size: 12px;
+  }
+
+  /* BOTONES EN VERTICAL */
+
+  .dashboard-aprendiz .acciones-principales {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
     margin-top: 20px;
   }
 
-  .dashboard-aprendiz .acciones-equipo button {
+  .dashboard-aprendiz .acciones-principales button {
     min-height: 58px;
-    justify-content: flex-start;
-    padding: 12px 18px;
+    padding: 13px 16px;
+    justify-content: center;
+    gap: 12px;
   }
 
+  .dashboard-aprendiz .texto-boton strong {
+    font-size: 13px;
+  }
+
+  .dashboard-aprendiz .texto-boton small {
+    font-size: 11px;
+  }
+
+  .dashboard-aprendiz .acciones-otro-equipo
+  button.btn-otro-equipo {
+    min-height: 54px;
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  /* MENSAJES */
+
+  .dashboard-aprendiz .estado-carga,
+  .dashboard-aprendiz .estado-error {
+    min-height: 220px;
+    padding: 18px 10px;
+  }
+
+  .dashboard-aprendiz .mensaje-reporte-exito {
+    width: calc(100% - 32px);
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  /* FOOTER */
+
   .dashboard-aprendiz .footer-aprendiz {
-    padding: 14px 15px;
+    padding: 18px 16px;
+    justify-content: center;
+    text-align: center;
   }
 
   .dashboard-aprendiz .footer-left {
+    justify-content: center;
     flex-wrap: wrap;
     gap: 7px;
   }
@@ -762,7 +1060,67 @@ button {
   .dashboard-aprendiz .footer-right {
     display: none;
   }
+
+  /* DECORACIONES */
+
+  .dashboard-aprendiz::before {
+    width: 110%;
+    height: 130px;
+  }
+
+  .dashboard-aprendiz::after {
+    width: 55%;
+    height: 90px;
+  }
 }
+
+/* ==========================================
+   CELULARES PEQUEÑOS
+========================================== */
+
+@media (max-width: 360px) {
+  .dashboard-aprendiz .contenido-aprendiz {
+    padding: 20px 10px;
+  }
+
+  .dashboard-aprendiz .tarjeta-equipo {
+    padding: 13px;
+  }
+
+  .dashboard-aprendiz .header-nav {
+    gap: 5px;
+  }
+
+  .dashboard-aprendiz .btn-inicio,
+  .dashboard-aprendiz .btn-cerrar {
+    font-size: 10px;
+  }
+
+  .dashboard-aprendiz .dato {
+    grid-template-columns:
+      minmax(0, 40%)
+      minmax(0, 60%);
+    font-size: 11px;
+  }
+
+  .dashboard-aprendiz .dato > strong {
+    font-size: 11px;
+  }
+
+  .dashboard-aprendiz .acciones-principales button {
+    padding: 12px 10px;
+  }
+
+  .dashboard-aprendiz .acciones-otro-equipo
+  button.btn-otro-equipo {
+    font-size: 12px;
+    padding: 12px 8px;
+  }
+}
+
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
 
 .dashboard-aprendiz button:focus-visible {
   outline: 3px solid #0abbd7;
@@ -776,227 +1134,4 @@ button {
     animation: none !important;
     transition: none !important;
   }
-}
-
-
-
-/* ==========================================
-   DATAVENTOR - ESTILO VISUAL FINAL
-   Basado en la segunda imagen
-========================================== */
-
-/* FONDO GENERAL */
-.dashboard-aprendiz {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 8% 30%,
-      rgba(120, 201, 20, 0.10) 0 105px,
-      transparent 106px
-    ),
-    radial-gradient(
-      circle at 93% 76%,
-      rgba(120, 201, 20, 0.09) 0 115px,
-      transparent 116px
-    ),
-    linear-gradient(
-      135deg,
-      #F3FFF9 0%,
-      #E6FAF1 55%,
-      #DCFAE9 100%
-    );
-}
-
-/* ONDA DECORATIVA INFERIOR IZQUIERDA */
-.dashboard-aprendiz::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  left: -8%;
-  bottom: 55px;
-  width: 55%;
-  height: 250px;
-  background: linear-gradient(
-    125deg,
-    #D5F8BA,
-    #B6EF85,
-    #E5FFD6
-  );
-  border-radius: 60% 100% 0 0;
-  clip-path: ellipse(85% 55% at 10% 100%);
-  pointer-events: none;
-}
-
-/* ONDA DECORATIVA SUPERIOR DERECHA */
-.dashboard-aprendiz::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  top: 78px;
-  right: -5%;
-  width: 37%;
-  height: 190px;
-  background: linear-gradient(
-    130deg,
-    rgba(194, 246, 153, 0.08),
-    rgba(166, 235, 104, 0.65)
-  );
-  border-radius: 0 0 0 100%;
-  clip-path: ellipse(90% 90% at 100% 0%);
-  pointer-events: none;
-}
-
-/* ENCABEZADO */
-.dashboard-aprendiz .header-aprendiz {
-  position: relative;
-  z-index: 2;
-  background: linear-gradient(
-    110deg,
-    #00573F,
-    #004C37
-  );
-  border-bottom: 3px solid #78C914;
-}
-
-/* BOTÓN INICIO */
-.dashboard-aprendiz .btn-inicio {
-  background: linear-gradient(
-    135deg,
-    #78C914,
-    #63B80D
-  );
-  color: white;
-}
-
-/* LOGOTIPO */
-.dashboard-aprendiz .logo-container h1 {
-  color: white !important;
-  font-weight: 800;
-}
-
-.dashboard-aprendiz .logo-container span {
-  color: #D0F4DF !important;
-}
-
-/* CONTENIDO PRINCIPAL */
-.dashboard-aprendiz .contenido-aprendiz {
-  position: relative;
-  z-index: 1;
-}
-
-/* PRESENTACIÓN */
-.dashboard-aprendiz .presentacion h2 {
-  color: #00573F;
-  font-weight: 800;
-  text-shadow: 0 2px 3px rgba(0, 87, 63, 0.04);
-}
-
-/* RESALTAR APRENDIZ */
-.dashboard-aprendiz .presentacion h2 {
-  line-height: 1.15;
-}
-
-/* TEXTO DESCRIPTIVO */
-.dashboard-aprendiz .presentacion > p {
-  color: #354B42;
-}
-
-/* LÍNEA DECORATIVA */
-.dashboard-aprendiz .linea-decorativa {
-  background: #78C914;
-}
-
-/* FRASE */
-.dashboard-aprendiz .presentacion .frase {
-  color: #354B42;
-}
-
-/* TARJETA BLANCA */
-.dashboard-aprendiz .tarjeta-equipo {
-  background: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow:
-    0 18px 38px rgba(0, 87, 63, 0.16),
-    0 4px 12px rgba(0, 87, 63, 0.04);
-}
-
-/* MENSAJE DE ERROR */
-.dashboard-aprendiz .estado-error strong {
-  color: #00573F;
-}
-
-.dashboard-aprendiz .estado-error span {
-  color: #52615C;
-}
-
-/* PIE DE PÁGINA */
-.dashboard-aprendiz .footer-aprendiz {
-  position: relative;
-  z-index: 2;
-  background: linear-gradient(
-    110deg,
-    #00573F,
-    #004C37
-  );
-  border-top: 2px solid #78C914;
-}
-
-/* AJUSTES PARA CELULARES */
-@media (max-width: 760px) {
-  .dashboard-aprendiz::before {
-    width: 90%;
-    height: 160px;
-  }
-
-  .dashboard-aprendiz::after {
-    width: 65%;
-    height: 110px;
-    top: 100px;
-  }
-}
-
-
-/* LOGO DATAVENTOR EN DOS COLORES */
-.dashboard-aprendiz .logo-container h1 .logo-verde {
-  color: #78C914 !important;
-  font-size: inherit;
-  font-weight: inherit;
-  letter-spacing: inherit;
-}
-
-/* TITULO DE BIENVENIDA */
-.dashboard-aprendiz .presentacion h2 {
-  color: #00573F;
-  font-weight: 800;
-}
-
-/* PALABRA APRENDIZ VERDE LIMA */
-.dashboard-aprendiz .presentacion h2 .texto-aprendiz {
-  display: inline;
-  color: #78C914;
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-/* EMOJI DEL SALUDO */
-.dashboard-aprendiz .presentacion h2 .emoji-saludo {
-  display: inline;
-  font-size: 0.8em;
-}
-
-/* TARJETA BLANCA CON SOMBRA VERDE */
-.dashboard-aprendiz .tarjeta-equipo {
-  box-shadow: 0 18px 38px rgba(0, 87, 63, 0.16);
-}
-
-/* BOTON INICIO */
-.dashboard-aprendiz .btn-inicio {
-  background: #78C914;
-}
-
-/* LINEA DECORATIVA */
-.dashboard-aprendiz .linea-decorativa {
-  background: #78C914;
 }

@@ -2,6 +2,8 @@ from fastapi import APIRouter, HTTPException
 from psycopg2 import IntegrityError
 from app.database import get_connection, dict_cursor
 from app.schemas import CrearAmbiente, ConfirmarEstadoEquipo
+from pydantic import BaseModel, Field
+from fastapi import HTTPException
 
 router = APIRouter(prefix="/api", tags=["Catálogos y equipos"])
 
@@ -97,6 +99,54 @@ def obtener_equipo_por_codigo(codigo: str):
 
 
 @router.get("/equipos/identificador")
+
+class BuscarEquipoPorSerial(BaseModel):
+    serial: str = Field(min_length=1, max_length=150)
+
+
+@router.post("/equipos/por-serial")
+def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
+
+    serial = datos.serial.strip()
+
+    with get_connection() as conn, dict_cursor(conn) as cur:
+
+        cur.execute(
+            """
+            SELECT
+                e.id_equipo,
+                e.registro_unico,
+                e.serial,
+                e.modelo,
+                e.tipo,
+                e.estado::text AS estado,
+                a.id_ambiente,
+                a.descripcion AS ambiente,
+                s.id_sede,
+                s.descripcion AS sede
+            FROM equipos e
+            INNER JOIN ambientes a
+                ON e.id_ambiente = a.id_ambiente
+            INNER JOIN sedes s
+                ON a.id_sede = s.id_sede
+            WHERE UPPER(TRIM(e.serial)) = UPPER(%s)
+            LIMIT 2
+            """,
+            (serial,)
+        )
+        equipos = cur.fetchall()
+        if not equipos:
+            raise HTTPException(
+                status_code=404,
+                detail="Computador no registrado en DataVentor"
+            )
+        if len(equipos) > 1:
+            raise HTTPException(
+                status_code=409,
+                detail="Existen equipos duplicados con este serial"
+            )
+        return dict(equipos[0])
+
 def obtener_identificador_equipo():
     with get_connection() as conn, dict_cursor(conn) as cur:
         cur.execute(_EQUIPOS_SQL + " WHERE e.registro_unico IS NOT NULL ORDER BY e.id_equipo LIMIT 1")

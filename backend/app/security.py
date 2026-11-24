@@ -46,3 +46,48 @@ def create_access_token(user: dict, expires_minutes: int = 60) -> str:
     signature = hmac.new(SECRET_KEY.encode(), body.encode(), hashlib.sha256).digest()
     sig = base64.urlsafe_b64encode(signature).decode().rstrip("=")
     return f"{body}.{sig}"
+
+
+def verify_access_token(token: str):
+    try:
+        partes = token.split(".")
+
+        if len(partes) != 2:
+            return None
+
+        body, firma = partes
+
+        firma_esperada = hmac.new(
+            SECRET_KEY.encode(),
+            body.encode(),
+            hashlib.sha256
+        ).digest()
+
+        firma_recibida = base64.urlsafe_b64decode(
+            firma + "=" * (-len(firma) % 4)
+        )
+
+        if not hmac.compare_digest(
+            firma_recibida, firma_esperada
+        ):
+            return None
+
+        contenido = base64.urlsafe_b64decode(
+            body + "=" * (-len(body) % 4)
+        )
+
+        datos = json.loads(contenido)
+
+        if not isinstance(datos, dict):
+            return None
+
+        if int(datos["exp"]) <= int(time.time()):
+            return None
+
+        if int(datos["sub"]) <= 0:
+            return None
+
+        return datos
+
+    except (ValueError, TypeError, KeyError, OverflowError):
+        return None

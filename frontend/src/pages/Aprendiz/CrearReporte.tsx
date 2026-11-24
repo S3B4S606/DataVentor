@@ -1,8 +1,20 @@
 
 import { useEffect, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
+import {
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+
 import "../../styles/Aprendiz/CrearReporte.css";
 
-const API_URL = "http://127.0.0.1:5000";
+const API_URL =
+  import.meta.env.VITE_API_URL ||
+  "http://127.0.0.1:5000";
+
+// ==========================================
+// INTERFACES
+// ==========================================
 
 interface Sede {
   id_sede: number;
@@ -18,16 +30,18 @@ interface Ambiente {
 interface Equipo {
   id_equipo: number;
   id_ambiente: number;
-  serial: string;
-  registro_unico: string;
+  serial: string | null;
+  registro_unico: string | null;
   tipo: string;
   modelo: string;
+  numero_etiqueta?: number | null;
 }
 
-interface FormData {
+interface DatosFormulario {
   sede: string;
   ambiente: string;
   equipo: string;
+  numeroComputador: string;
   tipoProblema: string;
   estado: string;
   prioridad: string;
@@ -35,11 +49,22 @@ interface FormData {
   evidencia: File | null;
 }
 
+// ==========================================
+// COMPONENTE
+// ==========================================
+
 export default function CrearReporte() {
-  const [form, setForm] = useState<FormData>({
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  const reportarOtroEquipo =
+    searchParams.get("otro") === "1";
+
+  const [form, setForm] = useState<DatosFormulario>({
     sede: "",
     ambiente: "",
     equipo: "",
+    numeroComputador: "",
     tipoProblema: "",
     estado: "En mal estado",
     prioridad: "Media",
@@ -54,14 +79,21 @@ export default function CrearReporte() {
   const [mensaje, setMensaje] = useState("");
   const [cargando, setCargando] = useState(true);
   const [enviando, setEnviando] = useState(false);
-  const [reporteGuardado, setReporteGuardado] = useState(false);
+  const [reporteGuardado, setReporteGuardado] =
+    useState(false);
 
-  // Consultar los datos reales de PostgreSQL.
+  // ==========================================
+  // CARGAR DATOS DESDE POSTGRESQL
+  // ==========================================
+
   useEffect(() => {
-    const cargarDatos = async () => {
-      try {
-        setCargando(true);
+    let activo = true;
 
+    const cargarDatos = async () => {
+      setCargando(true);
+      setMensaje("");
+
+      try {
         const [resSedes, resAmbientes, resEquipos] =
           await Promise.all([
             fetch(`${API_URL}/api/sedes`),
@@ -75,73 +107,123 @@ export default function CrearReporte() {
           !resEquipos.ok
         ) {
           throw new Error(
-            "No fue posible consultar los datos del sistema."
+            "No fue posible cargar los datos del sistema."
           );
         }
 
-        const datosSedes: Sede[] = await resSedes.json();
+        const datosSedes: Sede[] =
+          await resSedes.json();
+
         const datosAmbientes: Ambiente[] =
           await resAmbientes.json();
-        const datosEquipos: Equipo[] = await resEquipos.json();
 
+        const datosEquipos: Equipo[] =
+          await resEquipos.json();
 
-setSedes(datosSedes);
-setAmbientes(datosAmbientes);
-setEquipos(datosEquipos);
+        if (!activo) return;
 
-// Recuperar el equipo asignado a este navegador.
-const codigoEquipo = localStorage.getItem("equipoAsignado")?.trim();
+        setSedes(datosSedes);
+        setAmbientes(datosAmbientes);
+        setEquipos(datosEquipos);
 
-if (codigoEquipo) {
-  const equipoDetectado = datosEquipos.find(
-    (equipo) => equipo.registro_unico === codigoEquipo
-  );
+        if (reportarOtroEquipo) {
+          // No utilizar el computador detectado.
+          setForm((prev) => ({
+            ...prev,
+            sede: "",
+            ambiente: "",
+            equipo: "",
+            numeroComputador: "",
+          }));
+        } else {
+          // Reporte del computador detectado.
+          const codigoEquipo = localStorage
+            .getItem("equipoAsignado")
+            ?.trim();
 
-  if (equipoDetectado) {
-    const ambienteDetectado = datosAmbientes.find(
-      (ambiente) =>
-        ambiente.id_ambiente === equipoDetectado.id_ambiente
-    );
+          const equipoDetectado =
+            datosEquipos.find(
+              (equipo) =>
+                equipo.registro_unico === codigoEquipo
+            );
 
-    if (ambienteDetectado) {
-      setForm((prev) => ({
-        ...prev,
-        sede: String(ambienteDetectado.id_sede),
-        ambiente: String(ambienteDetectado.id_ambiente),
-        equipo: String(equipoDetectado.id_equipo),
-      }));
-    }
-  } else {
-    setMensaje(
-      "El equipo asignado no está registrado. Verifica la configuración del computador."
-    );
-  }
-}
+          if (equipoDetectado) {
+            const ambienteDetectado =
+              datosAmbientes.find(
+                (ambiente) =>
+                  ambiente.id_ambiente ===
+                  equipoDetectado.id_ambiente
+              );
 
+            if (ambienteDetectado) {
+              setForm((prev) => ({
+                ...prev,
+                sede: String(
+                  ambienteDetectado.id_sede
+                ),
+                ambiente: String(
+                  ambienteDetectado.id_ambiente
+                ),
+                equipo: String(
+                  equipoDetectado.id_equipo
+                ),
+              }));
+            }
+          } else if (codigoEquipo) {
+            setMensaje(
+              "El equipo detectado no está registrado."
+            );
+          }
+        }
       } catch (error) {
-        console.error("Error cargando datos:", error);
+        if (!activo) return;
+
+        console.error(
+          "Error cargando datos:",
+          error
+        );
+
         setMensaje(
-          "No fue posible cargar las sedes, ambientes y equipos. Verifica que el backend esté funcionando."
+          "No fue posible cargar las sedes, " +
+          "ambientes y equipos. Verifica el backend."
         );
       } finally {
-        setCargando(false);
+        if (activo) {
+          setCargando(false);
+        }
       }
     };
 
     cargarDatos();
-  }, []);
+
+    return () => {
+      activo = false;
+    };
+  }, [reportarOtroEquipo]);
+
+  // ==========================================
+  // FILTRAR AMBIENTES Y EQUIPOS
+  // ==========================================
 
   const ambientesFiltrados = ambientes.filter(
-    (ambiente) => String(ambiente.id_sede) === form.sede
+    (ambiente) =>
+      String(ambiente.id_sede) === form.sede
   );
 
   const equiposFiltrados = equipos.filter(
-    (equipo) => String(equipo.id_ambiente) === form.ambiente
+    (equipo) =>
+      String(equipo.id_ambiente) === form.ambiente
   );
 
+  // ==========================================
+  // CAMBIAR CAMPOS
+  // ==========================================
+
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    e: ChangeEvent<
+      | HTMLInputElement
+      | HTMLSelectElement
+      | HTMLTextAreaElement
     >
   ) => {
     const { name, value } = e.target;
@@ -153,6 +235,7 @@ if (codigoEquipo) {
           sede: value,
           ambiente: "",
           equipo: "",
+          numeroComputador: "",
         };
       }
 
@@ -161,30 +244,50 @@ if (codigoEquipo) {
           ...prev,
           ambiente: value,
           equipo: "",
+          numeroComputador: "",
         };
       }
 
-      return { ...prev, [name]: value };
+      return {
+        ...prev,
+        [name]: value,
+      };
     });
 
     setMensaje("");
   };
 
+  // ==========================================
+  // EVIDENCIA
+  // ==========================================
+
   const handleFileChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0] || null;
 
-    if (!file) return;
+    if (!file) {
+      setForm((prev) => ({
+        ...prev,
+        evidencia: null,
+      }));
+      return;
+    }
 
-    if (!["image/jpeg", "image/png"].includes(file.type)) {
-      setMensaje("Solo se permiten imágenes JPG o PNG.");
+    if (
+      !["image/jpeg", "image/png"].includes(file.type)
+    ) {
+      setMensaje(
+        "Solo se permiten imágenes JPG o PNG."
+      );
       e.target.value = "";
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      setMensaje("La imagen no puede superar los 5 MB.");
+      setMensaje(
+        "La imagen no puede superar los 5 MB."
+      );
       e.target.value = "";
       return;
     }
@@ -197,8 +300,12 @@ if (codigoEquipo) {
     setMensaje("");
   };
 
+  // ==========================================
+  // ENVIAR REPORTE
+  // ==========================================
+
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
 
@@ -207,13 +314,14 @@ if (codigoEquipo) {
     if (
       !form.sede ||
       !form.ambiente ||
-      !form.equipo ||
       !form.tipoProblema ||
       !form.estado ||
       !form.prioridad ||
       !form.descripcion.trim()
     ) {
-      setMensaje("Completa todos los campos obligatorios.");
+      setMensaje(
+        "Completa todos los campos obligatorios."
+      );
       return;
     }
 
@@ -224,72 +332,142 @@ if (codigoEquipo) {
       return;
     }
 
-    const equipoSeleccionado = equiposFiltrados.find(
-      (equipo) => String(equipo.id_equipo) === form.equipo
-    );
+    const token = localStorage.getItem("token");
 
-    if (!equipoSeleccionado) {
-      setMensaje("Selecciona un equipo válido.");
+    if (!token) {
+      navigate(
+        reportarOtroEquipo
+          ? "/login-aprendiz?otro=1"
+          : "/login-aprendiz"
+      );
       return;
     }
 
-    // PostgreSQL acepta baja, media y alta.
     const prioridad =
       form.prioridad === "Crítica"
         ? "alta"
         : form.prioridad.toLowerCase();
 
-    // Se incluye el tipo de problema y estado en
-    // la descripción porque el endpoint actual
-    // no tiene columnas independientes para ellos.
     const descripcionCompleta = [
       `Tipo de problema: ${form.tipoProblema}`,
       `Estado informado: ${form.estado}`,
       `Descripción: ${form.descripcion.trim()}`,
     ].join("\n");
 
-    const reporte = {
-      id_equipo: equipoSeleccionado.id_equipo,
-      descripcion: descripcionCompleta,
-      prioridad,
-    };
+    let ruta = `${API_URL}/api/reportes`;
+
+    let datosReporte:
+      | {
+          id_equipo: number;
+          descripcion: string;
+          prioridad: string;
+        }
+      | {
+          id_sede: number;
+          id_ambiente: number;
+          numero_etiqueta: number;
+          descripcion: string;
+          prioridad: string;
+        };
+
+    if (reportarOtroEquipo) {
+      // REPORTE DESDE OTRO EQUIPO.
+      const numero = Number(form.numeroComputador);
+
+      if (
+        !form.numeroComputador ||
+        !Number.isInteger(numero) ||
+        numero < 1 ||
+        numero > 30
+      ) {
+        setMensaje(
+          "Selecciona un computador del 1 al 30."
+        );
+        return;
+      }
+
+      ruta = `${API_URL}/api/reportes/otro-equipo`;
+
+      datosReporte = {
+        id_sede: Number(form.sede),
+        id_ambiente: Number(form.ambiente),
+        numero_etiqueta: numero,
+        descripcion: descripcionCompleta,
+        prioridad,
+      };
+    } else {
+      // REPORTE NORMAL.
+      const equipoSeleccionado =
+        equiposFiltrados.find(
+          (equipo) =>
+            String(equipo.id_equipo) === form.equipo
+        );
+
+      if (!equipoSeleccionado) {
+        setMensaje(
+          "Selecciona un equipo válido."
+        );
+        return;
+      }
+
+      datosReporte = {
+        id_equipo: equipoSeleccionado.id_equipo,
+        descripcion: descripcionCompleta,
+        prioridad,
+      };
+    }
 
     try {
       setEnviando(true);
       setMensaje("");
 
-      const respuesta = await fetch(
-        `${API_URL}/api/reportes`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reporte),
-        }
-      );
+      const respuesta = await fetch(ruta, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(datosReporte),
+      });
 
       const resultado = await respuesta.json();
 
       if (!respuesta.ok) {
+        if (
+          respuesta.status === 401 ||
+          respuesta.status === 403
+        ) {
+          throw new Error(
+            typeof resultado.detail === "string"
+              ? resultado.detail
+              : "Tu sesión no permite crear reportes."
+          );
+        }
+
         throw new Error(
-          resultado.mensaje ||
-          "No fue posible guardar el reporte."
+          typeof resultado.detail === "string"
+            ? resultado.detail
+            : typeof resultado.mensaje === "string"
+            ? resultado.mensaje
+            : "No fue posible guardar el reporte."
         );
       }
 
       setReporteGuardado(true);
 
-      setMensaje(
-        `Reporte #${resultado.id_reporte} guardado correctamente en PostgreSQL.` +
-        (form.evidencia
-          ? " La imagen seleccionada no se adjuntó porque el servidor todavía no admite evidencias."
-          : "")
-      );
-
-      console.log("Reporte registrado:", resultado);
+      // Regresar al dashboard con confirmación.
+      navigate("/dashboard-aprendiz", {
+        replace: true,
+        state: {
+          mensaje:
+            "¡Listo! Equipo reportado correctamente.",
+        },
+      });
     } catch (error) {
-      console.error("Error creando reporte:", error);
+      console.error(
+        "Error enviando reporte:",
+        error
+      );
 
       setMensaje(
         error instanceof Error
@@ -301,18 +479,27 @@ if (codigoEquipo) {
     }
   };
 
-  const handleCancel = () => window.history.back();
+  // ==========================================
+  // CANCELAR
+  // ==========================================
+
+  const handleCancel = () => {
+    navigate("/dashboard-aprendiz");
+  };
+
+  // ==========================================
+  // INTERFAZ
+  // ==========================================
 
   return (
     <div className="reporte-page">
       <header className="topbar">
-        
-    <div className="topbar-brand">
-      <h1>
-     Data<span>Ventor</span>
-     </h1>
-     <p>Gestión de equipos en ambientes SENA</p>
-    </div>
+        <div className="topbar-brand">
+          <h1>
+            Data<span>Ventor</span>
+          </h1>
+          <p>Gestión de equipos en ambientes SENA</p>
+        </div>
 
         <nav
           className="topbar-actions"
@@ -321,7 +508,7 @@ if (codigoEquipo) {
           <button
             type="button"
             className="btn-inicio"
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
           >
             Inicio
           </button>
@@ -329,9 +516,7 @@ if (codigoEquipo) {
           <button
             type="button"
             className="btn-cerrar-sesion"
-            onClick={() =>
-              (window.location.href = "/dashboard-aprendiz")
-            }
+            onClick={handleCancel}
           >
             Volver
           </button>
@@ -341,6 +526,8 @@ if (codigoEquipo) {
       <main className="main-content">
         <div className="content-wrapper">
           <section className="form-card">
+
+            {/* ENCABEZADO DEL FORMULARIO */}
             <div className="form-header">
               <div
                 className="report-icon"
@@ -370,16 +557,24 @@ if (codigoEquipo) {
               </div>
 
               <div>
-                <h2>Crear reporte</h2>
+                <h2>
+                  {reportarOtroEquipo
+                    ? "Reportar desde otro equipo"
+                    : "Crear reporte"}
+                </h2>
+
                 <p>
-                  Registra un problema o fallo en un equipo
-                  del ambiente.
+                  {reportarOtroEquipo
+                    ? "Selecciona la sede, el ambiente y el número del computador."
+                    : "Registra un problema o fallo en un equipo del ambiente."}
                 </p>
               </div>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="form-grid">
+
+                {/* SEDE */}
                 <div className="form-group">
                   <label htmlFor="sede">
                     Sede <span>*</span>
@@ -391,7 +586,9 @@ if (codigoEquipo) {
                     value={form.sede}
                     onChange={handleChange}
                     required
-                    disabled={cargando || reporteGuardado}
+                    disabled={
+                      cargando || reporteGuardado
+                    }
                   >
                     <option value="">
                       Selecciona la sede
@@ -408,6 +605,7 @@ if (codigoEquipo) {
                   </select>
                 </div>
 
+                {/* AMBIENTE */}
                 <div className="form-group">
                   <label htmlFor="ambiente">
                     Ambiente <span>*</span>
@@ -429,50 +627,95 @@ if (codigoEquipo) {
                       Selecciona el ambiente
                     </option>
 
-                    {ambientesFiltrados.map((ambiente) => (
-                      <option
-                        key={ambiente.id_ambiente}
-                        value={ambiente.id_ambiente}
-                      >
-                        {ambiente.descripcion}
-                      </option>
-                    ))}
+                    {ambientesFiltrados.map(
+                      (ambiente) => (
+                        <option
+                          key={ambiente.id_ambiente}
+                          value={ambiente.id_ambiente}
+                        >
+                          {ambiente.descripcion}
+                        </option>
+                      )
+                    )}
                   </select>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="equipo">
-                    Equipo <span>*</span>
-                  </label>
+                {/* EQUIPO O ETIQUETA */}
+                {reportarOtroEquipo ? (
+                  <div className="form-group">
+                    <label htmlFor="numeroComputador">
+                      Número de computador <span>*</span>
+                    </label>
 
-                  <select
-                    id="equipo"
-                    name="equipo"
-                    value={form.equipo}
-                    onChange={handleChange}
-                    required
-                    disabled={
-                      !form.ambiente ||
-                      cargando ||
-                      reporteGuardado
-                    }
-                  >
-                    <option value="">
-                      Selecciona el equipo
-                    </option>
-
-                    {equiposFiltrados.map((equipo) => (
-                      <option
-                        key={equipo.id_equipo}
-                        value={equipo.id_equipo}
-                      >
-                        {equipo.tipo} - {equipo.modelo} -{" "}
-                        {equipo.serial}
+                    <select
+                      id="numeroComputador"
+                      name="numeroComputador"
+                      value={form.numeroComputador}
+                      onChange={handleChange}
+                      required
+                      disabled={
+                        !form.ambiente ||
+                        cargando ||
+                        reporteGuardado
+                      }
+                    >
+                      <option value="">
+                        Selecciona el computador
                       </option>
-                    ))}
-                  </select>
-                </div>
 
+                      {Array.from(
+                        { length: 30 },
+                        (_, i) => i + 1
+                      ).map((numero) => (
+                        <option
+                          key={numero}
+                          value={numero}
+                        >
+                          Computador {numero}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <div className="form-group">
+                    <label htmlFor="equipo">
+                      Equipo <span>*</span>
+                    </label>
+
+                    <select
+                      id="equipo"
+                      name="equipo"
+                      value={form.equipo}
+                      onChange={handleChange}
+                      required
+                      disabled={
+                        !form.ambiente ||
+                        cargando ||
+                        reporteGuardado
+                      }
+                    >
+                      <option value="">
+                        Selecciona el equipo
+                      </option>
+
+                      {equiposFiltrados.map(
+                        (equipo) => (
+                          <option
+                            key={equipo.id_equipo}
+                            value={equipo.id_equipo}
+                          >
+                            {equipo.tipo} -{" "}
+                            {equipo.modelo} -{" "}
+                            {equipo.serial ||
+                              `Etiqueta ${equipo.numero_etiqueta ?? "sin asignar"}`}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </div>
+                )}
+
+                {/* TIPO DE PROBLEMA */}
                 <div className="form-group">
                   <label htmlFor="tipoProblema">
                     Tipo de problema <span>*</span>
@@ -489,18 +732,25 @@ if (codigoEquipo) {
                     <option value="">
                       Selecciona el tipo de problema
                     </option>
-                    <option value="Hardware">Hardware</option>
-                    <option value="Software">Software</option>
+                    <option value="Hardware">
+                      Hardware
+                    </option>
+                    <option value="Software">
+                      Software
+                    </option>
                     <option value="Conectividad">
                       Conectividad
                     </option>
                     <option value="Periférico">
                       Periférico
                     </option>
-                    <option value="Otro">Otro</option>
+                    <option value="Otro">
+                      Otro
+                    </option>
                   </select>
                 </div>
 
+                {/* ESTADO */}
                 <div className="form-group">
                   <label htmlFor="estado">
                     Estado actual del equipo <span>*</span>
@@ -508,8 +758,8 @@ if (codigoEquipo) {
 
                   <select
                     id="estado"
-                    className="estado-select"
                     name="estado"
+                    className="estado-select"
                     value={form.estado}
                     onChange={handleChange}
                     required
@@ -527,6 +777,7 @@ if (codigoEquipo) {
                   </select>
                 </div>
 
+                {/* PRIORIDAD */}
                 <div className="form-group">
                   <label htmlFor="prioridad">
                     Prioridad <span>*</span>
@@ -534,8 +785,8 @@ if (codigoEquipo) {
 
                   <select
                     id="prioridad"
-                    className="prioridad-select"
                     name="prioridad"
+                    className="prioridad-select"
                     value={form.prioridad}
                     onChange={handleChange}
                     required
@@ -549,6 +800,7 @@ if (codigoEquipo) {
                 </div>
               </div>
 
+              {/* DESCRIPCIÓN */}
               <div className="description-group">
                 <label htmlFor="descripcion">
                   <span
@@ -578,6 +830,7 @@ if (codigoEquipo) {
                 </div>
               </div>
 
+              {/* EVIDENCIA */}
               <div className="evidence-group">
                 <label htmlFor="evidencia">
                   <span
@@ -614,13 +867,15 @@ if (codigoEquipo) {
                         <strong>
                           {form.evidencia.name}
                         </strong>
-                        <p>Imagen seleccionada correctamente</p>
+                        <p>
+                          Imagen seleccionada correctamente
+                        </p>
                       </>
                     ) : (
                       <>
                         <strong>
-                          Arrastra una imagen aquí o haz clic
-                          para seleccionar
+                          Arrastra una imagen aquí o haz
+                          clic para seleccionar
                         </strong>
                         <p>
                           Formatos: JPG, PNG (Máx. 5 MB)
@@ -630,29 +885,33 @@ if (codigoEquipo) {
                   </span>
                 </label>
 
-                {form.evidencia && !reporteGuardado && (
-                  <button
-                    type="button"
-                    className="remove-file"
-                    onClick={() => {
-                      setForm((prev) => ({
-                        ...prev,
-                        evidencia: null,
-                      }));
+                {form.evidencia &&
+                  !reporteGuardado && (
+                    <button
+                      type="button"
+                      className="remove-file"
+                      onClick={() => {
+                        setForm((prev) => ({
+                          ...prev,
+                          evidencia: null,
+                        }));
 
-                      const input =
-                        document.getElementById(
-                          "evidencia"
-                        ) as HTMLInputElement | null;
+                        const input =
+                          document.getElementById(
+                            "evidencia"
+                          ) as HTMLInputElement | null;
 
-                      if (input) input.value = "";
-                    }}
-                  >
-                    Quitar imagen
-                  </button>
-                )}
+                        if (input) {
+                          input.value = "";
+                        }
+                      }}
+                    >
+                      Quitar imagen
+                    </button>
+                  )}
               </div>
 
+              {/* MENSAJES */}
               {mensaje && (
                 <p
                   className="form-message"
@@ -662,6 +921,7 @@ if (codigoEquipo) {
                 </p>
               )}
 
+              {/* BOTONES */}
               <div className="buttons">
                 <button
                   type="button"
@@ -690,6 +950,7 @@ if (codigoEquipo) {
             </form>
           </section>
 
+          {/* PANEL DERECHO */}
           <aside className="info-panel">
             <section className="info-card tips">
               <h3>💡 &nbsp; Ten en cuenta</h3>
@@ -698,8 +959,7 @@ if (codigoEquipo) {
                   Describe el problema con claridad.
                 </li>
                 <li>
-                  Selecciona correctamente el ambiente
-                  y equipo.
+                  Selecciona correctamente el ambiente y equipo.
                 </li>
                 <li>
                   Adjunta una imagen si es posible.

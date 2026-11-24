@@ -5,17 +5,21 @@ import {
   FaArrowLeft,
   FaClipboardList,
   FaSearch,
+  FaTimes,
 } from "react-icons/fa";
 
 import "../../styles/Instructor/MisReportesInstructor.css";
 
-const API = "http://127.0.0.1:5000";
+const API =
+  import.meta.env.VITE_API_URL ||
+  "http://127.0.0.1:5000";
 
 interface ReporteAPI {
   id_reporte: number;
   id_usuario: number;
   registro_unico: string | null;
-  tipo: string;
+  numero_etiqueta?: number | null;
+  tipo: string | null;
   modelo: string | null;
   ambiente: string;
   prioridad: string;
@@ -33,6 +37,7 @@ interface Reporte {
   tipo: string;
   prioridad: string;
   estado: string;
+  estadoClave: string;
   fecha: string;
   descripcion: string;
   responsable: string;
@@ -45,57 +50,135 @@ const estados: Record<string, string> = {
   cerrado: "Cerrado",
 };
 
+// ==========================================
+// CONVERTIR DATOS DE POSTGRESQL
+// ==========================================
+
 function convertirReporte(r: ReporteAPI): Reporte {
   const fecha = new Date(r.fecha_reporte);
 
-  const tipoDetectado = r.descripcion.match(
+  const descripcionOriginal = String(
+    r.descripcion || ""
+  );
+
+  const tipoDetectado = descripcionOriginal.match(
     /^\[([^\]]+)\]\s*/
   );
 
+  const descripcionLimpia =
+    descripcionOriginal.replace(
+      /^\[[^\]]+\]\s*/,
+      ""
+    );
+
+  const estadoClave = String(
+    r.estado_reporte || "pendiente"
+  ).toLowerCase();
+
+  const prioridad = String(
+    r.prioridad || "media"
+  ).toLowerCase();
+
+  let nombreEquipo =
+    r.registro_unico ||
+    (r.numero_etiqueta != null
+      ? `Equipo ${r.numero_etiqueta}`
+      : r.modelo || `ID ${r.id_reporte}`);
+
+  if (r.tipo) {
+    nombreEquipo = `${r.tipo} - ${nombreEquipo}`;
+  }
+
   return {
     id: r.id_reporte,
-    equipo: `${r.tipo} - ${r.registro_unico || r.modelo || r.id_reporte}`,
-    ambiente: r.ambiente,
-    tipo: tipoDetectado ? tipoDetectado[1] : "No especificado",
+    equipo: nombreEquipo,
+    ambiente: r.ambiente || "Sin ambiente",
+    tipo: tipoDetectado
+      ? tipoDetectado[1]
+      : "No especificado",
     prioridad:
-      r.prioridad.charAt(0).toUpperCase() +
-      r.prioridad.slice(1),
+      prioridad.charAt(0).toUpperCase() +
+      prioridad.slice(1),
     estado:
-      estados[r.estado_reporte] || r.estado_reporte,
+      estados[estadoClave] ||
+      estadoClave,
+    estadoClave,
     fecha: Number.isNaN(fecha.getTime())
       ? "Sin fecha"
       : fecha.toLocaleDateString("es-CO"),
-    descripcion: r.descripcion.replace(
-      /^\[[^\]]+\]\s*/,
-      ""
-    ),
-    responsable: `${r.nombre} ${r.apellido}`,
+    descripcion: descripcionLimpia,
+    responsable:
+      `${r.nombre || ""} ${r.apellido || ""}`.trim() ||
+      "Sin identificar",
   };
 }
 
 export default function MisReportesInstructor() {
   const navigate = useNavigate();
 
-  const [reportes, setReportes] = useState<Reporte[]>([]);
-  const [filtro, setFiltro] = useState("Todos");
-  const [busqueda, setBusqueda] = useState("");
+  const [reportes, setReportes] =
+    useState<Reporte[]>([]);
+
+  const [filtro, setFiltro] =
+    useState("Todos");
+
+  const [busqueda, setBusqueda] =
+    useState("");
+
   const [seleccionado, setSeleccionado] =
     useState<Reporte | null>(null);
 
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState("");
+  const [cargando, setCargando] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  // ==========================================
+  // CONSULTAR REPORTES
+  // ==========================================
 
   useEffect(() => {
     const controlador = new AbortController();
 
     const cargarReportes = async () => {
+      setCargando(true);
+      setError("");
+
       try {
-        setCargando(true);
-        setError("");
+        const token = localStorage.getItem("token");
+        const usuarioGuardado =
+          localStorage.getItem("usuario");
+
+        if (!token || !usuarioGuardado) {
+          throw new Error(
+            "Debes iniciar sesión como Instructor."
+          );
+        }
+
+        const usuario = JSON.parse(usuarioGuardado);
+
+        if (
+          usuario.rol !== "instructor" ||
+          !usuario.id_usuario
+        ) {
+          throw new Error(
+            "No se pudo validar la sesión del Instructor."
+          );
+        }
+
+        const idInstructor = Number(
+          usuario.id_usuario
+        );
 
         const respuesta = await fetch(
           `${API}/api/reportes`,
-          { signal: controlador.signal }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            signal: controlador.signal,
+          }
         );
 
         if (!respuesta.ok) {
@@ -104,20 +187,44 @@ export default function MisReportesInstructor() {
           );
         }
 
-        const datos: ReporteAPI[] = await respuesta.json();
+        const datos: ReporteAPI[] =
+          await respuesta.json();
 
         if (!Array.isArray(datos)) {
-          throw new Error("La respuesta no es válida.");
+          throw new Error(
+            "La respuesta del servidor no es válida."
+          );
         }
 
+        // Mostrar solamente los reportes
+        // asociados al instructor autenticado.
+
+        const reportesInstructor = datos.filter(
+          (reporte) =>
+            Number(reporte.id_usuario) ===
+            idInstructor
+        );
+
         if (!controlador.signal.aborted) {
-          setReportes(datos.map(convertirReporte));
+          setReportes(
+            reportesInstructor.map(convertirReporte)
+          );
         }
+
       } catch (err) {
-        if (!controlador.signal.aborted) {
-          console.error("Error al consultar reportes:", err);
-          setError("No se pudieron cargar los reportes.");
-        }
+        if (controlador.signal.aborted) return;
+
+        console.error(
+          "Error al consultar reportes:",
+          err
+        );
+
+        setError(
+          err instanceof Error
+            ? err.message
+            : "No se pudieron cargar los reportes."
+        );
+
       } finally {
         if (!controlador.signal.aborted) {
           setCargando(false);
@@ -130,66 +237,139 @@ export default function MisReportesInstructor() {
     return () => controlador.abort();
   }, []);
 
-  const reportesFiltrados = reportes.filter((reporte) => {
-    const coincideEstado =
-      filtro === "Todos" || reporte.estado === filtro;
+  // ==========================================
+  // FILTRAR REPORTES
+  // ==========================================
 
-    const texto = (
-      reporte.equipo +
-      " " +
-      reporte.ambiente +
-      " " +
-      reporte.tipo
-    ).toLowerCase();
+  const reportesFiltrados = reportes.filter(
+    (reporte) => {
+      const coincideEstado =
+        filtro === "Todos" ||
+        reporte.estadoClave === filtro;
 
-    const coincideBusqueda = texto.includes(
-      busqueda.toLowerCase().trim()
+      const texto = [
+        reporte.id,
+        reporte.equipo,
+        reporte.ambiente,
+        reporte.tipo,
+        reporte.descripcion,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      const coincideBusqueda = texto.includes(
+        busqueda.toLowerCase().trim()
+      );
+
+      return coincideEstado && coincideBusqueda;
+    }
+  );
+
+  // ==========================================
+  // CERRAR MODAL CON ESCAPE
+  // ==========================================
+
+  useEffect(() => {
+    if (!seleccionado) return;
+
+    const cerrarConEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSeleccionado(null);
+      }
+    };
+
+    window.addEventListener(
+      "keydown",
+      cerrarConEscape
     );
 
-    return coincideEstado && coincideBusqueda;
-  });
+    return () => {
+      window.removeEventListener(
+        "keydown",
+        cerrarConEscape
+      );
+    };
+  }, [seleccionado]);
 
   return (
     <div className="mir-page">
+
+      {/* ======================================
+          ENCABEZADO
+      ====================================== */}
+
       <header className="mir-header">
-        <div>
+
+        <div className="mir-brand">
           <h1>
-          Data<span>Ventor</span>
+            Data<span>Ventor</span>
           </h1>
-          <p>Gestión de equipos en ambientes SENA</p>
+
+          <p>
+            Gestión de equipos en ambientes SENA
+          </p>
         </div>
 
         <button
           type="button"
           className="mir-back"
-          onClick={() => navigate("/dashboard-instructor")}
+          onClick={() =>
+            navigate("/dashboard-instructor")
+          }
         >
-          <FaArrowLeft />
-          Volver al tablero
+          <FaArrowLeft aria-hidden="true" />
+          <span>Volver al tablero</span>
         </button>
+
       </header>
 
+      {/* ======================================
+          CONTENIDO
+      ====================================== */}
+
       <main className="mir-main">
+
+        {/* TÍTULO */}
+
         <section className="mir-heading">
-          <div className="mir-heading-icon">
+
+          <div
+            className="mir-heading-icon"
+            aria-hidden="true"
+          >
             <FaClipboardList />
           </div>
 
-          <div>
+          <div className="mir-heading-text">
             <h2>Mis reportes</h2>
-            <p>Consulta y revisa el estado de los reportes.</p>
+
+            <p>
+              Consulta y revisa el estado de
+              los reportes que has registrado.
+            </p>
           </div>
+
         </section>
 
+        {/* ======================================
+            PANEL PRINCIPAL
+        ====================================== */}
+
         <section className="mir-panel">
+
+          {/* BUSCADOR Y FILTROS */}
+
           <div className="mir-toolbar">
+
             <div className="mir-search">
-              <FaSearch />
+              <FaSearch aria-hidden="true" />
 
               <input
                 type="search"
                 value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
+                onChange={(e) =>
+                  setBusqueda(e.target.value)
+                }
                 placeholder="Buscar equipo o ambiente..."
                 aria-label="Buscar reportes"
               />
@@ -197,32 +377,74 @@ export default function MisReportesInstructor() {
 
             <select
               value={filtro}
-              onChange={(e) => setFiltro(e.target.value)}
+              onChange={(e) =>
+                setFiltro(e.target.value)
+              }
               aria-label="Filtrar por estado"
             >
-              <option value="Todos">Todos los estados</option>
-              <option value="Pendiente">Pendiente</option>
-              <option value="En revisión">En revisión</option>
-              <option value="Resuelto">Resuelto</option>
-              <option value="Cerrado">Cerrado</option>
+              <option value="Todos">
+                Todos los estados
+              </option>
+
+              <option value="pendiente">
+                Pendiente
+              </option>
+
+              <option value="en_revision">
+                En revisión
+              </option>
+
+              <option value="resuelto">
+                Resuelto
+              </option>
+
+              <option value="cerrado">
+                Cerrado
+              </option>
             </select>
+
           </div>
 
+          {/* CONTADOR */}
+
+          {!cargando && !error && (
+            <p className="mir-count">
+              {reportesFiltrados.length}{" "}
+              {reportesFiltrados.length === 1
+                ? "reporte encontrado"
+                : "reportes encontrados"}
+            </p>
+          )}
+
+          {/* CARGA */}
+
           {cargando ? (
-            <div className="mir-empty">
+            <div
+              className="mir-empty"
+              role="status"
+            >
               Cargando reportes...
             </div>
           ) : error ? (
-            <div className="mir-empty" role="alert">
+            <div
+              className="mir-empty mir-load-error"
+              role="alert"
+            >
               {error}
             </div>
           ) : reportesFiltrados.length === 0 ? (
             <div className="mir-empty">
-              No se encontraron reportes con esos filtros.
+              {reportes.length === 0
+                ? "Todavía no tienes reportes registrados."
+                : "No se encontraron reportes con esos filtros."}
             </div>
           ) : (
+
+            /* TABLA DE REPORTES */
+
             <div className="mir-table-wrap">
               <table className="mir-table">
+
                 <thead>
                   <tr>
                     <th>Equipo</th>
@@ -235,108 +457,163 @@ export default function MisReportesInstructor() {
                 </thead>
 
                 <tbody>
-                  {reportesFiltrados.map((reporte) => (
-                    <tr key={reporte.id}>
-                      <td>{reporte.equipo}</td>
-                      <td>{reporte.ambiente}</td>
-                      <td>{reporte.fecha}</td>
+                  {reportesFiltrados.map(
+                    (reporte) => (
+                      <tr key={reporte.id}>
 
-                      <td>
-                        <span
-                          className={`mir-priority mir-priority-${reporte.prioridad.toLowerCase()}`}
-                        >
-                          {reporte.prioridad}
-                        </span>
-                      </td>
+                        <td data-label="Equipo">
+                          {reporte.equipo}
+                        </td>
 
-                      <td>
-                        <span
-                          className={`mir-status mir-status-${reporte.estado
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
-                        >
-                          {reporte.estado}
-                        </span>
-                      </td>
+                        <td data-label="Ambiente">
+                          {reporte.ambiente}
+                        </td>
 
-                      <td>
-                        <button
-                          type="button"
-                          className="mir-detail"
-                          onClick={() => setSeleccionado(reporte)}
-                        >
-                          Ver
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        <td data-label="Fecha">
+                          {reporte.fecha}
+                        </td>
+
+                        <td data-label="Prioridad">
+                          <span
+                            className={
+                              `mir-priority mir-priority-${reporte.prioridad.toLowerCase()}`
+                            }
+                          >
+                            {reporte.prioridad}
+                          </span>
+                        </td>
+
+                        <td data-label="Estado">
+                          <span
+                            className={
+                              `mir-status mir-status-${reporte.estadoClave}`
+                            }
+                          >
+                            {reporte.estado}
+                          </span>
+                        </td>
+
+                        <td data-label="Detalle">
+                          <button
+                            type="button"
+                            className="mir-detail"
+                            onClick={() =>
+                              setSeleccionado(reporte)
+                            }
+                          >
+                            Ver detalle
+                          </button>
+                        </td>
+
+                      </tr>
+                    )
+                  )}
                 </tbody>
+
               </table>
             </div>
           )}
 
+          {/* INFORMACIÓN */}
+
           <p className="mir-note">
-            Reportes registrados en PostgreSQL.
-            Vista general de pruebas: todavía no se
-            filtran por instructor autenticado.
+            Reportes registrados en DataVentor.
           </p>
+
         </section>
+
+        {/* ======================================
+            MODAL DETALLE DEL REPORTE
+        ====================================== */}
 
         {seleccionado && (
           <div className="mir-modal-backdrop">
+
             <section
               className="mir-modal"
               role="dialog"
               aria-modal="true"
               aria-labelledby="mir-modal-title"
             >
-              <h3 id="mir-modal-title">
-                Detalle del reporte #{seleccionado.id}
-              </h3>
 
-              <p>
-                <strong>Equipo:</strong> {seleccionado.equipo}
-              </p>
+              <div className="mir-modal-header">
 
-              <p>
-                <strong>Ambiente:</strong> {seleccionado.ambiente}
-              </p>
+                <h3 id="mir-modal-title">
+                  Detalle del reporte
+                  {" "}#{seleccionado.id}
+                </h3>
 
-              <p>
-                <strong>Tipo:</strong> {seleccionado.tipo}
-              </p>
+                <button
+                  type="button"
+                  className="mir-modal-close-icon"
+                  onClick={() =>
+                    setSeleccionado(null)
+                  }
+                  aria-label="Cerrar detalle"
+                >
+                  <FaTimes aria-hidden="true" />
+                </button>
 
-              <p>
-                <strong>Fecha:</strong> {seleccionado.fecha}
-              </p>
+              </div>
 
-              <p>
-                <strong>Prioridad:</strong> {seleccionado.prioridad}
-              </p>
+              <div className="mir-modal-body">
 
-              <p>
-                <strong>Estado:</strong> {seleccionado.estado}
-              </p>
+                <p>
+                  <strong>Equipo:</strong>{" "}
+                  {seleccionado.equipo}
+                </p>
 
-              <p>
-                <strong>Registrado por:</strong>{" "}
-                {seleccionado.responsable}
-              </p>
+                <p>
+                  <strong>Ambiente:</strong>{" "}
+                  {seleccionado.ambiente}
+                </p>
 
-              <p>
-                <strong>Descripción:</strong>{" "}
-                {seleccionado.descripcion}
-              </p>
+                <p>
+                  <strong>Tipo:</strong>{" "}
+                  {seleccionado.tipo}
+                </p>
+
+                <p>
+                  <strong>Fecha:</strong>{" "}
+                  {seleccionado.fecha}
+                </p>
+
+                <p>
+                  <strong>Prioridad:</strong>{" "}
+                  {seleccionado.prioridad}
+                </p>
+
+                <p>
+                  <strong>Estado:</strong>{" "}
+                  {seleccionado.estado}
+                </p>
+
+                <p>
+                  <strong>Registrado por:</strong>{" "}
+                  {seleccionado.responsable}
+                </p>
+
+                <p>
+                  <strong>Descripción:</strong>{" "}
+                  {seleccionado.descripcion}
+                </p>
+
+              </div>
 
               <button
                 type="button"
-                onClick={() => setSeleccionado(null)}
+                className="mir-modal-close"
+                onClick={() =>
+                  setSeleccionado(null)
+                }
               >
                 Cerrar
               </button>
+
             </section>
           </div>
         )}
+
       </main>
     </div>
   );

@@ -1,390 +1,1033 @@
 
 /* ========================================
    DATAVENTOR - GESTIÓN DE REPORTES
+   DISEÑO ORIGINAL + RESPONSIVE
    ======================================== */
 
+/* ========================================
+   CONFIGURACIÓN GENERAL
+======================================== */
+
 .gestion-reportes-page {
+  width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
+
   display: flex;
   flex-direction: column;
-  background: linear-gradient(120deg, #f0fff7, #dcf8ea);
+
+  overflow-x: hidden;
+
+  background: linear-gradient(
+    120deg,
+    #f0fff7,
+    #dcf8ea
+  );
+
   color: #00573f;
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-.gestion-reportes-page * {
+.gestion-reportes-page *,
+.gestion-reportes-page *::before,
+.gestion-reportes-page *::after {
   box-sizing: border-box;
 }
 
-/* ENCABEZADO */
-.gestion-reportes-header {
+/* ========================================
+   ENCABEZADO
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-header {
+  width: 100%;
   min-height: 90px;
+
   padding: 20px 4%;
+
   background: #00573f;
   border-bottom: 3px solid #78c914;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
 }
 
-.gestion-reportes-logo strong {
+/* LOGOTIPO */
+
+.gestion-reportes-page .gestion-reportes-logo {
+  min-width: 0;
+}
+
+.gestion-reportes-page .gestion-reportes-logo strong {
   display: block;
-  color: white;
+
+  color: #ffffff;
+
   font-size: 27px;
   font-weight: 800;
 }
 
-.gestion-reportes-logo strong span {
+.gestion-reportes-page .gestion-reportes-logo strong span {
   color: #78c914;
 }
 
-.gestion-reportes-logo small {
+.gestion-reportes-page .gestion-reportes-logo small {
   display: block;
+
   color: #e5f7ed;
+
   font-size: 11px;
+  line-height: 1.5;
 }
 
-.gestion-reportes-volver {
+/* BOTÓN VOLVER */
+
+.gestion-reportes-page .gestion-reportes-volver {
+  min-height: 44px;
+
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
+
+  padding: 10px 12px;
+
   border: none;
+  border-radius: 8px;
+
   background: transparent;
-  color: white;
-  cursor: pointer;
+  color: #ffffff;
+
+  font-size: 13px;
   font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
-/* CONTENIDO */
-.gestion-reportes-content {
+.gestion-reportes-page .gestion-reportes-volver:hover {
+  background: rgba(120, 201, 20, 0.15);
+  color: #e9ffd8;
+}
+
+/* ========================================
+   CONTENIDO PRINCIPAL
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-content {
   flex: 1;
+
   width: min(1500px, calc(100% - 70px));
+  min-width: 0;
+
   margin: 0 auto;
   padding: 35px 0 50px;
 }
 
-.gestion-reportes-titulo {
+/* ========================================
+   TÍTULO PRINCIPAL
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-titulo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+
   margin-bottom: 28px;
 }
 
-.gestion-reportes-titulo h1 {
+.gestion-reportes-page .gestion-reportes-titulo > div {
+  min-width: 0;
+}
+
+.gestion-reportes-page .gestion-reportes-titulo h1 {
   margin: 0 0 8px;
+
   color: #00573f;
   font-size: 30px;
+  font-weight: 800;
 }
 
-.gestion-reportes-titulo p {
+.gestion-reportes-page .gestion-reportes-titulo p {
   margin: 0;
+
   color: #5d8070;
+
   font-size: 14px;
+  line-height: 1.6;
 }
 
-.gestion-reportes-actualizar {
+/* ========================================
+   BOTÓN ACTUALIZAR
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-actualizar {
+  min-height: 45px;
+
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 9px;
+
   padding: 12px 18px;
+
   background: #128a58;
-  color: white;
+  color: #ffffff;
+
   border: none;
   border-radius: 10px;
-  cursor: pointer;
+
+  font-size: 13px;
   font-weight: 600;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-.gestion-reportes-actualizar:disabled {
+.gestion-reportes-page .gestion-reportes-actualizar:hover:not(:disabled) {
+  background: #087347;
+  transform: translateY(-1px);
+}
+
+.gestion-reportes-page .gestion-reportes-actualizar:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* ESTADÍSTICAS */
-.gestion-reportes-estadisticas {
+/* ========================================
+   TARJETAS DE ESTADÍSTICAS
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-estadisticas {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  grid-template-columns: repeat(
+    4,
+    minmax(0, 1fr)
+  );
+
   gap: 18px;
   margin-bottom: 30px;
 }
 
-.gestion-reportes-estadistica {
-  background: white;
+.gestion-reportes-page .gestion-reportes-estadistica {
+  min-width: 0;
+
+  background: #ffffff;
+
   border: 1px solid #d0e9dc;
   border-radius: 15px;
+
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(0, 87, 63, 0.07);
+
+  box-shadow: 0 8px 24px rgba(
+    0,
+    87,
+    63,
+    0.07
+  );
 }
 
-.gestion-reportes-estadistica span {
+.gestion-reportes-page .gestion-reportes-estadistica span {
   display: block;
+
   color: #638273;
+
   font-size: 13px;
+  line-height: 1.5;
+
   margin-bottom: 9px;
 }
 
-.gestion-reportes-estadistica strong {
+.gestion-reportes-page .gestion-reportes-estadistica strong {
   color: #00573f;
+
   font-size: 30px;
+  font-weight: 800;
 }
 
-/* CONTENEDOR */
-.gestion-reportes-card {
+/* ========================================
+   TARJETA PRINCIPAL
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-card {
+  min-width: 0;
+
   overflow: hidden;
-  background: white;
+
+  background: #ffffff;
+
   border: 1px solid #d0e9dc;
   border-radius: 17px;
-  box-shadow: 0 8px 24px rgba(0, 87, 63, 0.07);
+
+  box-shadow: 0 8px 24px rgba(
+    0,
+    87,
+    63,
+    0.07
+  );
 }
 
-.gestion-reportes-card-header {
+/* ========================================
+   CABECERA DE LA TARJETA
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-card-header {
   padding: 25px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 18px;
+
   border-bottom: 1px solid #e0eee6;
 }
 
-.gestion-reportes-card-titulo {
+.gestion-reportes-page .gestion-reportes-card-titulo {
+  min-width: 0;
+
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.gestion-reportes-icono {
+/* ICONO */
+
+.gestion-reportes-page .gestion-reportes-icono {
   width: 53px;
   height: 53px;
+  flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: #e9fff5;
   color: #128a58;
+
   font-size: 21px;
   border-radius: 13px;
 }
 
-.gestion-reportes-card-titulo h2 {
+/* TÍTULO DE LA TABLA */
+
+.gestion-reportes-page .gestion-reportes-card-titulo h2 {
   margin: 0 0 5px;
+
   color: #00573f;
+
   font-size: 21px;
+  font-weight: 800;
 }
 
-.gestion-reportes-card-titulo p {
+.gestion-reportes-page .gestion-reportes-card-titulo p {
   margin: 0;
+
   color: #648176;
+
   font-size: 12px;
+  line-height: 1.5;
 }
 
-/* FILTROS */
-.gestion-reportes-filtros {
+/* ========================================
+   FILTROS
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-filtros {
+  min-width: 0;
+
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.gestion-reportes-buscador {
+/* BUSCADOR */
+
+.gestion-reportes-page .gestion-reportes-buscador {
   min-width: 230px;
+  min-height: 45px;
+
   display: flex;
   align-items: center;
   gap: 10px;
+
   border: 1px solid #d0e9dc;
   border-radius: 10px;
+
   padding: 0 13px;
+
   color: #128a58;
+  background: #ffffff;
 }
 
-.gestion-reportes-buscador input {
+.gestion-reportes-page .gestion-reportes-buscador svg {
+  flex-shrink: 0;
+}
+
+.gestion-reportes-page .gestion-reportes-buscador input {
   width: 100%;
+  min-width: 0;
+
   padding: 13px 0;
+
   border: none;
   outline: none;
+
   background: transparent;
+
+  color: #00573f;
+
   font-family: inherit;
   font-size: 13px;
 }
 
-.gestion-reportes-filtros select {
+.gestion-reportes-page .gestion-reportes-buscador input::placeholder {
+  color: #8ca49a;
+}
+
+/* SELECTOR DE ESTADOS */
+
+.gestion-reportes-page .gestion-reportes-filtros select {
+  min-width: 0;
+  min-height: 45px;
+
   padding: 12px;
+
   border: 1px solid #d0e9dc;
   border-radius: 10px;
+
   color: #00573f;
-  background: white;
+  background: #ffffff;
+
   font-family: inherit;
   font-size: 13px;
+
+  cursor: pointer;
 }
 
-.gestion-reportes-error {
+/* ========================================
+   MENSAJES DE ERROR
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-error {
   padding: 15px 25px;
+
   color: #c62828;
   background: #ffeded;
+
+  font-size: 13px;
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
 }
 
-/* TABLA */
-.gestion-reportes-tabla-contenedor {
+/* ========================================
+   CONTENEDOR DE TABLA
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-tabla-contenedor {
+  width: 100%;
+  max-width: 100%;
+
   overflow-x: auto;
+  overflow-y: hidden;
+
+  -webkit-overflow-scrolling: touch;
 }
 
-.gestion-reportes-tabla {
+/* ========================================
+   TABLA DE REPORTES
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-tabla {
   width: 100%;
   min-width: 980px;
+
   border-collapse: collapse;
   text-align: left;
 }
 
-.gestion-reportes-tabla thead {
+/* CABECERA */
+
+.gestion-reportes-page .gestion-reportes-tabla thead {
   background: #eaf8ef;
 }
 
-.gestion-reportes-tabla th {
+.gestion-reportes-page .gestion-reportes-tabla th {
   padding: 19px 13px;
+
   font-size: 12px;
+  font-weight: 700;
+
   color: #00573f;
   white-space: nowrap;
 }
 
-.gestion-reportes-tabla td {
+/* FILAS */
+
+.gestion-reportes-page .gestion-reportes-tabla td {
   padding: 18px 13px;
+
   font-size: 12px;
   color: #42594e;
+
   border-bottom: 1px solid #e8f1ec;
+  vertical-align: middle;
 }
 
-.gestion-reportes-tabla tbody tr:hover {
+.gestion-reportes-page .gestion-reportes-tabla tbody tr:hover {
   background: #f4fff8;
 }
 
-.gestion-reportes-equipo {
+/* EQUIPOS */
+
+.gestion-reportes-page .gestion-reportes-equipo {
   font-weight: 700;
   color: #00573f !important;
 }
 
-.gestion-reportes-descripcion {
+/* DESCRIPCIÓN */
+
+.gestion-reportes-page .gestion-reportes-descripcion {
   max-width: 230px;
+
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-/* ESTADOS */
-.gestion-reportes-estado {
+/* ========================================
+   ESTADOS DE LOS REPORTES
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-estado {
   display: inline-block;
+
   padding: 8px 12px;
+
   border-radius: 20px;
+
   font-weight: 700;
   font-size: 11px;
+
   white-space: nowrap;
+
   background: #edf2f0;
 }
 
-.gestion-reportes-estado.pendiente {
+/* PENDIENTE */
+
+.gestion-reportes-page .gestion-reportes-estado.pendiente {
   background: #fff2c8;
   color: #a96b00;
 }
 
-.gestion-reportes-estado.en-revision {
+/* EN REVISIÓN */
+
+.gestion-reportes-page .gestion-reportes-estado.en-revision {
   background: #e9fff5;
   color: #128a58;
 }
 
-.gestion-reportes-estado.resuelto,
-.gestion-reportes-estado.cerrado {
+/* RESUELTO Y CERRADO */
+
+.gestion-reportes-page .gestion-reportes-estado.resuelto,
+.gestion-reportes-page .gestion-reportes-estado.cerrado {
   background: #dbf6e4;
   color: #087a41;
 }
 
-/* BOTÓN VER */
-.gestion-reportes-ver {
+/* ========================================
+   BOTÓN VER REPORTE
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-ver {
+  min-height: 40px;
+
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 7px;
+
   padding: 10px 14px;
+
   background: #e9fff5;
   color: #128a58;
+
   border: none;
   border-radius: 8px;
-  font-weight: 700;
-  cursor: pointer;
-}
 
-.gestion-reportes-ver:hover {
-  background: #c5f0da;
-}
-
-.gestion-reportes-vacio {
-  padding: 45px !important;
-  text-align: center;
-  color: #7a9185;
-}
-
-.gestion-reportes-pie-tabla {
-  padding: 20px 25px;
-  color: #648176;
   font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* FOOTER */
-.gestion-reportes-footer {
+.gestion-reportes-page .gestion-reportes-ver:hover {
+  background: #c5f0da;
+  transform: translateY(-1px);
+}
+
+/* ========================================
+   SIN REPORTES
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-vacio {
+  padding: 45px !important;
+
+  text-align: center;
+
+  color: #7a9185;
+  font-size: 13px;
+}
+
+/* ========================================
+   PIE DE LA TABLA
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-pie-tabla {
+  padding: 20px 25px;
+
+  color: #648176;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ========================================
+   PIE DE PÁGINA
+======================================== */
+
+.gestion-reportes-page .gestion-reportes-footer {
+  width: 100%;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 20px;
+
   padding: 20px 4%;
+
   background: #00573f;
   border-top: 3px solid #78c914;
-  color: white;
+
+  color: #ffffff;
 }
 
-.gestion-reportes-footer div {
+.gestion-reportes-page .gestion-reportes-footer div {
+  min-width: 0;
+
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.gestion-reportes-footer strong span {
+.gestion-reportes-page .gestion-reportes-footer strong span {
   color: #78c914;
 }
 
-.gestion-reportes-footer small {
+.gestion-reportes-page .gestion-reportes-footer small {
   font-size: 10px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .gestion-reportes-estadisticas {
-    grid-template-columns: repeat(2, 1fr);
+/* ========================================
+   RESPONSIVE - PORTÁTILES
+======================================== */
+
+@media (max-width: 1200px) {
+
+  .gestion-reportes-page .gestion-reportes-content {
+    width: calc(100% - 50px);
   }
 
-  .gestion-reportes-card-header {
-    flex-direction: column;
-    align-items: stretch;
+  .gestion-reportes-page .gestion-reportes-estadisticas {
+    gap: 15px;
   }
 
-  .gestion-reportes-filtros {
+  .gestion-reportes-page .gestion-reportes-estadistica {
+    padding: 20px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-card-header {
+    flex-wrap: wrap;
+  }
+
+  .gestion-reportes-page .gestion-reportes-filtros {
     flex-wrap: wrap;
   }
 }
 
+/* ========================================
+   RESPONSIVE - TABLETAS
+======================================== */
+
+@media (max-width: 900px) {
+
+  .gestion-reportes-page .gestion-reportes-header {
+    padding: 20px 25px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-content {
+    width: calc(100% - 40px);
+    padding: 28px 0 40px;
+  }
+
+  /* ESTADÍSTICAS EN DOS COLUMNAS */
+
+  .gestion-reportes-page .gestion-reportes-estadisticas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  /* CABECERA */
+
+  .gestion-reportes-page .gestion-reportes-card-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* FILTROS */
+
+  .gestion-reportes-page .gestion-reportes-filtros {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .gestion-reportes-page .gestion-reportes-buscador {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-filtros select {
+    flex: 1;
+  }
+
+  /* TABLA */
+
+  .gestion-reportes-page .gestion-reportes-tabla-contenedor {
+    overflow-x: auto;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - CELULARES
+======================================== */
+
 @media (max-width: 600px) {
-  .gestion-reportes-content {
+
+  /* ENCABEZADO */
+
+  .gestion-reportes-page .gestion-reportes-header {
+    min-height: auto;
+
+    padding: 17px 15px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    text-align: center;
+  }
+
+  .gestion-reportes-page .gestion-reportes-logo strong {
+    font-size: 24px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-logo small {
+    font-size: 10px;
+  }
+
+  /* BOTÓN VOLVER */
+
+  .gestion-reportes-page .gestion-reportes-volver {
+    width: 100%;
+    max-width: 250px;
+
+    min-height: 44px;
+
+    justify-content: center;
+  }
+
+  /* CONTENIDO */
+
+  .gestion-reportes-page .gestion-reportes-content {
     width: calc(100% - 30px);
+
+    padding: 25px 0 35px;
   }
 
-  .gestion-reportes-estadisticas {
-    grid-template-columns: 1fr;
-  }
+  /* TÍTULO */
 
-  .gestion-reportes-titulo,
-  .gestion-reportes-header {
+  .gestion-reportes-page .gestion-reportes-titulo {
     flex-direction: column;
+    align-items: stretch;
+    gap: 17px;
+
+    margin-bottom: 22px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-titulo h1 {
+    font-size: 25px;
+    line-height: 1.3;
+  }
+
+  .gestion-reportes-page .gestion-reportes-titulo p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  /* BOTÓN ACTUALIZAR */
+
+  .gestion-reportes-page .gestion-reportes-actualizar {
+    width: 100%;
+    min-height: 46px;
+
+    justify-content: center;
+
+    font-size: 13px;
+  }
+
+  /* ESTADÍSTICAS */
+
+  .gestion-reportes-page .gestion-reportes-estadisticas {
+    grid-template-columns: minmax(0, 1fr);
+
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-estadistica {
+    padding: 19px;
+    border-radius: 13px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-estadistica span {
+    font-size: 13px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-estadistica strong {
+    font-size: 27px;
+  }
+
+  /* TARJETA PRINCIPAL */
+
+  .gestion-reportes-page .gestion-reportes-card {
+    border-radius: 14px;
+  }
+
+  /* CABECERA DE LA TARJETA */
+
+  .gestion-reportes-page .gestion-reportes-card-header {
+    padding: 17px 14px;
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 17px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-card-titulo {
+    min-width: 0;
     align-items: flex-start;
+    gap: 11px;
   }
 
-  .gestion-reportes-buscador {
-    min-width: 100%;
+  .gestion-reportes-page .gestion-reportes-icono {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+
+    font-size: 19px;
   }
 
-  .gestion-reportes-footer {
+  .gestion-reportes-page .gestion-reportes-card-titulo h2 {
+    font-size: 18px;
+    line-height: 1.3;
+  }
+
+  .gestion-reportes-page .gestion-reportes-card-titulo p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* FILTROS */
+
+  .gestion-reportes-page .gestion-reportes-filtros {
+    width: 100%;
+
     flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  /* BUSCADOR */
+
+  .gestion-reportes-page .gestion-reportes-buscador {
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+
+    flex: none;
+  }
+
+  .gestion-reportes-page .gestion-reportes-buscador input {
+    width: 100%;
+    min-width: 0;
+
+    font-size: 16px;
+  }
+
+  /* SELECT */
+
+  .gestion-reportes-page .gestion-reportes-filtros select {
+    width: 100%;
+    min-height: 48px;
+
+    flex: none;
+
+    font-size: 16px;
+  }
+
+  /* MENSAJES */
+
+  .gestion-reportes-page .gestion-reportes-error {
+    padding: 14px;
+    font-size: 12px;
+  }
+
+  /* TABLA */
+
+  .gestion-reportes-page .gestion-reportes-tabla-contenedor {
+    width: 100%;
+    max-width: 100%;
+
+    overflow-x: auto;
+  }
+
+  .gestion-reportes-page .gestion-reportes-tabla {
+    min-width: 980px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-tabla th {
+    padding: 15px 12px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-tabla td {
+    padding: 15px 12px;
+  }
+
+  /* PIE DE LA TABLA */
+
+  .gestion-reportes-page .gestion-reportes-pie-tabla {
+    padding: 16px 14px;
+
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* FOOTER */
+
+  .gestion-reportes-page .gestion-reportes-footer {
+    padding: 18px 15px;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    text-align: center;
+  }
+
+  .gestion-reportes-page .gestion-reportes-footer div {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-footer small {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+}
+
+/* ========================================
+   RESPONSIVE - CELULARES PEQUEÑOS
+======================================== */
+
+@media (max-width: 360px) {
+
+  .gestion-reportes-page .gestion-reportes-header {
+    padding: 14px 10px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-logo strong {
+    font-size: 22px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-content {
+    width: calc(100% - 20px);
+  }
+
+  .gestion-reportes-page .gestion-reportes-titulo h1 {
+    font-size: 23px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-estadistica {
+    padding: 15px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-card-header {
+    padding: 14px 11px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-card-titulo h2 {
+    font-size: 17px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-pie-tabla {
+    padding: 13px 11px;
+  }
+
+  .gestion-reportes-page .gestion-reportes-footer {
+    padding: 15px 10px;
+  }
+}
+
+/* ========================================
+   ACCESIBILIDAD
+======================================== */
+
+.gestion-reportes-page button:focus-visible,
+.gestion-reportes-page input:focus-visible,
+.gestion-reportes-page select:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
+}
+
+/* REDUCIR ANIMACIONES SI EL USUARIO LO PREFIERE */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .gestion-reportes-page *,
+  .gestion-reportes-page *::before,
+  .gestion-reportes-page *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

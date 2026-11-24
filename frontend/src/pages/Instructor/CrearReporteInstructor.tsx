@@ -1,11 +1,14 @@
 
 import { useEffect, useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaFileAlt } from "react-icons/fa";
 
 import "../../styles/Instructor/CrearReporteInstructor.css";
 
-const API = "http://127.0.0.1:5000";
+const API =
+  import.meta.env.VITE_API_URL ||
+  "http://127.0.0.1:5000";
 
 type Sede = {
   id_sede: number;
@@ -24,6 +27,25 @@ type Equipo = {
   registro_unico: string;
   tipo: string;
   modelo: string;
+  numero_etiqueta?: number | null;
+};
+
+type Formulario = {
+  sede: string;
+  ambiente: string;
+  equipo: string;
+  tipoProblema: string;
+  prioridad: string;
+  descripcion: string;
+};
+
+const formularioInicial: Formulario = {
+  sede: "",
+  ambiente: "",
+  equipo: "",
+  tipoProblema: "",
+  prioridad: "Media",
+  descripcion: "",
 };
 
 export default function CrearReporteInstructor() {
@@ -33,13 +55,8 @@ export default function CrearReporteInstructor() {
   const [ambientes, setAmbientes] = useState<Ambiente[]>([]);
   const [equipos, setEquipos] = useState<Equipo[]>([]);
 
-  const [form, setForm] = useState({
-    sede: "",
-    ambiente: "",
-    equipo: "",
-    tipoProblema: "",
-    prioridad: "Media",
-    descripcion: "",
+  const [form, setForm] = useState<Formulario>({
+    ...formularioInicial,
   });
 
   const [mensaje, setMensaje] = useState("");
@@ -47,14 +64,29 @@ export default function CrearReporteInstructor() {
   const [cargando, setCargando] = useState(true);
   const [enviando, setEnviando] = useState(false);
 
+  // ==========================================
+  // CARGAR SEDES, AMBIENTES Y EQUIPOS
+  // ==========================================
+
   useEffect(() => {
+    const controller = new AbortController();
+
     const cargarDatos = async () => {
+      setCargando(true);
+      setError("");
+
       try {
         const [resSedes, resAmbientes, resEquipos] =
           await Promise.all([
-            fetch(`${API}/api/sedes`),
-            fetch(`${API}/api/ambientes`),
-            fetch(`${API}/api/equipos`),
+            fetch(`${API}/api/sedes`, {
+              signal: controller.signal,
+            }),
+            fetch(`${API}/api/ambientes`, {
+              signal: controller.signal,
+            }),
+            fetch(`${API}/api/equipos`, {
+              signal: controller.signal,
+            }),
           ]);
 
         if (
@@ -62,36 +94,77 @@ export default function CrearReporteInstructor() {
           !resAmbientes.ok ||
           !resEquipos.ok
         ) {
-          throw new Error("No se pudieron consultar los datos.");
+          throw new Error(
+            "No se pudieron consultar los datos."
+          );
         }
 
-        setSedes(await resSedes.json());
-        setAmbientes(await resAmbientes.json());
-        setEquipos(await resEquipos.json());
+        const datosSedes: Sede[] =
+          await resSedes.json();
+
+        const datosAmbientes: Ambiente[] =
+          await resAmbientes.json();
+
+        const datosEquipos: Equipo[] =
+          await resEquipos.json();
+
+        if (controller.signal.aborted) return;
+
+        setSedes(datosSedes);
+        setAmbientes(datosAmbientes);
+        setEquipos(datosEquipos);
+
       } catch (err) {
-        console.error("Error al cargar catálogos:", err);
+        if (controller.signal.aborted) return;
+
+        console.error(
+          "Error al cargar catálogos:",
+          err
+        );
+
         setError(
           "No fue posible cargar las sedes, ambientes y equipos."
         );
+
       } finally {
-        setCargando(false);
+        if (!controller.signal.aborted) {
+          setCargando(false);
+        }
       }
     };
 
     cargarDatos();
+
+    return () => controller.abort();
   }, []);
 
+  // ==========================================
+  // FILTRAR AMBIENTES SEGÚN SEDE
+  // ==========================================
+
   const ambientesFiltrados = ambientes.filter(
-    (a) => a.id_sede === Number(form.sede)
+    (ambiente) =>
+      ambiente.id_sede === Number(form.sede)
   );
+
+  // ==========================================
+  // FILTRAR EQUIPOS SEGÚN AMBIENTE
+  // ==========================================
 
   const equiposFiltrados = equipos.filter(
-    (e) => e.id_ambiente === Number(form.ambiente)
+    (equipo) =>
+      equipo.id_ambiente === Number(form.ambiente)
   );
 
+  // ==========================================
+  // CAMBIAR CAMPOS DEL FORMULARIO
+  // ==========================================
+
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    e: ChangeEvent<
+      HTMLInputElement |
+      HTMLSelectElement |
+      HTMLTextAreaElement
     >
   ) => {
     const { name, value } = e.target;
@@ -99,22 +172,40 @@ export default function CrearReporteInstructor() {
     setForm((prev) => ({
       ...prev,
       [name]: value,
+
       ...(name === "sede"
-        ? { ambiente: "", equipo: "" }
+        ? {
+            ambiente: "",
+            equipo: "",
+          }
         : {}),
-      ...(name === "ambiente" ? { equipo: "" } : {}),
+
+      ...(name === "ambiente"
+        ? {
+            equipo: "",
+          }
+        : {}),
     }));
 
     setMensaje("");
     setError("");
   };
 
+  // ==========================================
+  // ENVIAR REPORTE
+  // ==========================================
+
   const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+
+    if (enviando || cargando) return;
+
     setMensaje("");
     setError("");
+
+    // Validar campos obligatorios
 
     if (
       !form.sede ||
@@ -123,12 +214,35 @@ export default function CrearReporteInstructor() {
       !form.tipoProblema ||
       !form.descripcion.trim()
     ) {
-      setError("Completa todos los campos obligatorios.");
+      setError(
+        "Completa todos los campos obligatorios."
+      );
       return;
     }
 
-    const usuarioGuardado = localStorage.getItem("usuario");
-    const token = localStorage.getItem("token");
+    // Comprobar que el equipo pertenezca
+    // al ambiente seleccionado
+
+    const equipoSeleccionado =
+      equiposFiltrados.find(
+        (equipo) =>
+          equipo.id_equipo === Number(form.equipo)
+      );
+
+    if (!equipoSeleccionado) {
+      setError(
+        "Selecciona un equipo válido para el ambiente."
+      );
+      return;
+    }
+
+    // Consultar sesión del instructor
+
+    const usuarioGuardado =
+      localStorage.getItem("usuario");
+
+    const token =
+      localStorage.getItem("token");
 
     if (!usuarioGuardado || !token) {
       setError(
@@ -137,50 +251,69 @@ export default function CrearReporteInstructor() {
       return;
     }
 
-    let idUsuario: number;
-
     try {
       const usuario = JSON.parse(usuarioGuardado);
 
       if (usuario.rol !== "instructor") {
-        setError("El usuario no tiene permisos de Instructor.");
+        setError(
+          "El usuario no tiene permisos de Instructor."
+        );
         return;
       }
 
-      idUsuario = Number(usuario.id_usuario);
+      const idUsuario =
+        Number(usuario.id_usuario);
 
-      if (!Number.isInteger(idUsuario) || idUsuario <= 0) {
-        setError("No se pudo identificar al Instructor.");
+      if (
+        !Number.isInteger(idUsuario) ||
+        idUsuario <= 0
+      ) {
+        setError(
+          "No se pudo identificar al Instructor."
+        );
         return;
       }
+
     } catch {
-      setError("Los datos de la sesión no son válidos.");
+      setError(
+        "Los datos de la sesión no son válidos."
+      );
       return;
     }
+
+    // Enviar el reporte a FastAPI
 
     setEnviando(true);
 
     try {
-      const respuesta = await fetch(`${API}/api/reportes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          id_equipo: Number(form.equipo),
-          id_usuario: idUsuario,
-          descripcion: `[${form.tipoProblema}] ${form.descripcion.trim()}`,
-          prioridad: form.prioridad.toLowerCase(),
-        }),
-      });
+      const respuesta = await fetch(
+        `${API}/api/reportes`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id_equipo: Number(form.equipo),
+            descripcion:
+              `[${form.tipoProblema}] ` +
+              form.descripcion.trim(),
+            prioridad:
+              form.prioridad.toLowerCase(),
+          }),
+        }
+      );
 
       const datos = await respuesta.json();
 
       if (!respuesta.ok) {
         throw new Error(
-          datos.mensaje ||
-            "No fue posible guardar el reporte."
+          typeof datos.detail === "string"
+            ? datos.detail
+            : typeof datos.mensaje === "string"
+            ? datos.mensaje
+            : "No fue posible guardar el reporte."
         );
       }
 
@@ -188,63 +321,104 @@ export default function CrearReporteInstructor() {
         `Reporte creado correctamente. Número de reporte: ${datos.id_reporte}`
       );
 
+      // Limpiar formulario
+
       setForm({
-        sede: "",
-        ambiente: "",
-        equipo: "",
-        tipoProblema: "",
-        prioridad: "Media",
-        descripcion: "",
+        ...formularioInicial,
       });
+
     } catch (err) {
-      console.error("Error al registrar reporte:", err);
+      console.error(
+        "Error al registrar reporte:",
+        err
+      );
+
       setError(
         err instanceof Error
           ? err.message
           : "Ocurrió un error al registrar el reporte."
       );
+
     } finally {
       setEnviando(false);
     }
   };
 
+  // ==========================================
+  // INTERFAZ
+  // ==========================================
+
   return (
     <div className="crear-reporte-instructor">
+
+      {/* ENCABEZADO */}
+
       <header className="cri-header">
-        <div>
+
+        <div className="cri-brand">
           <h1>
-          Data<span>Ventor</span>
+            Data<span>Ventor</span>
           </h1>
-          <p>Gestión de equipos en ambientes SENA</p>
+
+          <p>
+            Gestión de equipos en ambientes SENA
+          </p>
         </div>
 
         <button
           type="button"
           className="cri-back"
-          onClick={() => navigate("/dashboard-instructor")}
+          onClick={() =>
+            navigate("/dashboard-instructor")
+          }
         >
-          <FaArrowLeft />
-          Volver al tablero
+          <FaArrowLeft aria-hidden="true" />
+          <span>Volver al tablero</span>
         </button>
+
       </header>
 
+      {/* CONTENIDO PRINCIPAL */}
+
       <main className="cri-main">
+
         <section className="cri-card">
+
+          {/* TÍTULO */}
+
           <div className="cri-title">
-            <div className="cri-icon">
+
+            <div
+              className="cri-icon"
+              aria-hidden="true"
+            >
               <FaFileAlt />
             </div>
 
-            <div>
+            <div className="cri-title-text">
               <h2>Crear reporte</h2>
-              <p>Registra una falla en un equipo del ambiente.</p>
+
+              <p>
+                Registra una falla en un equipo
+                del ambiente.
+              </p>
             </div>
+
           </div>
 
+          {/* FORMULARIO */}
+
           <form onSubmit={handleSubmit}>
+
             <div className="cri-grid">
+
+              {/* SEDE */}
+
               <div className="cri-group">
-                <label htmlFor="cri-sede">Sede *</label>
+
+                <label htmlFor="cri-sede">
+                  Sede *
+                </label>
 
                 <select
                   id="cri-sede"
@@ -252,9 +426,14 @@ export default function CrearReporteInstructor() {
                   value={form.sede}
                   onChange={handleChange}
                   required
-                  disabled={cargando}
+                  disabled={cargando || enviando}
                 >
-                  <option value="">Selecciona la sede</option>
+                  <option value="">
+                    {cargando
+                      ? "Cargando sedes..."
+                      : "Selecciona la sede"}
+                  </option>
+
                   {sedes.map((sede) => (
                     <option
                       key={sede.id_sede}
@@ -264,10 +443,16 @@ export default function CrearReporteInstructor() {
                     </option>
                   ))}
                 </select>
+
               </div>
 
+              {/* AMBIENTE */}
+
               <div className="cri-group">
-                <label htmlFor="cri-ambiente">Ambiente *</label>
+
+                <label htmlFor="cri-ambiente">
+                  Ambiente *
+                </label>
 
                 <select
                   id="cri-ambiente"
@@ -275,22 +460,37 @@ export default function CrearReporteInstructor() {
                   value={form.ambiente}
                   onChange={handleChange}
                   required
-                  disabled={!form.sede}
+                  disabled={
+                    !form.sede ||
+                    cargando ||
+                    enviando
+                  }
                 >
-                  <option value="">Selecciona el ambiente</option>
-                  {ambientesFiltrados.map((ambiente) => (
-                    <option
-                      key={ambiente.id_ambiente}
-                      value={ambiente.id_ambiente}
-                    >
-                      {ambiente.descripcion}
-                    </option>
-                  ))}
+                  <option value="">
+                    Selecciona el ambiente
+                  </option>
+
+                  {ambientesFiltrados.map(
+                    (ambiente) => (
+                      <option
+                        key={ambiente.id_ambiente}
+                        value={ambiente.id_ambiente}
+                      >
+                        {ambiente.descripcion}
+                      </option>
+                    )
+                  )}
                 </select>
+
               </div>
 
+              {/* EQUIPO */}
+
               <div className="cri-group">
-                <label htmlFor="cri-equipo">Equipo *</label>
+
+                <label htmlFor="cri-equipo">
+                  Equipo *
+                </label>
 
                 <select
                   id="cri-equipo"
@@ -298,21 +498,38 @@ export default function CrearReporteInstructor() {
                   value={form.equipo}
                   onChange={handleChange}
                   required
-                  disabled={!form.ambiente}
+                  disabled={
+                    !form.ambiente ||
+                    cargando ||
+                    enviando
+                  }
                 >
-                  <option value="">Selecciona el equipo</option>
-                  {equiposFiltrados.map((equipo) => (
-                    <option
-                      key={equipo.id_equipo}
-                      value={equipo.id_equipo}
-                    >
-                      {equipo.tipo} - {equipo.registro_unico}
-                    </option>
-                  ))}
+                  <option value="">
+                    Selecciona el equipo
+                  </option>
+
+                  {equiposFiltrados.map(
+                    (equipo) => (
+                      <option
+                        key={equipo.id_equipo}
+                        value={equipo.id_equipo}
+                      >
+                        {equipo.tipo} -{" "}
+                        {equipo.registro_unico ||
+                          (equipo.numero_etiqueta
+                            ? `Equipo ${equipo.numero_etiqueta}`
+                            : `ID ${equipo.id_equipo}`)}
+                      </option>
+                    )
+                  )}
                 </select>
+
               </div>
 
+              {/* TIPO DE PROBLEMA */}
+
               <div className="cri-group">
+
                 <label htmlFor="cri-tipoProblema">
                   Tipo de problema *
                 </label>
@@ -323,18 +540,42 @@ export default function CrearReporteInstructor() {
                   value={form.tipoProblema}
                   onChange={handleChange}
                   required
+                  disabled={enviando}
                 >
-                  <option value="">Selecciona el problema</option>
-                  <option value="Hardware">Hardware</option>
-                  <option value="Software">Software</option>
-                  <option value="Conectividad">Conectividad</option>
-                  <option value="Periférico">Periférico</option>
-                  <option value="Otro">Otro</option>
+                  <option value="">
+                    Selecciona el problema
+                  </option>
+
+                  <option value="Hardware">
+                    Hardware
+                  </option>
+
+                  <option value="Software">
+                    Software
+                  </option>
+
+                  <option value="Conectividad">
+                    Conectividad
+                  </option>
+
+                  <option value="Periférico">
+                    Periférico
+                  </option>
+
+                  <option value="Otro">
+                    Otro
+                  </option>
                 </select>
+
               </div>
 
+              {/* PRIORIDAD */}
+
               <div className="cri-group">
-                <label htmlFor="cri-prioridad">Prioridad *</label>
+
+                <label htmlFor="cri-prioridad">
+                  Prioridad *
+                </label>
 
                 <select
                   id="cri-prioridad"
@@ -342,15 +583,29 @@ export default function CrearReporteInstructor() {
                   value={form.prioridad}
                   onChange={handleChange}
                   required
+                  disabled={enviando}
                 >
-                  <option value="Baja">Baja</option>
-                  <option value="Media">Media</option>
-                  <option value="Alta">Alta</option>
+                  <option value="Baja">
+                    Baja
+                  </option>
+
+                  <option value="Media">
+                    Media
+                  </option>
+
+                  <option value="Alta">
+                    Alta
+                  </option>
                 </select>
+
               </div>
+
             </div>
 
+            {/* DESCRIPCIÓN */}
+
             <div className="cri-group cri-description">
+
               <label htmlFor="cri-descripcion">
                 Descripción del problema *
               </label>
@@ -363,28 +618,48 @@ export default function CrearReporteInstructor() {
                 placeholder="Describe la falla que presenta el equipo..."
                 maxLength={300}
                 required
+                disabled={enviando}
               />
 
-              <small>{form.descripcion.length}/300 caracteres</small>
+              <small>
+                {form.descripcion.length}/300 caracteres
+              </small>
+
             </div>
 
+            {/* MENSAJE DE ÉXITO */}
+
             {mensaje && (
-              <div className="cri-message" role="status">
+              <div
+                className="cri-message cri-success"
+                role="status"
+              >
                 {mensaje}
               </div>
             )}
 
+            {/* MENSAJE DE ERROR */}
+
             {error && (
-              <div className="cri-message" role="alert">
+              <div
+                className="cri-message cri-error"
+                role="alert"
+              >
                 {error}
               </div>
             )}
 
+            {/* BOTONES */}
+
             <div className="cri-buttons">
+
               <button
                 type="button"
                 className="cri-cancel"
-                onClick={() => navigate("/dashboard-instructor")}
+                onClick={() =>
+                  navigate("/dashboard-instructor")
+                }
+                disabled={enviando}
               >
                 Cancelar
               </button>
@@ -394,12 +669,19 @@ export default function CrearReporteInstructor() {
                 className="cri-submit"
                 disabled={enviando || cargando}
               >
-                {enviando ? "Enviando..." : "Enviar reporte"}
+                {enviando
+                  ? "Enviando..."
+                  : "Enviar reporte"}
               </button>
+
             </div>
+
           </form>
+
         </section>
+
       </main>
+
     </div>
   );
 }

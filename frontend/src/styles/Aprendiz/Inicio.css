@@ -1,684 +1,594 @@
-/* =========================================================
-   DATAVENTOR - INICIO
-   ========================================================= */
 
-* {
-    box-sizing: border-box;
+/* ==========================================
+   DATAVENTOR - PÁGINA DE INICIO
+   VIDEO + EFECTO CRISTAL + RESPONSIVE
+========================================== */
+
+/* CONFIGURACIÓN GENERAL */
+
+.inicio-container,
+.inicio-container * {
+  box-sizing: border-box;
 }
-
-html,
-body,
-#root {
-    width: 100%;
-    min-height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family:
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-    overflow: hidden;
-}
-
-/* =========================================================
-   CONTENEDOR PRINCIPAL
-   ========================================================= */
 
 .inicio-container {
-    width: 100%;
-    height: 100vh;
-
-    position: relative;
-
-    overflow: hidden;
-
-    background: #0b1730;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
+  background: #0b1730;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* =========================================================
-   VIDEO
-   ========================================================= */
+/* ==========================================
+   VIDEO DE FONDO
+========================================== */
 
-.inicio-video {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    object-fit: cover;
-
-    z-index: 0;
+.inicio-container .inicio-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -2;
+  pointer-events: none;
 }
 
-/* =========================================================
-   CAPA OSCURA
-   ========================================================= */
+/* ==========================================
+   CAPA OSCURA SOBRE EL VIDEO
+========================================== */
 
-.inicio-overlay {
-    position: fixed;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(8, 18, 42, 0.72),
-            rgba(8, 18, 42, 0.40)
-        );
-
-    z-index: 1;
+.inicio-container .inicio-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(8, 18, 42, 0.76),
+    rgba(8, 18, 42, 0.48)
+  );
+  pointer-events: none;
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
+/* ==========================================
+   ENCABEZADO TRANSPARENTE
+========================================== */
 
-.inicio-header {
-    position: relative;
+.inicio-container .inicio-header {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-height: 82px;
+  padding: 14px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 
-    z-index: 2;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
-    width: 100%;
-    height: 82px;
-
-    padding: 0 7%;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background: rgba(255, 255, 255, 0.97);
-
-    border-bottom: 1px solid
-        rgba(255, 255, 255, 0.25);
-
-    box-shadow:
-        0 3px 12px rgba(0, 0, 0, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
 }
 
-/* =========================================================
-   LOGO
-   ========================================================= */
+/* ==========================================
+   LOGO DATAVENTOR
+========================================== */
 
-.logo {
-    display: flex;
+.inicio-container .logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  gap: 4px;
+}
 
-    flex-direction: column;
+.inicio-container .logo-data {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
 
+.inicio-container .logo small {
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* ==========================================
+   NAVEGACIÓN SUPERIOR
+   CONSERVADA PARA FUTURAS OPCIONES
+========================================== */
+
+.inicio-container .inicio-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.inicio-container .inicio-nav span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.inicio-container .inicio-nav span:hover {
+  color: #a7ee60;
+}
+
+.inicio-container .inicio-nav .nav-active {
+  color: #ffffff;
+}
+
+.inicio-container .inicio-nav .nav-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 3px;
+  background: #ffffff;
+  border-radius: 3px;
+}
+
+/* ==========================================
+   CONTENIDO PRINCIPAL
+========================================== */
+
+.inicio-container .inicio-main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  padding: 35px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   TARJETA CENTRAL EFECTO CRISTAL
+========================================== */
+
+.inicio-container .rol-card {
+  width: 100%;
+  max-width: 620px;
+  min-width: 0;
+  padding: 40px 48px;
+
+  background: rgba(255, 255, 255, 0.20);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.20);
+
+  text-align: center;
+}
+
+/* ==========================================
+   TÍTULO Y DESCRIPCIÓN
+========================================== */
+
+.inicio-container .rol-card h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.inicio-container .rol-card p {
+  margin: 12px 0 28px;
+  color: #ffffff;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   BOTONES DE LOS ROLES
+========================================== */
+
+.inicio-container .rol-button {
+  width: 100%;
+  min-width: 0;
+  min-height: 82px;
+  margin-bottom: 14px;
+  padding: 12px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+
+  border-radius: 17px;
+  background: rgba(15, 25, 50, 0.40);
+  color: #ffffff;
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.inicio-container .rol-button:last-child {
+  margin-bottom: 0;
+}
+
+.inicio-container .rol-button:hover {
+  transform: translateY(-2px);
+  background: rgba(15, 25, 50, 0.60);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.inicio-container .rol-button:active {
+  transform: translateY(0);
+}
+
+/* ==========================================
+   COLORES DE CADA ROL
+========================================== */
+
+/* APRENDIZ */
+
+.inicio-container .rol-button.aprendiz {
+  border: 2px solid #d9b8ff;
+}
+
+.inicio-container .rol-button.aprendiz:hover {
+  background: rgba(123, 44, 191, 0.35);
+}
+
+/* ADMINISTRADOR */
+
+.inicio-container .rol-button.administrador {
+  border: 2px solid #b8d3ff;
+}
+
+.inicio-container .rol-button.administrador:hover {
+  background: rgba(67, 97, 238, 0.35);
+}
+
+/* TÉCNICO */
+
+.inicio-container .rol-button.tecnico {
+  border: 2px solid #7af8a4;
+}
+
+.inicio-container .rol-button.tecnico:hover {
+  background: rgba(25, 135, 84, 0.35);
+}
+
+/* INSTRUCTOR */
+
+.inicio-container .rol-button.instructor {
+  border: 2px solid #c973fa;
+}
+
+.inicio-container .rol-button.instructor:hover {
+  background: rgba(161, 75, 212, 0.35);
+}
+
+/* ==========================================
+   ICONOS DE LOS ROLES
+========================================== */
+
+.inicio-container .rol-icon {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  font-size: 26px;
+}
+
+/* APRENDIZ */
+
+.inicio-container .aprendiz .rol-icon {
+  background: #ead8ff;
+}
+
+/* ADMINISTRADOR */
+
+.inicio-container .administrador .rol-icon {
+  background: #dceaff;
+}
+
+/* TÉCNICO */
+
+.inicio-container .tecnico .rol-icon {
+  background: #d4ffe0;
+}
+
+/* INSTRUCTOR */
+
+.inicio-container .instructor .rol-icon {
+  background: #f0d9ff;
+}
+
+/* ==========================================
+   TEXTO Y FLECHAS
+========================================== */
+
+.inicio-container .rol-button span {
+  flex: 1;
+  min-width: 0;
+  color: #ffffff;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.inicio-container .rol-button strong {
+  flex-shrink: 0;
+  color: #ffffff;
+  font-size: 29px;
+  font-weight: 400;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.inicio-container .rol-button:hover strong {
+  transform: translateX(5px);
+}
+
+/* ==========================================
+   TABLETAS
+========================================== */
+
+@media (max-width: 900px) {
+  .inicio-container .inicio-header {
+    padding: 14px 5%;
+  }
+
+  .inicio-container .inicio-main {
+    padding: 30px 22px;
+  }
+
+  .inicio-container .rol-card {
+    max-width: 580px;
+    padding: 35px 38px;
+  }
+
+  .inicio-container .rol-button {
+    min-height: 78px;
+    gap: 16px;
+  }
+
+  .inicio-container .rol-button span {
+    font-size: 18px;
+  }
+}
+
+/* ==========================================
+   CELULARES
+========================================== */
+
+@media (max-width: 600px) {
+  .inicio-container {
+    min-height: 100dvh;
+  }
+
+  /* ENCABEZADO */
+
+  .inicio-container .inicio-header {
+    min-height: 72px;
+    padding: 14px 16px;
     justify-content: center;
-}
-
-.logo-data {
-    color: #4361ee;
-
-    font-size: 30px;
-
-    font-weight: 800;
-
-    line-height: 30px;
-
-    letter-spacing: -1px;
-}
-
-.logo small {
-    margin-top: 4px;
-
-    color: #6f7a8c;
-
-    font-size: 9px;
-
-    font-weight: 500;
-}
-
-/* =========================================================
-   NAVEGACIÓN
-   ========================================================= */
-
-.inicio-nav {
-    height: 100%;
-
-    display: flex;
-    align-items: center;
-
-    gap: 42px;
-}
-
-.inicio-nav span {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
-    height: 100%;
-
-    color: #202a3b;
-
-    font-size: 14px;
-
-    font-weight: 650;
-
-    cursor: pointer;
-
-    transition:
-        color 0.2s ease;
-}
-
-.inicio-nav span:hover {
-    color: #4361ee;
-}
-
-.inicio-nav .nav-active {
-    color: #4361ee;
-}
-
-.inicio-nav .nav-active::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-
-    bottom: 0;
-
-    height: 3px;
-
-    background: #4361ee;
-
-    border-radius:
-        3px 3px 0 0;
-}
-
-/* =========================================================
-   CONTENIDO
-   ========================================================= */
-
-.inicio-main {
-    position: relative;
-
-    z-index: 2;
-
-    width: 100%;
-    height: calc(100vh - 82px);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 30px 20px;
-}
-
-/* =========================================================
-   TARJETA DE ROLES
-   ========================================================= */
-
-.rol-card {
-    width: 620px;
-
-    padding: 48px 55px;
-
-    background:
-        rgba(255, 255, 255, 0.97);
-
-    border-radius: 24px;
-
-    box-shadow:
-        0 25px 60px
-        rgba(0, 0, 0, 0.24);
-
     text-align: center;
-}
+  }
 
-/* =========================================================
-   TÍTULO
-   ========================================================= */
-
-.rol-card h1 {
-    margin: 0;
-
-    color: #17233f;
-
-    font-size: 38px;
-
-    line-height: 45px;
-
-    font-weight: 800;
-
-    letter-spacing: -0.7px;
-}
-
-.rol-card p {
-    margin: 12px 0 32px;
-
-    color: #66748b;
-
-    font-size: 16px;
-
-    line-height: 23px;
-}
-
-/* =========================================================
-   BOTONES DE ROL
-   ========================================================= */
-
-.rol-button {
-    width: 100%;
-
-    height: 100px;
-
-    margin-bottom: 18px;
-
-    padding: 0 24px;
-
-    display: flex;
-
+  .inicio-container .logo {
     align-items: center;
+  }
 
-    gap: 20px;
+  .inicio-container .logo-data {
+    font-size: 26px;
+  }
 
-    border-radius: 17px;
+  .inicio-container .logo small {
+    font-size: 10px;
+    line-height: 1.4;
+  }
 
-    background: white;
-
-    cursor: pointer;
-
-    text-align: left;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
-}
-
-.rol-button:last-child {
-    margin-bottom: 0;
-}
-
-/* =========================================================
-   APRENDIZ
-   ========================================================= */
-
-.rol-button.aprendiz {
-    border: 2px solid #d9b8ff;
-
-    background:
-        linear-gradient(
-            90deg,
-            #fbf5ff,
-            #ffffff
-        );
-}
-
-.rol-button.aprendiz:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 20px
-        rgba(123, 44, 191, 0.12);
-
-    background: #faf4ff;
-}
-
-/* =========================================================
-   ADMINISTRADOR
-   ========================================================= */
-
-.rol-button.administrador {
-    border: 2px solid #b8d3ff;;
-
-    background:
-        linear-gradient(
-            90deg,
-            #f3f7ff,
-            #ffffff
-        );
-}
-
-.rol-button.administrador:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 20px
-        rgba(67, 97, 238, 0.12);
-
-    background: #cfe5ff;
-}
-
-/* =========================================================
-   tecnico
-   ========================================================= */
-.rol-button.tecnico {
-    border: 2px solid #7af8a4;
-
-    background:
-        linear-gradient(
-            90deg,
-            #f3f7ff,
-            #ffffff
-        );
-}
-
-.rol-button.tecnico:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 20px
-        rgba(67, 97, 238, 0.12);
-
-    background: #c8ffdf;
-}
-
-/* =========================================================
-   Instructor
-   ========================================================= */
-.rol-button.instructor {
-    border: 2px solid #c973fa;
-
-    background:
-        linear-gradient(
-            90deg,
-            #f3f7ff,
-            #ffffff
-        );
-}
-
-.rol-button.instructor:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 8px 20px
-        rgba(67, 97, 238, 0.12);
-
-    background: #e2c6f5;
-}
-
-
-
-/* =========================================================
-   ICONOS
-   ========================================================= */
-
-.rol-icon {
-    width: 58px;
-    height: 58px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
+  .inicio-container .inicio-nav {
     justify-content: center;
+    gap: 12px;
+  }
 
-    border-radius: 50%;
+  /* CONTENIDO */
 
-    font-size: 27px;
+  .inicio-container .inicio-main {
+    padding: 24px 15px;
+    align-items: center;
+  }
+
+  /* TARJETA */
+
+  .inicio-container .rol-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 26px 20px;
+    border-radius: 20px;
+  }
+
+  /* TÍTULO */
+
+  .inicio-container .rol-card h1 {
+    font-size: 29px;
+    line-height: 1.2;
+  }
+
+  .inicio-container .rol-card p {
+    margin: 10px 0 23px;
+    font-size: 13px;
+  }
+
+  /* BOTONES */
+
+  .inicio-container .rol-button {
+    min-height: 70px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    gap: 12px;
+    border-radius: 14px;
+  }
+
+  /* ICONOS */
+
+  .inicio-container .rol-icon {
+    width: 46px;
+    height: 46px;
+    font-size: 22px;
+  }
+
+  /* TEXTOS */
+
+  .inicio-container .rol-button span {
+    font-size: 15px;
+  }
+
+  /* FLECHAS */
+
+  .inicio-container .rol-button strong {
+    font-size: 24px;
+  }
+
+  /* VIDEO */
+
+  .inicio-container .inicio-video {
+    object-position: center;
+  }
+
+  .inicio-container .inicio-overlay {
+    background: rgba(8, 18, 42, 0.66);
+  }
 }
-
-.aprendiz .rol-icon {
-    background: #ead8ff;
-}
-
-.administrador .rol-icon {
-    background: #dceaff;
-}
-
-.tecnico .rol-icon {
-    background: #d4ffe0;
-}
-
-.instructor .rol-icon {
-    background: #f0d9ff;
-}
-
-/* =========================================================
-   TEXTO DEL BOTÓN
-   ========================================================= */
-
-.rol-button span {
-    flex: 1;
-
-    color: #202c46;
-
-    font-size: 20px;
-
-    font-weight: 700;
-}
-
-.rol-button strong {
-    color: #4361ee;
-
-    font-size: 31px;
-
-    line-height: 1;
-
-    font-weight: 400;
-
-    transition:
-        transform 0.2s ease;
-}
-
-.rol-button:hover strong {
-    transform: translateX(5px);
-}
-
-.aprendiz strong {
-    color: #7b2cbf;
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 800px) {
-
-    .inicio-header {
-        padding: 0 30px;
-    }
-
-    .inicio-nav {
-        gap: 20px;
-    }
-
-    .inicio-nav span {
-        font-size: 12px;
-    }
-
-    .rol-card {
-        width: 560px;
-
-        padding: 40px;
-    }
-}
-
-@media (max-width: 650px) {
-
-    body {
-        overflow-y: auto;
-    }
-
-    .inicio-header {
-        height: auto;
-
-        min-height: 75px;
-
-        padding: 15px 20px;
-
-        flex-direction: column;
-
-        gap: 12px;
-    }
-
-    .inicio-nav {
-        height: 35px;
-
-        gap: 15px;
-    }
-
-    .inicio-nav span {
-        font-size: 11px;
-    }
-
-    .inicio-main {
-        min-height: calc(100vh - 75px);
-
-        height: auto;
-
-        padding: 35px 15px;
-    }
-
-    .rol-card {
-        width: 100%;
-
-        padding: 30px 20px;
-
-        border-radius: 18px;
-    }
-
-    .rol-card h1 {
-        font-size: 30px;
-
-        line-height: 36px;
-    }
-
-    .rol-card p {
-        font-size: 13px;
-    }
-
-    .rol-button {
-        height: 80px;
-
-        padding: 0 15px;
-
-        gap: 12px;
-    }
-
-    .rol-icon {
-        width: 45px;
-        height: 45px;
-
-        font-size: 21px;
-    }
-
-    .rol-button span {
-        font-size: 15px;
-    }
-
-    .rol-button strong {
-        font-size: 25px;
-    }
-}
-/* ==========================================
-   DATAVENTOR - EFECTO CRISTAL TRANSPARENTE
-   ========================================== */
-
-/* BARRA SUPERIOR TRANSPARENTE */
-.inicio-header {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
-}
-
-/* TARJETA CENTRAL TRANSPARENTE */
-.rol-card {
-    background: rgba(255, 255, 255, 0.20);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.20);
-}
-
-/* BOTONES SEMITRANSPARENTES */
-.rol-button.aprendiz {
-    background: rgba(255, 255, 255, 0.50);
-}
-
-.rol-button.administrador {
-    background: rgba(255, 255, 255, 0.50);
-}
-
-.rol-button.tecnico {
-    background: rgba(255, 255, 255, 0.50);
-}
-
-.rol-button.instructor {
-    background: rgba(255, 255, 255, 0.50);
-}
-
-/* TEXTOS LEGIBLES */
-.rol-card h1,
-.rol-button span {
-    color: #17233f;
-}
-
-.rol-card p {
-    color: #344563;
-}
-
-/* LOGO DATAVENTOR */
-.logo-data {
-    color: #4361ee;
-}
-
 
 /* ==========================================
-   DATAVENTOR - TEXTOS BLANCOS
-   ========================================== */
+   CELULARES PEQUEÑOS
+========================================== */
 
-/* TITULO Y DESCRIPCION */
-.rol-card h1,
-.rol-card p {
-    color: #ffffff;
+@media (max-width: 360px) {
+  .inicio-container .inicio-header {
+    padding: 12px 10px;
+  }
+
+  .inicio-container .logo-data {
+    font-size: 23px;
+  }
+
+  .inicio-container .inicio-main {
+    padding: 18px 10px;
+  }
+
+  .inicio-container .rol-card {
+    padding: 22px 13px;
+    border-radius: 16px;
+  }
+
+  .inicio-container .rol-card h1 {
+    font-size: 26px;
+  }
+
+  .inicio-container .rol-card p {
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+
+  .inicio-container .rol-button {
+    min-height: 65px;
+    padding: 10px;
+    gap: 9px;
+  }
+
+  .inicio-container .rol-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 19px;
+  }
+
+  .inicio-container .rol-button span {
+    font-size: 13px;
+  }
+
+  .inicio-container .rol-button strong {
+    font-size: 21px;
+  }
 }
 
-/* TEXTOS DE LOS BOTONES */
-.rol-button span {
-    color: #ffffff;
+/* ==========================================
+   PANTALLAS DE POCA ALTURA
+========================================== */
+
+@media (max-height: 750px) {
+  .inicio-container .inicio-main {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .inicio-container .rol-card {
+    padding-top: 23px;
+    padding-bottom: 23px;
+  }
+
+  .inicio-container .rol-card p {
+    margin-bottom: 18px;
+  }
+
+  .inicio-container .rol-button {
+    min-height: 64px;
+    margin-bottom: 10px;
+  }
 }
 
-/* FLECHAS */
-.rol-button strong,
-.aprendiz strong {
-    color: #ffffff;
+/* ==========================================
+   ACCESIBILIDAD
+========================================== */
+
+.inicio-container .rol-button:focus-visible {
+  outline: 3px solid #78c914;
+  outline-offset: 3px;
 }
 
-/* LOGO DATAVENTOR */
-.logo-data {
-    color: #ffffff;
-}
+@media (prefers-reduced-motion: reduce) {
+  .inicio-container .rol-button,
+  .inicio-container .rol-button strong {
+    transition: none;
+  }
 
-/* SUBTITULO DEL LOGO */
-.logo small {
-    color: #ffffff;
+  .inicio-container .inicio-video {
+    display: none;
+  }
 }
-
-/* NAVEGACION SUPERIOR */
-.inicio-nav span,
-.inicio-nav .nav-active {
-    color: #ffffff;
-}
-
-/* LINEA DE INICIO */
-.inicio-nav .nav-active::after {
-    background: #ffffff;
-}
-
-/* BOTONES OSCUROS TRANSPARENTES PARA LEER EL TEXTO */
-.rol-button.aprendiz,
-.rol-button.administrador,
-.rol-button.tecnico,
-.rol-button.instructor {
-    background: rgba(15, 25, 50, 0.40);
-}
-
