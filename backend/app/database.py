@@ -14,6 +14,7 @@ def get_connection():
         user=DB_USER,
         password=DB_PASSWORD,
         connect_timeout=5,
+        sslmode="require",
     )
     try:
         yield conn
