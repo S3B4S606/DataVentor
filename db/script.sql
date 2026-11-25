@@ -77,6 +77,28 @@ CREATE TABLE usuarios (
     fecha_registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- TABLA RECUPERAR CONTRASEÑA
+
+CREATE TABLE IF NOT EXISTS recuperacion_contrasenas (
+    id_recuperacion SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    token_hash VARCHAR(64) NOT NULL UNIQUE,
+    fecha_expiracion TIMESTAMP NOT NULL,
+    utilizado BOOLEAN NOT NULL DEFAULT FALSE,
+
+    CONSTRAINT fk_recuperacion_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id_usuario)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_recuperacion_usuario
+ON recuperacion_contrasenas(id_usuario);
+
+CREATE INDEX IF NOT EXISTS idx_recuperacion_expiracion
+ON recuperacion_contrasenas(fecha_expiracion);
+
 
 --  TABLA SEDES
 
@@ -548,6 +570,64 @@ SELECT
 
 FROM reportes;
 
+
+BEGIN;
+
+-- Agregar el número de la etiqueta del SENA.
+ALTER TABLE equipos
+ADD COLUMN IF NOT EXISTS numero_etiqueta SMALLINT;
+
+-- Permitir computadores sin serial identificado.
+ALTER TABLE equipos
+ALTER COLUMN serial DROP NOT NULL;
+
+-- Validar que las etiquetas sean del 1 al 30.
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_constraint
+        WHERE conrelid = 'equipos'::regclass
+          AND conname = 'chk_numero_etiqueta'
+    ) THEN
+        ALTER TABLE equipos
+        ADD CONSTRAINT chk_numero_etiqueta
+        CHECK (
+            numero_etiqueta IS NULL
+            OR numero_etiqueta BETWEEN 1 AND 30
+        );
+    END IF;
+END $$;
+
+-- Evitar que se repita un número dentro del
+-- mismo ambiente.
+CREATE UNIQUE INDEX IF NOT EXISTS
+uq_equipo_ambiente_etiqueta
+ON equipos (id_ambiente, numero_etiqueta)
+WHERE numero_etiqueta IS NOT NULL;
+
+-- Generar automáticamente el ID de nuevos equipos.
+CREATE SEQUENCE IF NOT EXISTS equipos_id_equipo_seq;
+
+SELECT setval(
+    'equipos_id_equipo_seq',
+    GREATEST(
+        (SELECT COALESCE(MAX(id_equipo), 0) FROM equipos),
+        1
+    ),
+    (SELECT COUNT(*) > 0 FROM equipos)
+);
+
+ALTER TABLE equipos
+ALTER COLUMN id_equipo
+SET DEFAULT nextval('equipos_id_equipo_seq');
+
+ALTER SEQUENCE equipos_id_equipo_seq
+OWNED BY equipos.id_equipo;
+
+COMMIT;
+
+
 -- CONSULTAS DE COMPROBACIÓN
 
 
@@ -636,8 +716,159 @@ INSERT INTO usuarios (
     rol
 )
 values
-(1, 'TI', '123456789', 'Karol', 'Rivera', 'karol.r@gmail.com', '123', '3000000000', 'administrador'),
-(2, 'TI', '12345678', 'Sebastian', 'Acosta', 'sebastian.a@gmail.com', '123', '3000000000', 'aprendiz'),
-(3, 'TI', '1234567', 'Santiago', 'Sierra', 'santiago.s@gmail.com', '123', '3000000000', 'tecnico'),
-(4, 'TI', '123456', 'Juan', 'Beltran', 'juan.b@gmail.com', '123', '3000000000', 'instructor'),
-(5, 'TI', '12345', 'Lizeth', 'Lopez', 'lizeth.l@gmail.com', '123', '3000000000', 'tecnico');
+(1, 'CC', '123456789', 'Karol', 'Rivera', 'karol69054089@gmail.com', '123', '3208173037', 'administrador'),
+(2, 'CC', '12345678', 'Sebastian', 'Acosta', 'sebastianacosta1824@gmail.com', '123', '3013808916', 'aprendiz'),
+(3, 'CC', '1234567', 'Santiago', 'Sierra', 'santiagosierram17@gmail.com', '123', '3227343990', 'tecnico'),
+(4, 'CC', '123456', 'Juan', 'Beltran', 'juanbeltran9500@gmail.com', '123', '3212352939', 'instructor'),
+(5, 'CC', '12345', 'Lizeth', 'Lopez', 'lizethlopez1226@gmail.com', '123', '3028365535', 'tecnico');
+
+BEGIN;
+
+-- Permitir registrar computadores sin conocer el serial
+ALTER TABLE public.equipos
+ALTER COLUMN serial DROP NOT NULL;
+
+-- Crear una secuencia para los nuevos identificadores
+CREATE SEQUENCE IF NOT EXISTS public.equipos_id_equipo_seq;
+
+-- Sincronizar la secuencia con los equipos existentes
+SELECT setval(
+    'public.equipos_id_equipo_seq',
+    GREATEST(
+        (SELECT COALESCE(MAX(id_equipo), 0) FROM public.equipos),
+        1
+    ),
+    (SELECT COUNT(*) > 0 FROM public.equipos)
+);
+
+-- Asignar identificadores automáticamente
+ALTER TABLE public.equipos
+ALTER COLUMN id_equipo
+SET DEFAULT nextval('public.equipos_id_equipo_seq'::regclass);
+
+ALTER SEQUENCE public.equipos_id_equipo_seq
+OWNED BY public.equipos.id_equipo;
+
+COMMIT;
+
+
+
+
+
+SELECT
+    id_equipo,
+    id_ambiente,
+    numero_etiqueta,
+    tipo,
+    modelo,
+    serial,
+    identificador_sistema
+FROM equipos
+ORDER BY id_ambiente, numero_etiqueta;
+
+
+SELECT
+    conname AS restriccion,
+    pg_get_constraintdef(oid) AS definicion
+FROM pg_constraint
+WHERE conrelid = 'public.equipos'::regclass;
+
+
+
+-- ==========================================
+-- DATAVENTOR
+-- REGISTRAR AMBIENTES OFICIALES CALLE 52
+-- ==========================================
+
+INSERT INTO ambientes (
+    id_ambiente,
+    id_sede,
+    descripcion
+)
+SELECT
+    nuevos.id_ambiente,
+    s.id_sede,
+    nuevos.descripcion
+FROM (
+    VALUES
+    -- PISO 6
+    (608, 'Ambiente 608'),
+    (609, 'Ambiente 609'),
+
+    -- PISO 5
+    (500, 'Ambiente 500'),
+    (501, 'Ambiente 501'),
+    (509, 'Ambiente 509'),
+    (510, 'Ambiente 510'),
+    (511, 'Ambiente 511'),
+
+    -- PISO 4
+    (401, 'Ambiente 401'),
+    (408, 'Ambiente 408'),
+    (409, 'Ambiente 409'),
+    (410, 'Ambiente 410'),
+    (412, 'Ambiente 412'),
+    (413, 'Ambiente 413'),
+    (414, 'Ambiente 414'),
+    (415, 'Ambiente 415'),
+
+    -- PISO 2
+    (205, 'Ambiente 205'),
+    (210, 'Ambiente 210'),
+    (211, 'Ambiente 211'),
+    (212, 'Ambiente 212'),
+
+    -- PISO 1
+    (101, 'Ambiente 101 Estudio'),
+    (107, 'Ambiente 107'),
+    (108, 'Ambiente 108')
+
+) AS nuevos(id_ambiente, descripcion)
+
+
+-- ==========================================
+-- DATAVENTOR
+-- REGISTRAR 30 PUESTOS POR AMBIENTE
+-- SEDE CALLE 52
+-- ==========================================
+
+INSERT INTO equipos (
+    id_ambiente,
+    tipo,
+    modelo,
+    numero_etiqueta
+)
+SELECT
+    a.id_ambiente,
+    'computador',
+    'Sin identificar',
+    numeros.numero
+FROM ambientes a
+JOIN sedes s
+    ON a.id_sede = s.id_sede
+CROSS JOIN generate_series(1, 30) AS numeros(numero)
+WHERE LOWER(TRIM(s.descripcion)) = 'calle 52'
+AND NOT EXISTS (
+    SELECT 1
+    FROM equipos e
+    WHERE e.id_ambiente = a.id_ambiente
+    AND e.numero_etiqueta = numeros.numero
+);
+
+
+
+SELECT 'sedes' AS tabla, COUNT(*) AS registros FROM sedes
+UNION ALL
+SELECT 'ambientes', COUNT(*) FROM ambientes
+UNION ALL
+SELECT 'equipos', COUNT(*) FROM equipos
+UNION ALL
+SELECT 'usuarios', COUNT(*) FROM usuarios
+UNION ALL
+SELECT 'reportes', COUNT(*) FROM reportes
+UNION ALL
+SELECT 'historial_estados', COUNT(*) FROM historial_estados
+UNION ALL
+SELECT 'jornada', COUNT(*) FROM jornada
+UNION ALL
+SELECT 'recuperacion_contrasenas', COUNT(*) FROM recuperacion_contrasenas;
