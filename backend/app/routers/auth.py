@@ -195,40 +195,79 @@ class RestablecerContrasena(BaseModel):
 # ENVIAR CORREO DE RECUPERACIÓN
 # ==========================================
 
+
 def enviar_correo(destinatario, enlace):
-    usuario = os.getenv("SMTP_USER")
-    contrasena = os.getenv("SMTP_PASSWORD")
-    remitente = os.getenv("SMTP_FROM") or usuario
-    servidor = os.getenv("SMTP_HOST", "smtp.gmail.com")
-    puerto = int(os.getenv("SMTP_PORT", "465"))
+    import json
+    import urllib.request
+    import urllib.error
 
-    if not usuario or not contrasena:
-        raise RuntimeError("No se ha configurado el correo de DataVentor.")
-
-    mensaje = EmailMessage()
-    mensaje["Subject"] = "Recuperación de contraseña - DataVentor"
-    mensaje["From"] = remitente
-    mensaje["To"] = destinatario
-
-    mensaje.set_content(
-        "Hola,\n\n"
-        "Recibimos una solicitud para recuperar tu contraseña.\n\n"
-        f"Abre este enlace para establecer una nueva contraseña:\n{enlace}\n\n"
-        "El enlace vence en 30 minutos y solo puede utilizarse una vez.\n"
-        "Si no solicitaste este cambio, ignora este mensaje."
+    api_key = os.getenv("RESEND_API_KEY")
+    remitente = os.getenv(
+        "RESEND_FROM",
+        "DataVentor <onboarding@resend.dev>"
     )
 
-    # CONEXIÓN SEGURA CON GMAIL - PUERTO 465
-    print("SMTP: Iniciando conexión SSL")
+    if not api_key:
+        raise RuntimeError("No se ha configurado Resend.")
 
-    with smtplib.SMTP_SSL(servidor, puerto, timeout=20) as smtp:
-        print("SMTP: Conexión SSL establecida")
+    mensaje = {
+        "from": remitente,
+        "to": [destinatario],
+        "subject": "Recuperación de contraseña - DataVentor",
+        "text": (
+            "Hola,\n\n"
+            "Recibimos una solicitud para recuperar tu contraseña.\n\n"
+            "Abre este enlace para establecer una nueva contraseña:\n"
+            f"{enlace}\n\n"
+            "El enlace vence en 30 minutos y solo puede utilizarse una vez.\n"
+            "Si no solicitaste este cambio, ignora este mensaje."
+        )
+    }
 
-        smtp.login(usuario, contrasena)
-        print("SMTP: Autenticación correcta")
+    solicitud = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=json.dumps(mensaje).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST"
+    )
 
-        smtp.send_message(mensaje)
-        print("SMTP: Correo enviado")
+    try:
+        with urllib.request.urlopen(
+            solicitud,
+            timeout=15
+        ) as respuesta:
+            resultado = json.loads(
+                respuesta.read().decode("utf-8")
+            )
+
+            print(
+                "RESEND: Correo aceptado para envío",
+                flush=True
+            )
+
+            return resultado
+
+    except urllib.error.HTTPError as error:
+        print(
+            "RESEND: Error HTTP",
+            error.code,
+            flush=True
+        )
+        raise RuntimeError(
+            "No fue posible enviar el correo con Resend."
+        ) from error
+
+    except urllib.error.URLError as error:
+        print(
+            "RESEND: Error de conexión",
+            flush=True
+        )
+        raise RuntimeError(
+            "No fue posible conectar con Resend."
+        ) from error
 
 
 # ==========================================
