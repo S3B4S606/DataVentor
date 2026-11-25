@@ -1,7 +1,7 @@
 
 import { Routes, Route, Navigate } from "react-router-dom";
 
-import Inicio from "../pages/Inicio";
+import Inicio from "../pages/inicio";
 
 // ADMINISTRADOR / COORDINADOR
 import DashboardAdmin from "../pages/AdminCoordinador/DashboardAdmin";
