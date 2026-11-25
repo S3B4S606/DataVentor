@@ -13,6 +13,7 @@ import RestablecerContrasena from "../pages/AdminCoordinador/RestablecerContrase
 import GestionReportes from "../pages/AdminCoordinador/GestionReportes";
 
 // APRENDIZ
+import SeleccionarAmbienteAprendiz from "../pages/Aprendiz/SeleccionarAmbienteAprendiz";
 import DashboardAprendiz from "../pages/Aprendiz/DashboardAprendiz";
 import LoginAprendiz from "../pages/Aprendiz/LoginAprendiz";
 import CrearReporte from "../pages/Aprendiz/CrearReporte";
@@ -36,6 +37,10 @@ export default function AppRoutes() {
       <Route path="/" element={<Inicio />} />
 
       {/* APRENDIZ */}
+      <Route
+        path="/seleccionar-ambiente-aprendiz"
+        element={<SeleccionarAmbienteAprendiz />}
+      />
       <Route
         path="/dashboard-aprendiz"
         element={<DashboardAprendiz />}
@@ -116,7 +121,10 @@ export default function AppRoutes() {
       />
 
       {/* RUTAS DESCONOCIDAS */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route
+        path="*"
+        element={<Navigate to="/" replace />}
+      />
     </Routes>
   );
 }

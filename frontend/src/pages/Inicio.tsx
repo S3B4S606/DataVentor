@@ -53,7 +53,7 @@ const Inicio = () => {
                     <button
                         className="rol-button aprendiz"
                         onClick={() =>
-                            navigate("/dashboard-aprendiz")
+                            navigate("/seleccionar-ambiente-aprendiz")
                         }
                     >
                         <div className="rol-icon">

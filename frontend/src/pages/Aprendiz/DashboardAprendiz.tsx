@@ -48,7 +48,22 @@ const DashboardAprendiz = () => {
       setSerialDetectado("");
 
       try {
-        // Consultar el serial del computador
+        // Obtener el ambiente seleccionado
+        const ambienteGuardado =
+          sessionStorage.getItem("ambienteAprendiz");
+
+        if (
+          !ambienteGuardado ||
+          !Number.isInteger(Number(ambienteGuardado)) ||
+          Number(ambienteGuardado) <= 0
+        ) {
+          navigate("/seleccionar-ambiente-aprendiz", {
+            replace: true,
+          });
+          return;
+        }
+
+        // Detectar serial desde Windows
         const respuestaDetector = await fetch(
           "http://127.0.0.1:8765/identidad",
           {
@@ -82,7 +97,7 @@ const DashboardAprendiz = () => {
 
         setSerialDetectado(serial);
 
-        // Consultar PostgreSQL a través de FastAPI
+        // Buscar o registrar el equipo en PostgreSQL
         const respuesta = await fetch(
           `${API_URL}/api/equipos/por-serial`,
           {
@@ -90,7 +105,10 @@ const DashboardAprendiz = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ serial }),
+            body: JSON.stringify({
+              serial,
+              id_ambiente: Number(ambienteGuardado),
+            }),
             signal: AbortSignal.any([
               controller.signal,
               AbortSignal.timeout(15000),
@@ -98,14 +116,15 @@ const DashboardAprendiz = () => {
           }
         );
 
-        if (respuesta.status === 404) {
-          localStorage.removeItem("equipoAsignado");
-          return;
-        }
-
         if (!respuesta.ok) {
+          const detalle = await respuesta.json().catch(
+            () => null
+          );
+
           throw new Error(
-            "No fue posible consultar el equipo en PostgreSQL."
+            typeof detalle?.detail === "string"
+              ? detalle.detail
+              : "No fue posible consultar el equipo en PostgreSQL."
           );
         }
 
@@ -120,7 +139,10 @@ const DashboardAprendiz = () => {
             "equipoAsignado",
             datos.registro_unico
           );
+        } else {
+          localStorage.removeItem("equipoAsignado");
         }
+
       } catch (err) {
         if (!activo) return;
 
@@ -136,6 +158,7 @@ const DashboardAprendiz = () => {
             : "No fue posible detectar el computador.";
 
         setError(mensaje);
+
       } finally {
         if (activo) {
           setCargando(false);
@@ -149,7 +172,7 @@ const DashboardAprendiz = () => {
       activo = false;
       controller.abort();
     };
-  }, []);
+  }, [navigate]);
 
   // ==========================================
   // CONFIRMAR BUEN ESTADO
@@ -199,6 +222,7 @@ const DashboardAprendiz = () => {
             }
           : null
       );
+
     } catch (err) {
       console.error(
         "Error confirmando estado:",
@@ -208,6 +232,7 @@ const DashboardAprendiz = () => {
       setMensajeConfirmacion(
         "No fue posible confirmar el estado. Verifica la conexión."
       );
+
     } finally {
       setConfirmando(false);
     }
