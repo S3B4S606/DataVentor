@@ -306,7 +306,7 @@ def solicitar_recuperacion(datos: SolicitarRecuperacion):
             enviar_correo(usuario["correo"], enlace)
 
     except Exception as error:
-        print("ERROR EN RECUPERACIÓN:", type(error).__name__)
+        print("ERROR EN RECUPERACIÓN:", type(error).__name__, str(error), flush=True)
 
         raise HTTPException(
             status_code=503,
