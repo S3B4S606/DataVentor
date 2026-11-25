@@ -15,7 +15,7 @@ import {
 
 import "../../styles/Tecnico/DetalleReporte.css";
 
-const API_URL = "http://127.0.0.1:5000";
+const API_URL = (import.meta.env.VITE_API_URL || "http://127.0.0.1:5000");
 
 interface Reporte {
   id_reporte: number;

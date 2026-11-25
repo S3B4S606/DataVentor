@@ -39,7 +39,7 @@ function RecuperarContrasena() {
 
     try {
       const respuesta = await fetch(
-        "http://127.0.0.1:5000/api/recuperar-contrasena/solicitar",
+        `${import.meta.env.VITE_API_URL || "http://127.0.0.1:5000"}/api/recuperar-contrasena/solicitar`,
         {
           method: "POST",
           headers: {

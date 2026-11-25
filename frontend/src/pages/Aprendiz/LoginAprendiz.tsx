@@ -48,7 +48,7 @@ export default function LoginAprendiz() {
     try {
       const API_URL =
         import.meta.env.VITE_API_URL ||
-        "http://127.0.0.1:5000";
+        (import.meta.env.VITE_API_URL || "http://127.0.0.1:5000");
 
       const respuesta = await fetch(
         `${API_URL}/api/login`,

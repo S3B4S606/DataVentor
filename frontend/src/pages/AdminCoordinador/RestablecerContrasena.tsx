@@ -49,7 +49,7 @@ function RestablecerContrasena() {
 
     try {
       const respuesta = await fetch(
-        "http://127.0.0.1:5000/api/recuperar-contrasena/restablecer",
+        `${import.meta.env.VITE_API_URL || "http://127.0.0.1:5000"}/api/recuperar-contrasena/restablecer`,
         {
           method: "POST",
           headers: {
