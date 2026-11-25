@@ -5,6 +5,7 @@ from app.schemas import CrearAmbiente, ConfirmarEstadoEquipo
 from app.security import verify_access_token
 from pydantic import BaseModel, Field
 
+
 router = APIRouter(
     prefix="/api",
     tags=["Catálogos y equipos"]
@@ -17,7 +18,9 @@ router = APIRouter(
 
 @router.get("/sedes")
 def listar_sedes():
+
     with get_connection() as conn, dict_cursor(conn) as cur:
+
         cur.execute(
             """
             SELECT id_sede, descripcion, direccion
@@ -25,6 +28,7 @@ def listar_sedes():
             ORDER BY descripcion
             """
         )
+
         return [dict(row) for row in cur.fetchall()]
 
 
@@ -34,7 +38,9 @@ def listar_sedes():
 
 @router.get("/ambientes")
 def listar_ambientes():
+
     with get_connection() as conn, dict_cursor(conn) as cur:
+
         cur.execute(
             """
             SELECT
@@ -57,11 +63,13 @@ def listar_ambientes():
             ORDER BY a.id_ambiente
             """
         )
+
         return [dict(row) for row in cur.fetchall()]
 
 
 @router.post("/ambientes", status_code=201)
 def crear_ambiente(datos: CrearAmbiente):
+
     descripcion = datos.descripcion.strip()
 
     if (
@@ -76,6 +84,7 @@ def crear_ambiente(datos: CrearAmbiente):
     with get_connection() as conn, dict_cursor(conn) as cur:
 
         if datos.id_sede:
+
             cur.execute(
                 """
                 SELECT id_sede
@@ -86,6 +95,7 @@ def crear_ambiente(datos: CrearAmbiente):
             )
 
         elif datos.sede:
+
             cur.execute(
                 """
                 SELECT id_sede
@@ -97,6 +107,7 @@ def crear_ambiente(datos: CrearAmbiente):
             )
 
         else:
+
             raise HTTPException(
                 status_code=422,
                 detail=(
@@ -108,6 +119,7 @@ def crear_ambiente(datos: CrearAmbiente):
         sede = cur.fetchone()
 
         if not sede:
+
             raise HTTPException(
                 status_code=422,
                 detail="La sede indicada no existe."
@@ -178,10 +190,13 @@ JOIN sedes s
 
 @router.get("/equipos")
 def listar_equipos():
+
     with get_connection() as conn, dict_cursor(conn) as cur:
+
         cur.execute(
             _EQUIPOS_SQL + " ORDER BY e.id_equipo"
         )
+
         return [dict(row) for row in cur.fetchall()]
 
 
@@ -191,15 +206,18 @@ def listar_equipos():
 
 @router.get("/equipos/por-codigo/{codigo}")
 def obtener_equipo_por_codigo(codigo: str):
+
     codigo = codigo.strip()
 
     if not codigo:
+
         raise HTTPException(
             status_code=400,
             detail="Debes proporcionar un código de equipo."
         )
 
     with get_connection() as conn, dict_cursor(conn) as cur:
+
         cur.execute(
             _EQUIPOS_SQL +
             " WHERE e.registro_unico = %s",
@@ -209,6 +227,7 @@ def obtener_equipo_por_codigo(codigo: str):
         row = cur.fetchone()
 
         if not row:
+
             raise HTTPException(
                 status_code=404,
                 detail="No se encontró un equipo con ese código."
@@ -218,13 +237,25 @@ def obtener_equipo_por_codigo(codigo: str):
 
 
 # ==========================================
-# DETECTAR Y REGISTRAR EQUIPO POR SERIAL
+# MODELO PARA BUSCAR POR SERIAL
 # ==========================================
 
 class BuscarEquipoPorSerial(BaseModel):
-    serial: str = Field(min_length=1, max_length=150)
-    id_ambiente: int | None = Field(default=None, ge=1)
 
+    serial: str = Field(
+        min_length=1,
+        max_length=150
+    )
+
+    id_ambiente: int | None = Field(
+        default=None,
+        ge=1
+    )
+
+
+# ==========================================
+# DETECCION Y REGISTRO AUTOMATICO
+# ==========================================
 
 @router.post("/equipos/por-serial")
 def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
@@ -232,6 +263,7 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
     serial = datos.serial.strip()
 
     if not serial:
+
         raise HTTPException(
             status_code=400,
             detail="El serial no puede estar vacío."
@@ -239,13 +271,14 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
 
     with get_connection() as conn, dict_cursor(conn) as cur:
 
-        # Evitar que dos solicitudes simultáneas
-        # registren el mismo serial.
+        # Evitar registros simultáneos duplicados
+
         cur.execute(
             "SELECT pg_advisory_xact_lock(20261124)"
         )
 
-        # Buscar primero si el serial ya existe.
+        # Buscar primero si el serial ya existe
+
         cur.execute(
             """
             SELECT
@@ -279,27 +312,34 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
         equipos = cur.fetchall()
 
         if len(equipos) > 1:
+
             raise HTTPException(
                 status_code=409,
-                detail="Existen equipos duplicados con este identificador."
+                detail="Existen equipos duplicados con este serial."
             )
 
-        # Si existe, devolverlo sin modificarlo.
+        # Si el computador ya está registrado,
+        # devolver su información sin duplicarlo.
+
         if equipos:
+
             return dict(equipos[0])
 
-        # Si es nuevo, necesitamos el ambiente
-        # seleccionado antes de ingresar al Dashboard.
+        # Si es un equipo nuevo, necesitamos
+        # el ambiente seleccionado por el aprendiz.
+
         if datos.id_ambiente is None:
+
             raise HTTPException(
                 status_code=422,
                 detail=(
-                    "Selecciona una sede y un ambiente "
-                    "antes de registrar el computador."
+                    "Debes seleccionar una sede y "
+                    "un ambiente antes de continuar."
                 )
             )
 
-        # Comprobar que el ambiente exista.
+        # Verificar que el ambiente exista
+
         cur.execute(
             """
             SELECT id_ambiente
@@ -312,14 +352,16 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
         ambiente = cur.fetchone()
 
         if not ambiente:
+
             raise HTTPException(
                 status_code=404,
                 detail="El ambiente seleccionado no existe."
             )
 
-        # Crear un registro independiente para
-        # el equipo identificado automáticamente.
-        # No se asigna PC-01, PC-02, etc.
+        # Registrar automáticamente el equipo.
+        # No se asigna número PC-01, PC-02, etc.
+        # Ese campo pertenece a los puestos existentes.
+
         cur.execute(
             """
             INSERT INTO equipos (
@@ -343,7 +385,8 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
         nuevo = cur.fetchone()
         id_equipo = nuevo["id_equipo"]
 
-        # Asignar registro único al nuevo equipo.
+        # Crear el registro único automáticamente
+
         registro = f"DV-EQ-{id_equipo}"
 
         cur.execute(
@@ -352,10 +395,15 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
             SET registro_unico = %s
             WHERE id_equipo = %s
             """,
-            (registro, id_equipo)
+            (
+                registro,
+                id_equipo
+            )
         )
 
-        # Consultar nuevamente sus datos.
+        # Devolver los datos del computador
+        # para mostrarlos en el Dashboard.
+
         cur.execute(
             """
             SELECT
@@ -388,6 +436,7 @@ def obtener_equipo_por_serial(datos: BuscarEquipoPorSerial):
 
 @router.get("/equipos/identificador")
 def obtener_identificador_equipo():
+
     with get_connection() as conn, dict_cursor(conn) as cur:
 
         cur.execute(
@@ -402,9 +451,13 @@ def obtener_identificador_equipo():
         row = cur.fetchone()
 
         if not row:
+
             raise HTTPException(
                 status_code=404,
-                detail="No hay equipos con registro único configurado."
+                detail=(
+                    "No hay equipos con registro "
+                    "único configurado."
+                )
             )
 
         return dict(row)
@@ -416,8 +469,9 @@ def obtener_identificador_equipo():
 
 @router.get("/equipos/detectado")
 def equipo_detectado():
-    # Se conserva el comportamiento actual
-    # del flujo de demostración.
+
+    # Se conserva el funcionamiento
+    # utilizado para demostraciones.
 
     with get_connection() as conn, dict_cursor(conn) as cur:
 
@@ -429,6 +483,7 @@ def equipo_detectado():
         row = cur.fetchone()
 
         if not row:
+
             raise HTTPException(
                 status_code=404,
                 detail="Todavía no hay equipos registrados."
@@ -445,6 +500,7 @@ def equipo_detectado():
 def confirmar_estado_equipo(
     datos: ConfirmarEstadoEquipo
 ):
+
     with get_connection() as conn, dict_cursor(conn) as cur:
 
         cur.execute(
@@ -465,9 +521,13 @@ def confirmar_estado_equipo(
         row = cur.fetchone()
 
         if not row:
+
             raise HTTPException(
                 status_code=404,
-                detail="No existe un equipo con ese registro único."
+                detail=(
+                    "No existe un equipo con "
+                    "ese registro único."
+                )
             )
 
         return {
@@ -482,6 +542,7 @@ def confirmar_estado_equipo(
 
 @router.get("/equipos/{id_equipo}")
 def obtener_equipo(id_equipo: int):
+
     with get_connection() as conn, dict_cursor(conn) as cur:
 
         cur.execute(
@@ -493,6 +554,7 @@ def obtener_equipo(id_equipo: int):
         row = cur.fetchone()
 
         if not row:
+
             raise HTTPException(
                 status_code=404,
                 detail="Equipo no encontrado."
@@ -502,14 +564,23 @@ def obtener_equipo(id_equipo: int):
 
 
 # ==========================================
-# VINCULAR SERIAL A PUESTO EXISTENTE
-# SE CONSERVA PARA ADMINISTRADOR Y TECNICO
+# VINCULAR SERIAL A UN PUESTO EXISTENTE
+# ADMINISTRADOR O TECNICO
 # ==========================================
 
 class VincularSerial(BaseModel):
-    serial: str = Field(min_length=1, max_length=150)
+
+    serial: str = Field(
+        min_length=1,
+        max_length=150
+    )
+
     id_ambiente: int
-    numero_etiqueta: int = Field(ge=1, le=30)
+
+    numero_etiqueta: int = Field(
+        ge=1,
+        le=30
+    )
 
 
 @router.post("/equipos/vincular-serial")
@@ -522,6 +593,7 @@ def vincular_serial(
         not authorization
         or not authorization.startswith("Bearer ")
     ):
+
         raise HTTPException(
             status_code=401,
             detail="Debes iniciar sesión."
@@ -531,6 +603,7 @@ def vincular_serial(
     usuario = verify_access_token(token)
 
     if not usuario:
+
         raise HTTPException(
             status_code=401,
             detail="Sesión inválida o vencida."
@@ -539,12 +612,16 @@ def vincular_serial(
     serial = datos.serial.strip()
 
     if not serial:
+
         raise HTTPException(
             status_code=400,
             detail="El serial no puede estar vacío."
         )
 
     with get_connection() as conn, dict_cursor(conn) as cur:
+
+        # Verificar que el usuario sea
+        # administrador o técnico.
 
         cur.execute(
             """
@@ -561,6 +638,7 @@ def vincular_serial(
             "administrador",
             "tecnico"
         ):
+
             raise HTTPException(
                 status_code=403,
                 detail=(
@@ -569,9 +647,13 @@ def vincular_serial(
                 )
             )
 
+        # Evitar vinculaciones simultáneas
+
         cur.execute(
             "SELECT pg_advisory_xact_lock(20261124)"
         )
+
+        # Comprobar que el serial no exista
 
         cur.execute(
             """
@@ -587,10 +669,13 @@ def vincular_serial(
         )
 
         if cur.fetchone():
+
             raise HTTPException(
                 status_code=409,
                 detail="Este serial ya está registrado."
             )
+
+        # Buscar el puesto seleccionado
 
         cur.execute(
             """
@@ -613,12 +698,14 @@ def vincular_serial(
         puestos = cur.fetchall()
 
         if not puestos:
+
             raise HTTPException(
                 status_code=404,
                 detail="No se encontró el puesto seleccionado."
             )
 
         if len(puestos) > 1:
+
             raise HTTPException(
                 status_code=409,
                 detail="Existen puestos duplicados en este ambiente."
@@ -630,15 +717,21 @@ def vincular_serial(
             equipo["serial"] is not None
             or equipo["identificador_sistema"] is not None
         ):
+
             raise HTTPException(
                 status_code=409,
                 detail="Este puesto ya tiene un serial vinculado."
             )
 
+        # Mantener el código existente
+        # o generar uno si está vacío.
+
         registro = (
             equipo["registro_unico"]
             or f"DV-EQ-{equipo['id_equipo']}"
         )
+
+        # Vincular sin crear otro equipo
 
         cur.execute(
             """
@@ -666,6 +759,7 @@ def vincular_serial(
         actualizado = cur.fetchone()
 
         if not actualizado:
+
             raise HTTPException(
                 status_code=409,
                 detail="El computador ya fue vinculado."
